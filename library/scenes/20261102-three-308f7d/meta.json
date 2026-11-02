@@ -1,0 +1,55 @@
+{
+  "id": "20261102-three-308f7d",
+  "renderer": "three",
+  "topic": "top view of binary tree leetcode style , solution video with intitution to optimal with and python code  explanation",
+  "role": "setup",
+  "narration": "Top view means looking straight down a binary tree. Nodes line up behind each other. You keep only the highest node at each sideways spot.",
+  "description": "Vertical 1080x1920 3D dark scene, new shot: tight side view. Same 4-sphere tree centered at 50% height viewed perfectly side-on, spheres labeled 10,5,15. Three vertical accent-cyan sight-beams fall from above. Horizontal axis at bottom-center shows sideways spots in muted-grey. Kept highest nodes glow accent-cyan, occluded duplicates pulse accent2-magenta then dim.",
+  "beats": [
+    {
+      "t": 0.32,
+      "word": "Top",
+      "action": "Side-on tree appears center, top-down arrow in accent-cyan drops from above"
+    },
+    {
+      "t": 2.04,
+      "word": "down",
+      "action": "Three vertical accent-cyan sight-beams extend down through tree, illuminating columns"
+    },
+    {
+      "t": 3.02,
+      "word": "tree",
+      "action": "Camera pushes to side profile, branches align showing overlap in depth"
+    },
+    {
+      "t": 4.08,
+      "word": "Nodes",
+      "action": "Nodes 10 and 7 in same central beam pulse accent2-magenta together"
+    },
+    {
+      "t": 4.96,
+      "word": "behind",
+      "action": "Beam highlights stacking: 7 slides behind 10, 10 stays solid fg-white, 7 turns transparent"
+    },
+    {
+      "t": 6.44,
+      "word": "keep",
+      "action": "Highest sphere in each beam locks accent-cyan glow, lower duplicates dim to muted"
+    },
+    {
+      "t": 7.16,
+      "word": "highest",
+      "action": "Top spheres lift slightly upward along beams, casting accent glow"
+    },
+    {
+      "t": 8.5,
+      "word": "sideways",
+      "action": "Bottom sideways axis lights left-to-right, three spots mark kept columns"
+    }
+  ],
+  "duration": 9.78,
+  "attempts": 1,
+  "source": "fbf0d20a61ac",
+  "created": "2026-11-02T22:54:37+00:00",
+  "starred": false
+}

@@ -4,7 +4,7 @@
 
 import * as THREE from "/vendor/three/three.module.js";
 
-const PREF_KEY = "reelgen.bg3d";
+const PREF_KEY = "elucera.bg3d";
 const canvas = document.getElementById("bg");
 const buttons = [...document.querySelectorAll("[data-toggle3d]")];
 const COLORS = [0x4cc9f0, 0xf72585, 0xffd166, 0x06d6a0].map((c) => new THREE.Color(c));

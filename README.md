@@ -1,4 +1,4 @@
-# reelgen — automated science explainer Reels
+# Elucera — automated science explainer Reels
 
 Topic in, 1080x1920 captioned explainer Reel out. See `GEMINI.md` for the project brief.
 
@@ -21,15 +21,15 @@ cp .env.example .env   # fill MUSE_API_KEY, GEMINI_API_KEY
 ```
 
 `ffmpeg-full` is required (the plain formula lacks libass, which burns the captions). Paths to `ffmpeg`, `node`
-and `docker` are configurable in `.env` (see `reelgen/config.py`).
+and `docker` are configurable in `.env` (see `elucera/config.py`).
 
 ## Usage
 
 ```bash
-uv run reelgen make "how does the TCP handshake work"     # → outputs/<slug>/final.mp4
-uv run reelgen render-scene tests/fixtures/sample_2d.tsx  # test a hand-written scene (.py = Manim)
-uv run reelgen voice "Some narration"                     # TTS + word timings
-uv run uvicorn reelgen.api:app                            # POST /jobs {"topic"}, GET /jobs/{id}, GET /jobs/{id}/video
+uv run elucera make "how does the TCP handshake work"     # → outputs/<slug>/final.mp4
+uv run elucera render-scene tests/fixtures/sample_2d.tsx  # test a hand-written scene (.py = Manim)
+uv run elucera voice "Some narration"                     # TTS + word timings
+uv run uvicorn elucera.api:app                            # POST /jobs {"topic"}, GET /jobs/{id}, GET /jobs/{id}/video
 uv run pytest
 ```
 
@@ -46,12 +46,12 @@ Every run builds on the previous ones:
 - Coder prompts automatically include the 1–2 most similar past scenes for the same renderer, plus the known pitfalls.
 
 ```bash
-uv run reelgen library list [--renderer three]   # browse (thumbnails in library/scenes/*/thumb.png)
-uv run reelgen library star <id>                 # prefer a great scene as an example
-uv run reelgen library rm <id>                   # drop a bad one so it is never imitated
-uv run reelgen library lessons                   # pitfalls fed to the coders
-uv run reelgen library add-lesson manim "<error>" --note "<how to avoid>"
-uv run reelgen library import outputs/<job>      # backfill from an old job directory
+uv run elucera library list [--renderer three]   # browse (thumbnails in library/scenes/*/thumb.png)
+uv run elucera library star <id>                 # prefer a great scene as an example
+uv run elucera library rm <id>                   # drop a bad one so it is never imitated
+uv run elucera library lessons                   # pitfalls fed to the coders
+uv run elucera library add-lesson manim "<error>" --note "<how to avoid>"
+uv run elucera library import outputs/<job>      # backfill from an old job directory
 ```
 
 Code, metadata, lessons and thumbnails are committed to git; `.mp4` files stay local (gitignored).
@@ -59,10 +59,10 @@ Set `USE_LIBRARY=false` in `.env` for a clean-slate run.
 
 ## Layout
 
-- `reelgen/agents/` — script writer, scene planner, per-renderer coders + the render/fix loop (`coders/base.py`)
-- `reelgen/prompts/` — all LLM prompts; `kit.md` documents the Remotion component kit for the coder
-- `reelgen/render/` — Manim (Docker, no network) and Remotion (host Chromium) renderers, fallback card
-- `reelgen/audio/`, `reelgen/assemble/` — TTS, alignment, captions, ffmpeg
+- `elucera/agents/` — script writer, scene planner, per-renderer coders + the render/fix loop (`coders/base.py`)
+- `elucera/prompts/` — all LLM prompts; `kit.md` documents the Remotion component kit for the coder
+- `elucera/render/` — Manim (Docker, no network) and Remotion (host Chromium) renderers, fallback card
+- `elucera/audio/`, `elucera/assemble/` — TTS, alignment, captions, ffmpeg
 - `remotion/` — Remotion project: `src/kit/` house components, `render.mjs`, `validate.mjs` (import allowlist,
   banned non-deterministic APIs, esbuild + tsc check)
 

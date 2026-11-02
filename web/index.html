@@ -3,125 +3,107 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>reelgen — any question, a 60-second reel</title>
-  <meta name="description" content="Ask anything about science or computer science and get a narrated, animated 60-second explainer reel." />
+  <title>Elucera: understand anything in 60 seconds</title>
+  <meta name="description" content="Elucera turns any question into a narrated, code-animated 60-second explainer reel." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g'><stop offset='0' stop-color='%234CC9F0'/><stop offset='1' stop-color='%23F72585'/></linearGradient></defs><rect width='32' height='32' rx='9' fill='url(%23g)'/><path d='M12 9v14l11-7z' fill='%23050608'/></svg>" />
-  <link rel="stylesheet" href="style.css?v=2" />
+  <script>
+    // Apply the saved theme before first paint (system | light | dark).
+    try { const t = localStorage.getItem("elucera.theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}
+  </script>
+  <link rel="stylesheet" href="style.css?v=8" />
 </head>
 <body>
   <canvas id="bg" aria-hidden="true"></canvas>
 
   <!-- ===================== HOME ===================== -->
-  <div class="view" id="home" hidden>
+  <div class="view home" id="home" hidden>
     <nav class="nav">
       <div class="wrap">
-        <a class="brand" href="#/"><span class="logo" aria-hidden="true"></span>reelgen</a>
+        <a class="brand" href="#/"><span class="logo" aria-hidden="true"></span>Elucera</a>
         <div class="nav-links">
-          <a href="#examples" data-scroll>Examples</a>
-          <a href="#engines" data-scroll>Engines</a>
+          <a href="#gallery" data-scroll>Gallery</a>
+          <a href="#kits" data-scroll>Component kits</a>
           <a href="#how" data-scroll>How it works</a>
+          <a href="#/analytics">Analytics</a>
         </div>
-        <button class="btn btn-3d" type="button" data-toggle3d aria-pressed="false" title="Toggle the Three.js background"><span class="dot" aria-hidden="true"></span>3D</button>
-        <a class="cta small" href="#/create"><span>Create<span class="long"> video</span></span></a>
+        <button class="btn btn-theme" type="button" data-theme-toggle title="Theme: system" aria-label="Theme: system"></button>
+        <a class="cta small" href="#/create"><span>Create<span class="long"> a video</span></span></a>
       </div>
     </nav>
 
     <header class="hero">
       <div class="wrap">
-        <div>
-          <span class="eyebrow"><b>NEW</b> Manim · Motion graphics · Three.js — in one reel</span>
-          <h1>Any question.<br /><span class="grad">A 60-second reel.</span></h1>
-          <p class="lede">Type what you want to understand. reelgen writes the script, voices it, animates every beat in code, and hands you a captioned vertical video — ready to post.</p>
+        <div class="hero-copy">
+          <h1>Understand anything<br /><span class="grad">in 60 seconds.</span></h1>
+          <p class="lede">Ask a question. Elucera writes the script, records the voice and animates every idea in code into a captioned vertical reel.</p>
           <div class="actions">
-            <a class="cta" href="#/create">
-              Create your own video
+            <a class="cta" href="#/create">Create a video
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
-            <a class="btn" href="#examples" data-scroll style="height:52px;padding:0 22px">Watch examples</a>
+            <a class="btn btn-lg" href="#gallery" data-scroll>Watch examples</a>
           </div>
-          <div class="stack-meta">
-            <div><strong>~3 min</strong>from question to reel</div>
-            <div><strong>1080×1920</strong>captioned, 30fps</div>
-            <div><strong>3 engines</strong>chosen per scene</div>
-          </div>
+          <p class="proof"><span>1080×1920, captioned</span><span>Manim · 2D · 3D</span><span>Editable scene by scene</span></p>
         </div>
         <div class="phones" id="heroPhones" aria-label="Example reels"></div>
       </div>
     </header>
 
-    <div class="marquee" aria-label="Try a topic"><div class="track" id="marquee"></div></div>
-
-    <section class="block" id="examples">
+    <section class="block" id="gallery">
       <div class="wrap">
         <div class="block-head">
           <div>
-            <h2>Made with reelgen</h2>
-            <p>Every one of these was generated end-to-end from a single question — script, voice, animation and captions. Tap to watch with sound.</p>
+            <h2>Made with Elucera</h2>
+            <p>Each one came from a single question: script, voice, animation and captions. Tap to watch with sound, scroll for more.</p>
           </div>
-          <a class="btn" href="#/create">Make your own →</a>
         </div>
         <div class="reels-grid" id="reelsGrid"></div>
       </div>
     </section>
 
-    <section class="block" id="engines">
+    <section class="block" id="kits">
       <div class="wrap">
         <div class="block-head">
           <div>
-            <h2>Three engines. One story.</h2>
-            <p>A director model picks the right engine for every scene, then writes the animation code itself. These clips came out of real runs.</p>
+            <h2>Built from a component kit</h2>
+            <p>Scenes are composed from tested building blocks instead of drawn from scratch. That's why they're accurate, consistent and fast. Here is every component in both engines.</p>
           </div>
         </div>
-        <div class="engines" id="engineGrid"></div>
+        <div class="kits" id="kitGrid"></div>
       </div>
     </section>
 
     <section class="block" id="how">
       <div class="wrap">
-        <div class="block-head"><div><h2>How it works</h2><p>Audio first, so every animation lands on the exact word that motivates it.</p></div></div>
-        <div class="steps-row">
-          <div class="step-card"><h4>Script</h4><p>Hook, setup, mechanism, payoff — one sharp idea per reel.</p><small>Muse Spark</small></div>
-          <div class="step-card"><h4>Voice</h4><p>Narration is recorded, then every word is timestamped.</p><small>Gemini TTS · Whisper</small></div>
-          <div class="step-card"><h4>Direct</h4><p>Each scene gets an engine and beats tied to spoken words.</p><small>Muse Spark</small></div>
-          <div class="step-card"><h4>Animate</h4><p>Code is written, checked, rendered — and self-fixed if it breaks.</p><small>Manim · Remotion · Three.js</small></div>
-          <div class="step-card"><h4>Assemble</h4><p>Clips, narration and word-by-word captions become one reel.</p><small>FFmpeg</small></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="block">
-      <div class="wrap control">
-        <div>
-          <div class="block-head" style="margin:0"><div><h2>You're in control.</h2></div></div>
-          <ul>
-            <li>Watch every stage stream live — script, voice, and each scene as it renders.</li>
-            <li>See exactly which scene failed, on which attempt, and the error it hit.</li>
-            <li>Redo any scene with a note (“bigger text”, “show it in 3D”) or switch its engine — the reel reassembles itself.</li>
-            <li>Everything that works is saved to a library, so each reel makes the next one better.</li>
-          </ul>
-        </div>
-        <div class="reels-grid" id="controlDemo" style="grid-template-columns:1fr 1fr"></div>
+        <div class="block-head"><div><h2>How it works</h2></div></div>
+        <ol class="how">
+          <li><b>Ask</b><span>Type a question, concept or LeetCode problem.</span></li>
+          <li><b>Review the storyboard</b><span>Edit what's said and what's shown. Nothing renders until you approve.</span></li>
+          <li><b>Watch it animate</b><span>Voice, scene plan and every scene stream in live as they render.</span></li>
+          <li><b>Refine</b><span>Redo any scene with a note, compare before and after, then rebake the reel.</span></li>
+        </ol>
       </div>
     </section>
 
     <div class="final-cta">
-      <h2>What do you want<br />to understand?</h2>
-      <a class="cta" href="#/create">Create your own video
+      <h2>What do you want to understand?</h2>
+      <a class="cta" href="#/create">Create a video
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
-    <footer>reelgen — built for the Meta hackathon · Muse Spark · Gemini · Manim · Remotion · Three.js</footer>
+    <footer>Elucera · Muse Spark · Gemini · Manim · Remotion · Three.js</footer>
   </div>
 
   <!-- ===================== STUDIO ===================== -->
   <div class="view studio" id="studio" hidden>
     <nav class="nav">
       <div class="wrap">
-        <a class="brand" href="#/"><span class="logo" aria-hidden="true"></span>reelgen</a>
+        <a class="brand" href="#/"><span class="logo" aria-hidden="true"></span>Elucera</a>
         <div class="nav-links">
           <a href="#/">Home</a>
           <a href="#/create" aria-current="page">Studio</a>
+          <a href="#/analytics">Analytics</a>
         </div>
+<button class="btn btn-theme" type="button" data-theme-toggle title="Theme: system" aria-label="Theme: system"></button>
         <button class="btn btn-3d" type="button" data-toggle3d aria-pressed="false" title="Toggle the Three.js background"><span class="dot" aria-hidden="true"></span>3D</button>
         <button class="btn" type="button" id="newChat">New chat</button>
         <button class="btn" type="button" id="chatsBtn">Chats</button>
@@ -142,10 +124,20 @@
     </nav>
 
     <div class="thread-wrap" id="threadWrap">
+      <nav class="flow" id="flow" aria-label="Progress">
+        <ol>
+          <li data-step="1"><b>1</b>Describe</li>
+          <li data-step="2"><b>2</b>Review storyboard</li>
+          <li data-step="3"><b>3</b>Animate</li>
+          <li data-step="4"><b>4</b>Review scenes</li>
+          <li data-step="5"><b>5</b>Rebake &amp; download</li>
+        </ol>
+        <p id="flowHint"></p>
+      </nav>
       <main class="thread" id="thread" aria-live="polite">
         <section class="studio-empty" id="studioEmpty">
           <h2>What should we explain?</h2>
-          <p>Describe the idea you want to understand — a question, a concept, or what you're confused about. You'll see every step as it happens.</p>
+          <p>Type a question or concept. You'll get a <b>storyboard</b> first: the words the narrator will say and what's on screen in each scene. You can edit both. Nothing is recorded or animated until you approve it.</p>
           <div class="chips" id="studioChips"></div>
         </section>
       </main>
@@ -153,12 +145,12 @@
 
     <div class="drawer" id="chatsDrawer" hidden>
       <div class="drawer-head"><strong>Chats</strong><button class="btn sm" type="button" id="chatsClose">Close</button></div>
-      <div class="drawer-sub">Every chat is stored on the server with its reels.</div>
+      <div class="drawer-sub">Your chats are saved on the server under this browser's private id, so they come back after a reload or restart. Other browsers can't see them.</div>
       <div id="chatsList"></div>
     </div>
     <div class="drawer right" id="directDrawer" hidden>
       <div class="drawer-head"><strong>Direct</strong><button class="btn sm" type="button" id="directClose">Close</button></div>
-      <div class="drawer-sub">Set the brief before you pitch. Nothing renders until you approve the storyboard.</div>
+      <div class="drawer-sub">Settings for the next storyboard. These steer the <b>animation</b>; the voiceover always reads your narration word for word.</div>
       <h4>Engine</h4>
       <div class="pickrow" id="directEngine">
         <label><input type="radio" name="dengine" value="" checked><span>Auto</span></label>
@@ -202,7 +194,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
       </form>
-      <div class="hint"><button class="linkbtn" id="directBtn" type="button">Direct: Auto · Standard</button><span class="keys"> · describe an idea, review the storyboard, approve the animate</span></div>
+      <div class="hint"><button class="linkbtn" id="directBtn" type="button">Direct: Auto · Standard</button><span class="keys"> · you'll review a storyboard before anything is recorded or animated</span></div>
     </div>
   </div>
 
@@ -217,7 +209,39 @@
     </div>
   </dialog>
 
+  <!-- ===================== ANALYTICS ===================== -->
+  <div class="view analytics" id="analytics" hidden>
+    <nav class="nav">
+      <div class="wrap">
+        <a class="brand" href="#/"><span class="logo" aria-hidden="true"></span>Elucera</a>
+        <div class="nav-links">
+          <a href="#/">Home</a>
+          <a href="#/create">Studio</a>
+          <a href="#/analytics" aria-current="page">Analytics</a>
+        </div>
+        <button class="btn btn-theme" type="button" data-theme-toggle title="Theme: system" aria-label="Theme: system"></button>
+        <a class="cta small" href="#/create"><span>Create<span class="long"> video</span></span></a>
+      </div>
+    </nav>
+    <main class="wrap viz-root" id="analyticsBody"><p style="color:var(--muted);padding:40px 0">Loading…</p></main>
+  </div>
+
+  <dialog class="compare-dlg" id="compareDlg" aria-labelledby="compareTitle">
+    <div class="compare-head">
+      <strong id="compareTitle">Compare</strong>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn sm" type="button" id="compareSync">↻ Play both from start</button>
+        <button class="btn sm" type="button" id="compareRevert">↩ Revert</button>
+        <form method="dialog"><button class="cta small" type="submit">Keep new</button></form>
+      </div>
+    </div>
+    <div class="compare-body">
+      <figure><figcaption id="compareBeforeCap">Before</figcaption><video id="compareBefore" muted loop playsinline></video></figure>
+      <figure><figcaption id="compareAfterCap">After</figcaption><video id="compareAfter" muted loop playsinline></video></figure>
+    </div>
+  </dialog>
+
   <script type="module" src="bg3d.js"></script>
-  <script type="module" src="app.js?v=2"></script>
+  <script type="module" src="app.js?v=7"></script>
 </body>
 </html>

@@ -1,0 +1,26 @@
+{
+  "title": "Top View of a Binary Tree",
+  "idea": "Top view keeps only the first node seen at each horizontal distance using breadth-first traversal",
+  "segments": [
+    {
+      "role": "hook",
+      "narration": "See a tree from above and half vanishes.",
+      "visual_directive": "Clean 3D binary tree viewed from the side rotates as the camera moves directly overhead. Lower hidden nodes fade out until only the top layer stays bright."
+    },
+    {
+      "role": "setup",
+      "narration": "Top view means looking straight down a binary tree. Nodes line up behind each other. You keep only the highest node at each sideways spot.",
+      "visual_directive": "Side view of a small binary tree with vertical sight lines dropping from above. Nodes stacked in the same line pulse, one stays solid."
+    },
+    {
+      "role": "mechanism",
+      "narration": "Give the root distance zero. Left is minus one, right is plus one. Walk level by level, top down. That's breadth first. Say root ten has five left and fifteen right, and five has seven right. Seven lands on zero too. But zero was already claimed by ten. So you skip it. If it's the first time you see a distance, you keep it.",
+      "visual_directive": "Top-down motion graphic of the tree with horizontal distance labels minus one, zero, plus one. A queue bar highlights nodes level by level as first-seen distances lock in and duplicates fade."
+    },
+    {
+      "role": "payoff",
+      "narration": "One pass top to bottom. First seen wins. Time is linear. And half vanishes when seen from above.",
+      "visual_directive": "Final straight row of kept top-view nodes slides into place left to right. The full tree dims behind them, leaving only that clean skyline."
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "id": "20261030-remotion-7cdad8",
+  "renderer": "remotion",
+  "topic": "How does public-key encryption work?",
+  "role": "mechanism",
+  "narration": "Bob makes two linked keys. One public lock, one secret key. He posts the lock for everyone. Alice wants to send the number forty two. She puts it in a box and snaps Bob's lock shut. Now even she can't reopen it. The locked box travels across the internet. Thieves see it but can't pick the lock. Only Bob's secret key fits. He turns it, the box opens, and out comes forty two.",
+  "description": "Same flat 2D vertical style continuing Bob (accent cyan circle avatar right) and Alice (accent2 magenta circle avatar left). Center stage (540,850) holds linked keys, public board, and box. Props: large accent3 yellow gold private key + large muted grey silver padlock linked by glowing chain, public bulletin board with rows of small silver locks, cardboard box with fg white '42' number card, horizontal internet wire with thief eye icons. Camera stays fixed, focus shifts sequentially to keep one focal element center. All action between y 300-1300.",
+  "beats": [
+    {
+      "t": 0.41,
+      "word": "Bob",
+      "action": "Bob avatar slides in center with large gold key and silver padlock linked by glowing chain, chain wiggles"
+    },
+    {
+      "t": 4.63,
+      "word": "posts",
+      "action": "Silver padlock duplicates into 6 small silver locks that fly up to bulletin board titled EVERYONE at top-mid"
+    },
+    {
+      "t": 6.37,
+      "word": "Alice",
+      "action": "Alice avatar slides in left-mid holding large fg white card '42' above open cardboard box center"
+    },
+    {
+      "t": 9.67,
+      "word": "snaps",
+      "action": "Card drops into box, box lid closes, one silver Bob lock flies onto box front and shackle snaps shut"
+    },
+    {
+      "t": 12.03,
+      "word": "can't",
+      "action": "Alice tugs lock, lock shakes no and turns muted grey, red X pops to show even she cannot reopen"
+    },
+    {
+      "t": 13.99,
+      "word": "travels",
+      "action": "Locked box slides right along horizontal dotted wire across screen past scrolling internet dots"
+    },
+    {
+      "t": 15.89,
+      "word": "Thieves",
+      "action": "Two thief eye icons lunge at box, lock picks snap and bounce off, lock stays shut with spark"
+    },
+    {
+      "t": 18.09,
+      "word": "Bob's",
+      "action": "Box arrives at Bob right-mid, Bob holds up large glowing gold private key to lock"
+    },
+    {
+      "t": 19.93,
+      "word": "turns",
+      "action": "Gold key inserts and turns, lock pops open, lid springs and '42' card jumps out glowing"
+    }
+  ],
+  "duration": 22.99,
+  "attempts": 1,
+  "source": "b3dd4c224ef1",
+  "created": "2026-10-30T23:45:46+00:00",
+  "starred": false
+}

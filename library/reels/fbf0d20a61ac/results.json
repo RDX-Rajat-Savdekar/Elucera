@@ -1,0 +1,38 @@
+[
+  {
+    "index": 0,
+    "renderer": "three",
+    "ok": true,
+    "video": "/Users/aditya/Projects/meta-hackathon-project/outputs/fbf0d20a61ac/seg0.mp4",
+    "attempts": 1,
+    "error": "",
+    "fallback": false
+  },
+  {
+    "index": 1,
+    "renderer": "three",
+    "ok": true,
+    "video": "/Users/aditya/Projects/meta-hackathon-project/outputs/fbf0d20a61ac/seg1.mp4",
+    "attempts": 1,
+    "error": "",
+    "fallback": false
+  },
+  {
+    "index": 2,
+    "renderer": "manim",
+    "ok": true,
+    "video": "/Users/aditya/Projects/meta-hackathon-project/outputs/fbf0d20a61ac/seg2.mp4",
+    "attempts": 1,
+    "error": "",
+    "fallback": false
+  },
+  {
+    "index": 3,
+    "renderer": "three",
+    "ok": true,
+    "video": "/Users/aditya/Projects/meta-hackathon-project/outputs/fbf0d20a61ac/seg3.mp4",
+    "attempts": 1,
+    "error": "",
+    "fallback": false
+  }
+]

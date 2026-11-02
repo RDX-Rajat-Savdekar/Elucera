@@ -1,0 +1,40 @@
+{
+  "id": "20261102-three-5fed14",
+  "renderer": "three",
+  "topic": "How does brita water filter work",
+  "role": "payoff",
+  "narration": "So water isn't filtered. It's swapped. Clean taste in, heavy metals out, until the trap fills up.",
+  "description": "Vertical 1080x1920 3D payoff, same dark navy world for continuity, safe middle band only. Foreground center: sparkling clear glass of cyan-tinted water sliding forward with glints. Background center: dark used cartridge (black top + amber beads now darkened) holding locked orange, magenta, white metal icons inside. Accent swap arrows cyan/magenta between them. Fill meter bar beside cartridge rises to full.",
+  "beats": [
+    {
+      "t": 0.33,
+      "word": "So",
+      "action": "Sparkling glass slides forward to foreground center, cartridge sits behind blurred"
+    },
+    {
+      "t": 2.75,
+      "word": "swapped.",
+      "action": "Big fg-white SWAPPED text pops mid-frame with cyan double-arrow swap animation"
+    },
+    {
+      "t": 3.89,
+      "word": "taste",
+      "action": "Clean cyan water swirls in glass with sparkles, CLEAN IN label flashes"
+    },
+    {
+      "t": 5.23,
+      "word": "metals",
+      "action": "Orange, magenta, white metal icons rattle locked inside background cartridge, METALS OUT label"
+    },
+    {
+      "t": 7.03,
+      "word": "trap",
+      "action": "Background cartridge pulses dark red and fill meter hits full, glass stays bright foreground"
+    }
+  ],
+  "duration": 8.261,
+  "attempts": 1,
+  "source": "3e32744eae16",
+  "created": "2026-11-02T22:13:16+00:00",
+  "starred": false
+}

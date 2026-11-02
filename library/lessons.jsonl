@@ -7,3 +7,7 @@
 {"renderer": "manim", "error": "Bare manim -qh renders 60fps to the wrong folder", "note": "Always render through the locked wrapper (resolution + --fps 30 explicit).", "at": 1793422908}
 {"renderer": "remotion", "error": "Icon drawn on top of its own label (lock over DATABASE ROW)", "note": "LAYOUT CONTRACT: one focal group at a time with fade-out; icons below/beside labels with padding, never covering; everything above y=1300.", "at": 1793427355}
 {"renderer": "remotion", "error": "Diagram collided with burned captions", "note": "Keep all diagram content above y=1300; captions own the bottom band.", "at": 1793427355}
+{"renderer": "remotion", "error": "Scene.tsx: error TS2322: Type '\"#FF2020\"' is not assignable to type '\"#F5F7FA\"'.", "note": "", "at": 1793652736}
+{"renderer": "remotion", "error": "Scene.tsx: error TS2367: This comparison appears to be unintentional because the types '30 | 78' and '0' have no overlap.", "note": "", "at": 1793652753}
+{"renderer": "remotion", "error": "Scene.tsx: error TS2322: Type '\"#06D6A0\"' is not assignable to type '\"#8A93A6\"'.", "note": "", "at": 1793652778}
+{"renderer": "three", "error": "Scene.tsx: error TS2322: Type '{ children: Element[]; position: [number, number, number]; opacity: number; }' is not assignable to type 'Mutable<Overwrite<Partial<Overwrite<Group<Object3DEventMap>, MathProps<Group<Object3DEventMap>> & ReactProps<Group<Object3DEventMap>> & Partial<...>>>, Omit<...>>>", "note": "", "at": 1793657721}

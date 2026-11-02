@@ -1,0 +1,3 @@
+{"title": "Manim component kit", "engine": "manim", "order": 2,
+ "summary": "The same vocabulary in Manim: MArray, MGrid, MLinkedList, MBinaryTree, MGraph, MHeap, MTrie, recursion trees, code highlighting and complexity badges.",
+ "components": 27}

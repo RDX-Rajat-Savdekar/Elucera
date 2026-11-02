@@ -1,0 +1,55 @@
+{
+  "id": "20261102-remotion-870a07",
+  "renderer": "remotion",
+  "topic": "How does brita water filter work",
+  "role": "setup",
+  "narration": "Tap water tastes off because of chlorine, copper, lead, and chalky minerals. A mesh can't catch dissolved stuff. So Brita uses chemistry, not a sieve.",
+  "description": "Vertical 1080x1920 2D macro water scene, safe middle band only. Background soft cyan-tinted water with floating labeled dots: chlorine good=green, copper orange, lead accent2=magenta, calcium chalky fg=white. Dots drift slowly center. Mid-scene a grey sieve mesh grid swings in from right to center. End state mesh fades and cyan chemistry glow with flask icon remains. No important elements in top 10% or bottom 25%.",
+  "beats": [
+    {
+      "t": 0.0,
+      "word": "Tap",
+      "action": "Blue water field fades in with faint drifting particles center-mid"
+    },
+    {
+      "t": 3.14,
+      "word": "chlorine,",
+      "action": "Good=green dot labeled CHLORINE pops in left-center and bobs"
+    },
+    {
+      "t": 4.02,
+      "word": "copper,",
+      "action": "Orange dot labeled COPPER pops in right-center and bobs"
+    },
+    {
+      "t": 4.94,
+      "word": "lead,",
+      "action": "Accent2=magenta dot labeled LEAD pops in center"
+    },
+    {
+      "t": 5.64,
+      "word": "chalky",
+      "action": "Fg-white dot labeled CALCIUM pops in lower-center, all four drift"
+    },
+    {
+      "t": 7.4,
+      "word": "mesh",
+      "action": "Grey sieve mesh swings in from right to cover center"
+    },
+    {
+      "t": 8.58,
+      "word": "dissolved",
+      "action": "All four dots slip straight through mesh holes and continue falling, mesh shakes"
+    },
+    {
+      "t": 11.16,
+      "word": "chemistry,",
+      "action": "Mesh fades out with red X, cyan accent glow and CHEMISTRY NOT A SIEVE text pulses center"
+    }
+  ],
+  "duration": 13.53,
+  "attempts": 1,
+  "source": "3e32744eae16",
+  "created": "2026-11-02T22:13:29+00:00",
+  "starred": false
+}

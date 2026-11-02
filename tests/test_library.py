@@ -1,8 +1,8 @@
 import pytest
 
-from reelgen import library
-from reelgen.config import get_settings
-from reelgen.models import Beat, Renderer, SceneSpec
+from elucera import library
+from elucera.config import get_settings
+from elucera.models import Beat, Renderer, SceneSpec
 
 
 @pytest.fixture(autouse=True)
@@ -38,7 +38,13 @@ def test_lessons_dedupe_skip_infra_and_share_tsx_group():
 
 
 def test_prompt_context_includes_examples_and_pitfalls():
-    library.save_scene(spec(), "// past scene", None, topic="tcp")
+    library.save_scene(spec(), "// kit scene <Stage title='x'><Slot area='main'/></Stage>", None, topic="tcp")
     library.add_lesson(Renderer.remotion, "Banned: Math.random", note="use random(seed)")
     ctx = library.prompt_context(spec())
-    assert "// past scene" in ctx and "Math.random → use random(seed)" in ctx
+    assert "// kit scene" in ctx and "Math.random → use random(seed)" in ctx
+
+
+def test_pre_kit_scenes_are_not_shown_as_examples():
+    """Old hand-drawn scenes would teach the verbose style the kit replaces."""
+    library.save_scene(spec(), "// 400 lines of hand-drawn svg", None, topic="tcp")
+    assert "hand-drawn" not in library.prompt_context(spec())

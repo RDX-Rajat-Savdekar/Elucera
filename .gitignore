@@ -18,3 +18,7 @@ outputs/**/*.player-entry.tsx
 library/**/player-entry.tsx
 library/**/player.job.json
 outputs/**/*.job.json
+cache/
+remotion/kit-gallery/out/
+remotion/kit-gallery/.entry.tsx
+remotion/kit-gallery/.showreel.tsx

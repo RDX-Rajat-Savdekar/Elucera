@@ -1,0 +1,40 @@
+{
+  "id": "20261102-three-409b3f",
+  "renderer": "three",
+  "topic": "top view of binary tree leetcode style , solution video with intitution to optimal with and python code  explanation",
+  "role": "hook",
+  "narration": "See a tree from above and half vanishes.",
+  "description": "Vertical 1080x1920 3D dark scene. Center-frame at 45% height: 4-node binary tree of glowing fg-white spheres (root 10 center, left 5, right 15, 7 as right-child of 5) connected by muted-grey cylinders, viewed side-on filling 65% width on frame 0. No UI in top 10% or bottom 25%. Camera starts side-on then orbits upward to directly overhead. Hidden lower spheres fade to muted transparent as overhead view locks.",
+  "beats": [
+    {
+      "t": 0.0,
+      "word": "See",
+      "action": "Full side-on 3D tree pops bright in center, fg-white spheres with muted-grey edges"
+    },
+    {
+      "t": 0.6,
+      "word": "tree",
+      "action": "Camera starts slow orbit right, tree rotates showing depth and branching"
+    },
+    {
+      "t": 1.12,
+      "word": "above",
+      "action": "Camera rises overhead, three vertical accent-cyan dashed sight-lines drop from top onto tree"
+    },
+    {
+      "t": 2.04,
+      "word": "half",
+      "action": "Lower occluded sphere 7 dims to muted grey and shrinks behind root 10"
+    },
+    {
+      "t": 2.42,
+      "word": "vanishes.",
+      "action": "Only top skyline spheres stay accent-cyan bright, hidden nodes fade to 15% opacity overhead view"
+    }
+  ],
+  "duration": 3.26,
+  "attempts": 1,
+  "source": "fbf0d20a61ac",
+  "created": "2026-11-02T22:54:35+00:00",
+  "starred": false
+}

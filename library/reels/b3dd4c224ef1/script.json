@@ -1,0 +1,26 @@
+{
+  "title": "The Two Keys That Talk in Secret",
+  "idea": "Public-key encryption lets anyone lock a message with a public key that only a private key can unlock.",
+  "segments": [
+    {
+      "role": "hook",
+      "narration": "Anyone can lock it. Only you can open it.",
+      "visual_directive": "A bright open padlock snaps shut in center screen. It duplicates, one gold key stays, dozens of silver keys fly outward."
+    },
+    {
+      "role": "setup",
+      "narration": "You want secret messages over the open internet. But if you share the key, spies can steal it. So how do you let strangers send secrets?",
+      "visual_directive": "Two minimal laptops labeled sender and receiver connected by exposed wire with eye icons snooping. A shared secret key flashes red as it's intercepted mid-wire."
+    },
+    {
+      "role": "mechanism",
+      "narration": "Bob makes two linked keys. One public lock, one secret key. He posts the lock for everyone. Alice wants to send the number forty two. She puts it in a box and snaps Bob's lock shut. Now even she can't reopen it. The locked box travels across the internet. Thieves see it but can't pick the lock. Only Bob's secret key fits. He turns it, the box opens, and out comes forty two.",
+      "visual_directive": "Split screen shows Bob generating linked gold and silver keys, posting silver locks publicly. Alice drops number forty two into box, locks it, box slides across network past thieves, Bob unlocks it."
+    },
+    {
+      "role": "payoff",
+      "narration": "That's the trick. Everyone can lock, only one can unlock. That's how the whole internet stays secret.",
+      "visual_directive": "Zoom out to globe wrapped in locked message boxes flowing to one secure server. Single private key glows as all boxes open at once."
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+[
+  {
+    "index": 0,
+    "renderer": "three",
+    "duration": 3.26,
+    "description": "Vertical 1080x1920 3D dark scene. Center-frame at 45% height: 4-node binary tree of glowing fg-white spheres (root 10 center, left 5, right 15, 7 as right-child of 5) connected by muted-grey cylinders, viewed side-on filling 65% width on frame 0. No UI in top 10% or bottom 25%. Camera starts side-on then orbits upward to directly overhead. Hidden lower spheres fade to muted transparent as overhead view locks.",
+    "beats": [
+      {
+        "t": 0.0,
+        "word": "See",
+        "action": "Full side-on 3D tree pops bright in center, fg-white spheres with muted-grey edges"
+      },
+      {
+        "t": 0.6,
+        "word": "tree",
+        "action": "Camera starts slow orbit right, tree rotates showing depth and branching"
+      },
+      {
+        "t": 1.12,
+        "word": "above",
+        "action": "Camera rises overhead, three vertical accent-cyan dashed sight-lines drop from top onto tree"
+      },
+      {
+        "t": 2.04,
+        "word": "half",
+        "action": "Lower occluded sphere 7 dims to muted grey and shrinks behind root 10"
+      },
+      {
+        "t": 2.42,
+        "word": "vanishes.",
+        "action": "Only top skyline spheres stay accent-cyan bright, hidden nodes fade to 15% opacity overhead view"
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "renderer": "three",
+    "duration": 9.78,
+    "description": "Vertical 1080x1920 3D dark scene, new shot: tight side view. Same 4-sphere tree centered at 50% height viewed perfectly side-on, spheres labeled 10,5,15. Three vertical accent-cyan sight-beams fall from above. Horizontal axis at bottom-center shows sideways spots in muted-grey. Kept highest nodes glow accent-cyan, occluded duplicates pulse accent2-magenta then dim.",
+    "beats": [
+      {
+        "t": 0.32,
+        "word": "Top",
+        "action": "Side-on tree appears center, top-down arrow in accent-cyan drops from above"
+      },
+      {
+        "t": 2.04,
+        "word": "down",
+        "action": "Three vertical accent-cyan sight-beams extend down through tree, illuminating columns"
+      },
+      {
+        "t": 3.02,
+        "word": "tree",
+        "action": "Camera pushes to side profile, branches align showing overlap in depth"
+      },
+      {
+        "t": 4.08,
+        "word": "Nodes",
+        "action": "Nodes 10 and 7 in same central beam pulse accent2-magenta together"
+      },
+      {
+        "t": 4.96,
+        "word": "behind",
+        "action": "Beam highlights stacking: 7 slides behind 10, 10 stays solid fg-white, 7 turns transparent"
+      },
+      {
+        "t": 6.44,
+        "word": "keep",
+        "action": "Highest sphere in each beam locks accent-cyan glow, lower duplicates dim to muted"
+      },
+      {
+        "t": 7.16,
+        "word": "highest",
+        "action": "Top spheres lift slightly upward along beams, casting accent glow"
+      },
+      {
+        "t": 8.5,
+        "word": "sideways",
+        "action": "Bottom sideways axis lights left-to-right, three spots mark kept columns"
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "renderer": "manim",
+    "duration": 23.21,
+    "description": "Vertical 1080x1920 2D Manim diagram on dark background. Center 40-65% height: clean binary tree graph with white circles labeled 10 (root top), 5 left, 15 right, 7 right-child of 5, muted-grey edges. Below tree at 68%: horizontal HD number line with -1, 0, +1 in muted-grey, active HD turns accent3-yellow. Bottom-center 72%: horizontal BFS queue bar of rounded rectangles. First-seen HD slots lock accent-cyan, duplicates flash accent2-magenta then fade. Focal node each beat scales up accent-cyan.\n\nViewer feedback for this new version (follow it): there are a lot of overlapping components scale the video accordingly cahnge the components if needed make the animation simpler",
+    "beats": [
+      {
+        "t": 0.42,
+        "word": "Give",
+        "action": "Tree builds top-down in center, root 10 scales in accent-cyan with HD 0 label accent3-yellow below it"
+      },
+      {
+        "t": 3.02,
+        "word": "minus",
+        "action": "Left child 5 pops in, edge draws, HD -1 label lights accent3-yellow under it"
+      },
+      {
+        "t": 4.48,
+        "word": "plus",
+        "action": "Right child 15 pops in, edge draws, HD +1 label lights accent3-yellow"
+      },
+      {
+        "t": 5.88,
+        "word": "Walk",
+        "action": "BFS queue bar appears bottom-center with [10,5,15], 10 dequeues and turns accent-cyan"
+      },
+      {
+        "t": 8.32,
+        "word": "breadth",
+        "action": "Level 1 highlights: 5 and 15 lift and turn accent-cyan, queue advances level-by-level left-to-right"
+      },
+      {
+        "t": 10.22,
+        "word": "ten",
+        "action": "Map row of HD slots appears: -1:5 locks good-green, 0:10 locks good-green, +1:15 locks good-green"
+      },
+      {
+        "t": 13.74,
+        "word": "seven",
+        "action": "Node 7 pops as right-child of 5, queue shows 7 current in accent-cyan"
+      },
+      {
+        "t": 15.78,
+        "word": "zero",
+        "action": "Dashed accent2-magenta line drops from 7 to HD 0 slot showing collision on zero"
+      },
+      {
+        "t": 19.34,
+        "word": "skip",
+        "action": "Node 7 flashes accent2-magenta, shrinks and fades to muted-grey with X, HD 0 stays 10"
+      },
+      {
+        "t": 22.5,
+        "word": "keep",
+        "action": "Rule banner flashes: first-seen HD boxes glow accent-cyan, final kept set 5,10,15 pulses together"
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "renderer": "three",
+    "duration": 7.161,
+    "description": "Vertical 1080x1920 3D dark scene rhyming hook. Starts overhead close on dimmed full tree center at 50%, then pulls back and tilts to side angle matching Scene 0 frame 0. Foreground at 60% height: clean skyline row of three bright accent-cyan spheres labeled 5,10,15 left-to-right with muted-grey connecting baseline. Background tree fades muted-grey except kept nodes. Floating accent3-yellow O(N) badge center at 40% appears briefly. Final frame: same side-on tree as hook frame 0 but only skyline nodes bright.",
+    "beats": [
+      {
+        "t": 0.37,
+        "word": "One",
+        "action": "Overhead view of dimmed tree center, scanning accent-cyan plane sweeps top-to-bottom"
+      },
+      {
+        "t": 1.93,
+        "word": "First",
+        "action": "Three skyline spheres 5,10,15 detach forward and slide into foreground row left-to-right, turn accent-cyan"
+      },
+      {
+        "t": 3.43,
+        "word": "Time",
+        "action": "Accent3-yellow O(N) badge pops above row, row pulses good-green left-to-right"
+      },
+      {
+        "t": 4.91,
+        "word": "half",
+        "action": "Background full tree dims to muted transparent, occluded node 7 fades out completely"
+      },
+      {
+        "t": 6.43,
+        "word": "above",
+        "action": "Camera tilts back to side-on matching hook, bright 5-10-15 skyline on resolved tree holds for loop"
+      }
+    ]
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "id": "20261030-remotion-82fc67",
+  "renderer": "remotion",
+  "topic": "How does public-key encryption work?",
+  "role": "setup",
+  "narration": "You want secret messages over the open internet. But if you share the key, spies can steal it. So how do you let strangers send secrets?",
+  "description": "Same flat 2D vertical style, dark background. Upper-mid (540,500) minimal fg white laptop labeled SENDER, lower-mid (540,1150) laptop labeled RECEIVER, connected by vertical exposed dashed accent cyan wire down center (540,800). Three muted grey eye icons snooping along wire sides. Single accent3 yellow key icon with red glow travels along wire. Large fg white question text appears late at (540,380). All focal in middle 15%-70%, no key content in top 10% or bottom 25%.",
+  "beats": [
+    {
+      "t": 0.24,
+      "word": "You",
+      "action": "Sender laptop top and Receiver laptop bottom slide in, vertical dashed wire draws connecting them"
+    },
+    {
+      "t": 1.78,
+      "word": "open",
+      "action": "Three eye icons fade in along wire and blink, wire pulses to show exposed internet"
+    },
+    {
+      "t": 3.26,
+      "word": "share",
+      "action": "Single accent3 yellow secret key appears above sender and starts sliding down the wire"
+    },
+    {
+      "t": 4.3,
+      "word": "spies",
+      "action": "Middle eye turns accent2 magenta, grows, grabs key mid-wire and key flashes red with warning shake"
+    },
+    {
+      "t": 5.74,
+      "word": "how",
+      "action": "Red key breaks, question text 'how do strangers send secrets?' types on in upper-mid"
+    }
+  ],
+  "duration": 7.83,
+  "attempts": 1,
+  "source": "b3dd4c224ef1",
+  "created": "2026-10-30T23:45:03+00:00",
+  "starred": false
+}

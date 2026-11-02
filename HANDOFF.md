@@ -1,6 +1,6 @@
-# HANDOFF — reelgen (automated explainer-reel pipeline)
+# HANDOFF — elucera (automated explainer-reel pipeline)
 
-> Last updated: 2026-10-30. Read this, then `README.md`, then run the checks
+> Last updated: 2026-11-02. Read this, then `README.md`, then run the checks
 > in §5. Everything below is verified state, not aspiration.
 
 ## 1. What this is
@@ -16,21 +16,21 @@ Meta Global AI Developer Hackathon.
 - Proof: `outputs/f161be1eb7ff/final.mp4` (planes, 50.8s) and TCP reel rescued
   after a real alignment bug (see §6).
 - 32/32 pytest green. Web UI served by the API itself (`web/` static mount).
-- Live server (dev only): `uv run uvicorn reelgen.api:app --port 8901` →
+- Live server (dev only): `uv run uvicorn elucera.api:app --port 8901` →
   http://127.0.0.1:8901. It runs in someone's terminal, not hosted anywhere.
 
 ## 3. How it fits together
-- `reelgen/graph.py` — LangGraph: script → voice (+align) → plan → scene
+- `elucera/graph.py` — LangGraph: script → voice (+align) → plan → scene
   (parallel coders) → assemble. `run()` = full; `run_approved()` = from an
-  approved pitch script (skips script gen). Pitch endpoints in `reelgen/api.py`.
-- `reelgen/agents/coders/` — one coder per engine; prompts in
-  `reelgen/prompts/*.md` ARE the product (layout contract, determinism rules).
+  approved pitch script (skips script gen). Pitch endpoints in `elucera/api.py`.
+- `elucera/agents/coders/` — one coder per engine; prompts in
+  `elucera/prompts/*.md` ARE the product (layout contract, determinism rules).
   Prompts are process-cached: **restart the server after editing them**.
-- `reelgen/render/` — Dockerized Manim, Remotion/Chromium, per-scene
+- `elucera/render/` — Dockerized Manim, Remotion/Chromium, per-scene
   `@remotion/player` bundles (`player_bundle.py`) for interactive chat embeds.
-- `reelgen/audio/` — Gemini TTS + faster-whisper + script-anchored alignment.
-- `reelgen/library/` — saved scenes/reels/lessons feed back into coder prompts.
-- `reelgen/chats.py`, `reelgen/analytics.py` — server-side threads + run metrics.
+- `elucera/audio/` — Gemini TTS + faster-whisper + script-anchored alignment.
+- `elucera/library/` — saved scenes/reels/lessons feed back into coder prompts.
+- `elucera/chats.py`, `elucera/analytics.py` — server-side threads + run metrics.
 - `web/` — vanilla JS chat + dashboard + storyboard review + director panel.
 
 ## 4. Setup (macOS)
@@ -43,7 +43,7 @@ uv sync
 (cd remotion && npm install && npx remotion browser ensure)
 cp .env.example .env   # then fill keys (see below)
 uv run pytest                        # expect 32 passed
-uv run uvicorn reelgen.api:app --port 8901
+uv run uvicorn elucera.api:app --port 8901
 ```
 `.env` (gitignored — NEVER commit): `MUSE_API_KEY` + `MUSE_BASE_URL`
 (OpenAI-compatible), `GEMINI_API_KEY` + optional `GEMINI_API_KEYS` pool,
@@ -61,6 +61,41 @@ Teammate: bring your own keys; the ones used so far live only in chat history.
   y=1300), icons never cover text — in every coder prompt (LAYOUT CONTRACT).
 - Analytics/chats runtime data lives in gitignored `analytics/`, `chats/`.
 
+### Studio flow (2026-11-02)
+- **Chats** are owned by an anonymous per-browser id (`localStorage["elucera.uid"]` → `X-Elucera-User`).
+  Threads hold ordered `items` (pitches and jobs); the server is the source of truth on reload. No login.
+- **Redo ≠ rebake.** `POST /jobs/{id}/scenes/{i}/retry` rebuilds ONE scene (note, edited prompt via
+  `description`, engine switch, or `library_scene` reuse), archives the old clip as `seg{i}.v{n}.mp4` and
+  appends to `scene_history.json`. Nothing is reassembled until `POST /jobs/{id}/rebake`.
+  `POST .../revert` swaps back. The UI shows before/after, a prompt diff and a "Rebake reel" banner.
+- **Failover:** transient errors (rate limit, network, Muse outage) auto-resume once (`auto_retry` event).
+  After that, the failbox offers `POST /jobs/{id}/resume`, which restarts from the first missing artifact
+  (`graph.resume_point`). Each scene now writes `seg{i}.result.json` as it finishes.
+- **Reuse:** `elucera/cache.py`. Identical voice text reuses the wav + word timings (Gemini only, never
+  the fallback voice). An identical scene spec reuses the clip. Redos bypass the cache. Lives in gitignored `cache/`.
+- **Muse for voice:** not possible. `/models` has no TTS and `/audio/speech` 404s. It does list
+  `muse-voice-transcribe-1.0` (STT), a possible Whisper replacement.
+- **Themes:** light/dark/system toggle; colours are tokens in `web/style.css` `:root` / `[data-theme]`.
+
+### Speed + cost (2026-11-02, see `docs/ANIMATION_GUIDE.md`)
+- Measured bottlenecks: voice (Gemini free-tier rate limits, 9–208s) and Muse scene codegen (~75s/scene,
+  median 334 lines). Rendering is ~10s/scene; assembly ~7s.
+- **Review-time prefetch** (`prefetch_on_pitch`): a ready storyboard triggers voice + plan in the background.
+  Approving unchanged reuses both via `cache.tts_*` / `cache.plan_*`. Approval waits for an in-flight prefetch.
+- **`MUSE_CODE_EFFORT=medium`** for scene code (benchmarked: 102s → 62s on one scene, cleanest layout).
+- **Usage ledger:** `elucera/usage.py` writes `usage.jsonl` per job/pitch (tokens, seconds). `elucera/costs.py`
+  plus `GET /analytics/dashboard` feed the `#/analytics` page. Prices are `PRICE_*` in config/.env.
+- **Tests can't reach real APIs:** `tests/conftest.py` makes any Muse/Gemini network call fail the test.
+
+### Component kits (2026-11-02, see `docs/COMPONENT_KIT.md`)
+- Remotion `@kit` (general + DSA) and Manim `elucera_kit` (same components and states) are documented to the
+  coders in `prompts/kit.md` and `prompts/manim_kit.md`. Prompts say "compose, don't draw".
+- Measured with real Muse calls: DSA scenes came out at 33–52 lines (was a median of 334), first try, in 25–44s
+  including the render.
+- Galleries: `npm --prefix remotion run gallery -- <dir>` and `uv run python tests/render_manim_gallery.py`.
+  Manim footgun: animating a shape alone lifts it over its label. Kit state changes use the colour-only `Recolor`.
+- Only kit-based library scenes are fed to coders as examples (`library.uses_kit`).
+
 ## 6. Bugs we hit (so you don't re-discover them)
 - Spoken style-preamble leaked into segment timings → align narration-only
   text (`graph.py` voice flow; test `test_heard_preamble_does_not_shift`).
@@ -77,7 +112,7 @@ Teammate: bring your own keys; the ones used so far live only in chat history.
 ## 7. Pending work (in priority order)
 1. **True orbit in Explore** — Player scrubs but camera is fixed. Add an
    `interactive` prop to `remotion/src/kit/Scene3D.tsx` (drei OrbitControls
-   behind a `window.__REELGEN_INTERACTIVE__` flag set by `player.mjs`),
+   behind a `window.__ELUCERA_INTERACTIVE__` flag set by `player.mjs`),
    rebuild bundles, backfill library three scenes.
 2. **Vision QA gate** — screenshot each scene at 3 timestamps, vision-model
    review for overlaps/small text/caption collisions, auto-feed findings as
@@ -95,5 +130,5 @@ Teammate: bring your own keys; the ones used so far live only in chat history.
 - New behavior ships with a focused test (`tests/test_api.py`,
   `tests/test_align.py`); full suite must stay green.
 - Docs live with code: new footgun → row in the relevant prompt + lesson via
-  `reelgen library add-lesson <engine> "<error>" --note "<fix>"`.
+  `elucera library add-lesson <engine> "<error>" --note "<fix>"`.
 - Never commit `.env`, `outputs/`, keys, or `*.mp4` (all ignored — verify).

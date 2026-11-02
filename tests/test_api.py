@@ -5,9 +5,9 @@ import json
 import pytest
 from fastapi.testclient import TestClient
 
-import reelgen.graph
-from reelgen import api
-from reelgen.config import get_settings
+import elucera.graph
+from elucera import api
+from elucera.config import get_settings
 
 
 @pytest.fixture
@@ -46,7 +46,7 @@ def fake_run(topic, job_dir, emit, preferred_renderer=None):
 
 
 def test_job_streams_events_then_ends(client, monkeypatch):
-    monkeypatch.setattr(reelgen.graph, "run", fake_run)
+    monkeypatch.setattr(elucera.graph, "run", fake_run)
     job = client.post("/jobs", json={"topic": "tcp handshake"}).json()  # background task completes before return
     events = sse(client, f"/jobs/{job['id']}/events")
     types = [e[1].get("type") for e in events if e[0] == "event"]
@@ -65,7 +65,7 @@ def test_failure_is_reported_as_event(client, monkeypatch):
         emit("stage", stage="voice", label="Recording the voiceover")
         raise RuntimeError("429 RESOURCE_EXHAUSTED quota")
 
-    monkeypatch.setattr(reelgen.graph, "run", boom)
+    monkeypatch.setattr(elucera.graph, "run", boom)
     job = client.post("/jobs", json={"topic": "black holes"}).json()
     events = sse(client, f"/jobs/{job['id']}/events")
     failed = [e[1] for e in events if e[1].get("type") == "failed"][0]
@@ -74,20 +74,21 @@ def test_failure_is_reported_as_event(client, monkeypatch):
 
 
 def test_retry_scene_runs_and_streams(client, monkeypatch, tmp_path):
-    monkeypatch.setattr(reelgen.graph, "run", fake_run)
+    monkeypatch.setattr(elucera.graph, "run", fake_run)
     job = client.post("/jobs", json={"topic": "dna"}).json()
     d = tmp_path / job["id"]
     (d / "plan.json").write_text(json.dumps([{"index": 0}]))
     (d / "results.json").write_text("[]")
+    (d / "audio.json").write_text("[]")
     seen = {}
 
-    def fake_retry(job_dir, index, note, renderer, emit):
+    def fake_retry(job_dir, index, note, renderer, emit, description=None, library_scene=None):
         seen.update(index=index, note=note, renderer=renderer)
         emit("scene", index=index, renderer=renderer, status="done", attempt=1, max_attempts=3)
         emit("done", duration=3.0)
         return job_dir / "final.mp4"
 
-    monkeypatch.setattr(reelgen.graph, "retry_scene", fake_retry)
+    monkeypatch.setattr(elucera.graph, "retry_scene", fake_retry)
     r = client.post(f"/jobs/{job['id']}/scenes/0/retry", json={"note": "bigger text", "renderer": "manim"})
     assert r.status_code == 202
     assert seen == {"index": 0, "note": "bigger text", "renderer": "manim"}
@@ -117,28 +118,28 @@ def test_pitch_gate_and_approve(client, monkeypatch, tmp_path):
     import time as _time
     from pathlib import Path as _Path
 
-    from reelgen.models import Script as _Script
+    from elucera.models import Script as _Script
 
     def fake_script(llm, topic):
         return _Script(title="T", idea="I", segments=[
             {"role": r, "narration": f"{r} narration here", "visual_directive": "d"} for r in
             ("hook", "setup", "mechanism", "payoff")])
 
-    monkeypatch.setattr("reelgen.agents.script.write_script", fake_script)
+    monkeypatch.setattr("elucera.agents.script.write_script", fake_script)
     assert client.post("/pitches", json={"topic": "ab"}).status_code == 422
     assert client.get("/pitches/nope").status_code == 404
     pid = client.post("/pitches", json={"topic": "black holes", "target_length": "short"}).json()["id"]
     pitch = _wait_pitch(client, pid)
     assert pitch["status"] == "ready" and len(pitch["script"]["segments"]) == 4
 
-    def fake_approved(topic, job_dir, script, emit=None, preferred_renderer=None, note=""):
+    def fake_approved(topic, job_dir, script, emit=None, preferred_renderer=None, note="", wait_for=None):
         _Path(job_dir).mkdir(parents=True, exist_ok=True)
         (_Path(job_dir) / "script.json").write_text(script.model_dump_json())
         out = _Path(job_dir) / "final.mp4"
         out.write_bytes(b"stub")
         return out
 
-    monkeypatch.setattr(reelgen.graph, "run_approved", fake_approved)
+    monkeypatch.setattr(elucera.graph, "run_approved", fake_approved)
     assert client.post("/pitches/nope/approve", json={}).status_code == 404
     job = client.post(f"/pitches/{pid}/approve", json={}).json()
     end = _time.time() + 15.0
@@ -155,8 +156,8 @@ def test_director_note_reaches_planner():
     import json as _json
     from pathlib import Path as _Path
 
-    from reelgen.agents.scene_planner import plan_scenes
-    from reelgen.models import Script as _Script, Segment as _Segment, SegmentAudio as _SegAudio
+    from elucera.agents.scene_planner import plan_scenes
+    from elucera.models import Script as _Script, Segment as _Segment, SegmentAudio as _SegAudio
 
     captured = {}
 
@@ -181,7 +182,7 @@ def test_chat_thread_lifecycle(client, monkeypatch, tmp_path):
     monkeypatch.setattr(get_settings(), "outputs_dir", tmp_path)
     t = client.post("/chats", json={"title": "planes"}).json()
     assert t["title"] == "planes" and t["jobs"] == []
-    from reelgen.models import JobState
+    from elucera.models import JobState
 
     d = tmp_path / "abc123"
     d.mkdir()
@@ -199,8 +200,8 @@ def test_analytics_summary_from_fixture(client, monkeypatch, tmp_path):
 
     monkeypatch.setattr(get_settings(), "analytics_dir", tmp_path / "analytics")
     monkeypatch.setattr(get_settings(), "outputs_dir", tmp_path)
-    from reelgen import analytics
-    from reelgen.models import JobState
+    from elucera import analytics
+    from elucera.models import JobState
 
     d = tmp_path / "abc123"
     d.mkdir()
@@ -234,7 +235,7 @@ def test_library_scenes_expose_player_flag(client):
 
 
 def test_missing_player_is_404(client, tmp_path):
-    from reelgen.models import JobState
+    from elucera.models import JobState
 
     assert client.get("/library/scenes/nope/player").status_code == 404
     assert client.get("/library/scenes/nope/player.js").status_code == 404
@@ -244,3 +245,20 @@ def test_missing_player_is_404(client, tmp_path):
     (d / "state.json").write_text(JobState(id="abc123", topic="black holes").model_dump_json())
     assert client.get("/jobs/abc123/scenes/0/player").status_code == 404
     assert client.get("/jobs/abc123/scenes/0/player.js").status_code == 404
+
+
+def test_showcase_lists_kit_showreels(client, monkeypatch, tmp_path):
+    import json as _json
+
+    lib = tmp_path / "lib"
+    (lib / "showcase" / "kit-a").mkdir(parents=True)
+    (lib / "showcase" / "kit-a" / "meta.json").write_text(_json.dumps({"title": "A", "order": 2, "engine": "manim"}))
+    (lib / "showcase" / "kit-b").mkdir()
+    (lib / "showcase" / "kit-b" / "meta.json").write_text(_json.dumps({"title": "B", "order": 1, "engine": "remotion"}))
+    (lib / "showcase" / "kit-b" / "clip.mp4").write_bytes(b"mp4")
+    monkeypatch.setattr(get_settings(), "library_dir", lib)
+    got = client.get("/library/showcase").json()
+    assert [k["id"] for k in got] == ["kit-b", "kit-a"] and got[0]["has_video"] and not got[1]["has_video"]
+    assert client.get("/library/showcase/kit-b/video").content == b"mp4"
+    assert client.get("/library/showcase/../../etc/video").status_code == 404
+    assert client.get("/library/showcase/kit-a/video").status_code == 404

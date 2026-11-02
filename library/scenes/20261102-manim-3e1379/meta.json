@@ -1,0 +1,40 @@
+{
+  "id": "20261102-manim-3e1379",
+  "renderer": "manim",
+  "topic": "binary_search",
+  "role": "mechanism",
+  "narration": "Look at the middle, seven. Our target thirteen is bigger, so throw away the left half. New middle is eleven, still smaller. Next middle thirteen. Found in three steps.",
+  "description": "Binary search for 13 in [1, 3, 5, 7, 9, 11, 13, 15]. Show the array with lo, mid and hi pointers; each beat moves mid, marks the mid cell as compare, dims the discarded half; finish with 13 marked found and a note 'found in 3 steps'.",
+  "beats": [
+    {
+      "t": 0.2,
+      "word": "Look",
+      "action": "beat 1"
+    },
+    {
+      "t": 2.12,
+      "word": "Our",
+      "action": "beat 2"
+    },
+    {
+      "t": 6.35,
+      "word": "New",
+      "action": "beat 3"
+    },
+    {
+      "t": 8.66,
+      "word": "Next",
+      "action": "beat 4"
+    },
+    {
+      "t": 9.82,
+      "word": "Found",
+      "action": "beat 5"
+    }
+  ],
+  "duration": 11.89,
+  "attempts": 1,
+  "source": "binary_search",
+  "created": "2026-11-02T23:18:09+00:00",
+  "starred": false
+}

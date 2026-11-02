@@ -1,0 +1,45 @@
+{
+  "id": "20261102-remotion-d08c92",
+  "renderer": "remotion",
+  "topic": "reverse_list",
+  "role": "mechanism",
+  "narration": "We keep three pointers. Point one back to null. Then two points back to one. Three to two. Four to three. Four is the new head.",
+  "description": "Reverse a linked list 1→2→3→4. Show prev and curr pointers; each beat re-points one node's next arrow backwards (first to null), marks reversed nodes done, and advances prev/curr. End with node 4 marked found as the new head. Below, show the line of code being executed: curr.next = prev.",
+  "beats": [
+    {
+      "t": 0.2,
+      "word": "We",
+      "action": "beat 1"
+    },
+    {
+      "t": 1.74,
+      "word": "Point",
+      "action": "beat 2"
+    },
+    {
+      "t": 3.66,
+      "word": "Then",
+      "action": "beat 3"
+    },
+    {
+      "t": 5.97,
+      "word": "Three",
+      "action": "beat 4"
+    },
+    {
+      "t": 7.12,
+      "word": "Four",
+      "action": "beat 5"
+    },
+    {
+      "t": 8.28,
+      "word": "Four",
+      "action": "beat 6"
+    }
+  ],
+  "duration": 10.74,
+  "attempts": 1,
+  "source": "reverse_list",
+  "created": "2026-11-02T23:17:51+00:00",
+  "starred": false
+}

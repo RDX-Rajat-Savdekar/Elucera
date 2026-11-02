@@ -1,0 +1,40 @@
+{
+  "id": "20261102-remotion-fc41d2",
+  "renderer": "remotion",
+  "topic": "System design for Read heavy workloads",
+  "role": "payoff",
+  "narration": "That's the trick. Your main database does almost no work, but everyone feels instant loads.",
+  "description": "Vertical 1080x1920 remotion 2D payoff scene on black background. Center at 45% height large main database cylinder in fg white with calm accent cyan pulse ring labeled MAIN DB in muted grey, with near-zero load bar in good green below it at 58% height. Left-middle speed gauge dial drops from red to good green, right-middle three phone icons in fg white light up with accent cyan screens and instant checkmarks in good green.",
+  "beats": [
+    {
+      "t": 0.68,
+      "word": "trick.",
+      "action": "'THE TRICK' title in fg white stamps in mid-upper with accent cyan underline"
+    },
+    {
+      "t": 1.6,
+      "word": "main",
+      "action": "main database cylinder scales up center pulsing calm accent cyan, muted grey MAIN DB label appears"
+    },
+    {
+      "t": 2.68,
+      "word": "no",
+      "action": "load bar below database drops to 2% in good green showing ~0% with Zzz icon, pulse turns slow calm"
+    },
+    {
+      "t": 4.02,
+      "word": "feels",
+      "action": "three fg white phone icons pop in lower-middle and light up with accent cyan screens"
+    },
+    {
+      "t": 4.4,
+      "word": "instant",
+      "action": "speed gauge needle slams to good green FAST and phones flash good green INSTANT checkmarks"
+    }
+  ],
+  "duration": 5.611,
+  "attempts": 2,
+  "source": "b8003bf92293",
+  "created": "2026-11-02T20:52:33+00:00",
+  "starred": false
+}
