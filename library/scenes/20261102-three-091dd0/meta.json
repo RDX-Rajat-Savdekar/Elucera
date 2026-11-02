@@ -1,0 +1,55 @@
+{
+  "id": "20261102-three-091dd0",
+  "renderer": "three",
+  "topic": "How does brita water filter work",
+  "role": "mechanism",
+  "narration": "Picture five intruders floating by. Two chlorine bits, one copper, one lead, one calcium. First, black activated carbon. It's full of tiny pores, like a giant sponge. Chlorine sticks to it and gets trapped. That's why the taste vanishes. Next, little resin beads. They're loaded with hydrogen. When copper, lead, or calcium touch them, they trade places. Bad metals stick to the bead. Harmless hydrogen floats out.",
+  "description": "Vertical 1080x1920 3D cutaway filter cartridge centered in safe middle band, slight slow rotation. Top half: black porous carbon block with visible sponge holes (dark grey/black). Bottom half: bed of amber translucent resin beads (orange-yellow spheres). Top inlet pours five glowing dots downward: two good=green chlorine, one orange copper, one accent2=magenta lead, one fg=white calcium. Lighting cyan accent rim, background dark navy for contrast. Camera starts top then dollies down to beads.",
+  "beats": [
+    {
+      "t": 0.71,
+      "word": "five",
+      "action": "Five glowing intruder dots spawn above cartridge and start flowing down center"
+    },
+    {
+      "t": 3.45,
+      "word": "chlorine",
+      "action": "Two good=green dots pulse larger to highlight while falling toward black layer"
+    },
+    {
+      "t": 8.49,
+      "word": "black",
+      "action": "Camera focuses top half, black carbon block lights up and pores expand visible"
+    },
+    {
+      "t": 14.87,
+      "word": "sticks",
+      "action": "Both green chlorine dots stick to carbon pores, stop moving and dim locked"
+    },
+    {
+      "t": 17.39,
+      "word": "taste",
+      "action": "Green taste wave icon above carbon dissolves and vanishes"
+    },
+    {
+      "t": 19.85,
+      "word": "resin",
+      "action": "Camera dollies down to lower half, amber resin beads glow and enlarge"
+    },
+    {
+      "t": 25.97,
+      "word": "trade",
+      "action": "Copper orange, lead magenta, calcium white dots touch beads, flash white and swap places"
+    },
+    {
+      "t": 29.61,
+      "word": "hydrogen",
+      "action": "Small fg-white hydrogen dots detach from beads and float out downward as clean water stream"
+    }
+  ],
+  "duration": 31.28,
+  "attempts": 2,
+  "source": "3e32744eae16",
+  "created": "2026-11-02T22:15:21+00:00",
+  "starred": false
+}

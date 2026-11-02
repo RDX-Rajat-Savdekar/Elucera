@@ -1,10 +1,10 @@
 import pytest
 from pydantic import ValidationError
 
-from reelgen.assemble.ffmpeg import pad_seconds
-from reelgen.llm import complete_json
-from reelgen.models import Script
-from reelgen.render.manim_renderer import ManimRenderer
+from elucera.assemble.ffmpeg import pad_seconds
+from elucera.llm import complete_json
+from elucera.models import Script
+from elucera.render.manim_renderer import ManimRenderer
 
 
 def test_pad_seconds():

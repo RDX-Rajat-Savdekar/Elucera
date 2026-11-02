@@ -1,0 +1,26 @@
+{
+  "title": "Brita Doesn't Filter, It Trades",
+  "idea": "Brita works by chemical trapping and ion swapping, not straining.",
+  "segments": [
+    {
+      "role": "hook",
+      "narration": "Your Brita doesn't strain water. It kidnaps flavor.",
+      "visual_directive": "A clear Brita pitcher fills with blue water on a white background. Glowing green and orange impurity icons vanish mid-pour with a snap."
+    },
+    {
+      "role": "setup",
+      "narration": "Tap water tastes off because of chlorine, copper, lead, and chalky minerals. A mesh can't catch dissolved stuff. So Brita uses chemistry, not a sieve.",
+      "visual_directive": "Macro view of tap water with labeled floating dots for chlorine, copper, lead and calcium. A simple sieve mesh swings in and the dots slip straight through."
+    },
+    {
+      "role": "mechanism",
+      "narration": "Picture five intruders floating by. Two chlorine bits, one copper, one lead, one calcium. First, black activated carbon. It's full of tiny pores, like a giant sponge. Chlorine sticks to it and gets trapped. That's why the taste vanishes. Next, little resin beads. They're loaded with hydrogen. When copper, lead, or calcium touch them, they trade places. Bad metals stick to the bead. Harmless hydrogen floats out.",
+      "visual_directive": "Cutaway 3D view of filter cartridge with black porous carbon on top and amber resin beads below. Five colored dots flow down, chlorine sticks in black layer while metals flash and swap on the beads."
+    },
+    {
+      "role": "payoff",
+      "narration": "So water isn't filtered. It's swapped. Clean taste in, heavy metals out, until the trap fills up.",
+      "visual_directive": "Sparkling glass of clean water slides forward while used dark cartridge pulses full behind it. Trapped metal icons stay locked inside the cartridge."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "20261030-remotion-a17e50",
+  "renderer": "remotion",
+  "topic": "How does public-key encryption work?",
+  "role": "hook",
+  "narration": "Anyone can lock it. Only you can open it.",
+  "description": "Vertical 1080x1920 flat 2D scene on dark navy background. Frame 0 shows huge open padlock centered at (540,850) in accent cyan body with accent3 yellow open shackle angled up, plus bold fg white kinetic text 'Anyone can lock it.' at (540,380) in safe zone below top 10%. Gold key icon (accent3 yellow) hidden behind padlock. Silver key icons (muted grey) off-screen. Action: padlock pops in with scale bounce, shackle slams shut, then duplicates into flying silver keys while gold key remains center. All important content stays between y 200-1400, clear of captions.",
+  "beats": [
+    {
+      "t": 0.0,
+      "word": "Anyone",
+      "action": "Large open padlock scales from 0 to full in center and headline 'Anyone can lock it.' slams in word by word"
+    },
+    {
+      "t": 0.82,
+      "word": "lock",
+      "action": "Open shackle rotates down and snaps shut with flash, padlock body turns accent cyan and shakes"
+    },
+    {
+      "t": 1.78,
+      "word": "Only",
+      "action": "Padlock duplicates puff; dozens of small muted grey silver keys explode outward from center to edges while one large accent3 yellow gold key stays locked beside padlock"
+    },
+    {
+      "t": 2.44,
+      "word": "open",
+      "action": "Gold key spins, glows accent3 yellow and lifts toward padlock keyhole, headline swaps to 'Only you can open it.'"
+    }
+  ],
+  "duration": 3.2,
+  "attempts": 1,
+  "source": "b3dd4c224ef1",
+  "created": "2026-10-30T23:45:25+00:00",
+  "starred": false
+}

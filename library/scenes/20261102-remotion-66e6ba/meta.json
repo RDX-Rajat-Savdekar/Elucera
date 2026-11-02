@@ -1,0 +1,40 @@
+{
+  "id": "20261102-remotion-66e6ba",
+  "renderer": "remotion",
+  "topic": "System design for Read heavy workloads",
+  "role": "hook",
+  "narration": "A million reads can kill one database.",
+  "description": "Vertical 1080x1920 remotion 2D scene on black background. Frame 0 shows bold kinetic title 'A MILLION READS' in fg white centered at 25% height, and a large glowing database cylinder icon in fg white with accent cyan glow centered at 50% height. Around it hundreds of small fg white arrow triangles swarm inward from screen edges toward the cylinder. The cylinder shakes and flashes stress red with accent2 magenta glow and accent3 yellow warning ring, with vignette pulsing red.",
+  "beats": [
+    {
+      "t": 0.0,
+      "word": "A",
+      "action": "Title 'A MILLION READS' in fg white pops in large at mid-upper, database cylinder appears center glowing accent cyan"
+    },
+    {
+      "t": 0.3,
+      "word": "million",
+      "action": "'1,000,000' counter in accent3 yellow ticks up fast below title"
+    },
+    {
+      "t": 0.66,
+      "word": "reads",
+      "action": "hundreds of small fg white arrows spawn from edges and swarm toward the cylinder"
+    },
+    {
+      "t": 1.36,
+      "word": "kill",
+      "action": "cylinder shakes, flashes red with accent2 magenta glow and red cracks, OVERLOAD badge pulses"
+    },
+    {
+      "t": 2.1,
+      "word": "database",
+      "action": "cylinder locks solid red with harsh shake as arrows keep hammering, vignette pulses"
+    }
+  ],
+  "duration": 2.86,
+  "attempts": 2,
+  "source": "b8003bf92293",
+  "created": "2026-11-02T20:52:16+00:00",
+  "starred": false
+}

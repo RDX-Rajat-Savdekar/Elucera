@@ -1,0 +1,40 @@
+{
+  "id": "20261102-three-2a61d8",
+  "renderer": "three",
+  "topic": "top view of binary tree leetcode style , solution video with intitution to optimal with and python code  explanation",
+  "role": "payoff",
+  "narration": "One pass top to bottom. First seen wins. Time is linear. And half vanishes when seen from above.",
+  "description": "Vertical 1080x1920 3D dark scene rhyming hook. Starts overhead close on dimmed full tree center at 50%, then pulls back and tilts to side angle matching Scene 0 frame 0. Foreground at 60% height: clean skyline row of three bright accent-cyan spheres labeled 5,10,15 left-to-right with muted-grey connecting baseline. Background tree fades muted-grey except kept nodes. Floating accent3-yellow O(N) badge center at 40% appears briefly. Final frame: same side-on tree as hook frame 0 but only skyline nodes bright.",
+  "beats": [
+    {
+      "t": 0.37,
+      "word": "One",
+      "action": "Overhead view of dimmed tree center, scanning accent-cyan plane sweeps top-to-bottom"
+    },
+    {
+      "t": 1.93,
+      "word": "First",
+      "action": "Three skyline spheres 5,10,15 detach forward and slide into foreground row left-to-right, turn accent-cyan"
+    },
+    {
+      "t": 3.43,
+      "word": "Time",
+      "action": "Accent3-yellow O(N) badge pops above row, row pulses good-green left-to-right"
+    },
+    {
+      "t": 4.91,
+      "word": "half",
+      "action": "Background full tree dims to muted transparent, occluded node 7 fades out completely"
+    },
+    {
+      "t": 6.43,
+      "word": "above",
+      "action": "Camera tilts back to side-on matching hook, bright 5-10-15 skyline on resolved tree holds for loop"
+    }
+  ],
+  "duration": 7.161,
+  "attempts": 1,
+  "source": "fbf0d20a61ac",
+  "created": "2026-11-02T22:54:47+00:00",
+  "starred": false
+}

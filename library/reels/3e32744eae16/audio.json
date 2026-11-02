@@ -1,0 +1,615 @@
+[
+  {
+    "index": 0,
+    "wav": "/Users/aditya/Projects/meta-hackathon-project/outputs/3e32744eae16/seg0.wav",
+    "duration": 3.9,
+    "words": [
+      {
+        "word": "Your",
+        "start": 0.0,
+        "end": 0.44
+      },
+      {
+        "word": "Brita",
+        "start": 0.44,
+        "end": 0.86
+      },
+      {
+        "word": "doesn't",
+        "start": 0.86,
+        "end": 1.48
+      },
+      {
+        "word": "strain",
+        "start": 1.48,
+        "end": 1.82
+      },
+      {
+        "word": "water.",
+        "start": 1.82,
+        "end": 2.2
+      },
+      {
+        "word": "It",
+        "start": 2.88,
+        "end": 2.96
+      },
+      {
+        "word": "kidnaps",
+        "start": 2.96,
+        "end": 3.58
+      },
+      {
+        "word": "flavor.",
+        "start": 3.58,
+        "end": 3.9
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "wav": "/Users/aditya/Projects/meta-hackathon-project/outputs/3e32744eae16/seg1.wav",
+    "duration": 13.53,
+    "words": [
+      {
+        "word": "Tap",
+        "start": 0.0,
+        "end": 1.24
+      },
+      {
+        "word": "water",
+        "start": 1.24,
+        "end": 1.56
+      },
+      {
+        "word": "tastes",
+        "start": 1.56,
+        "end": 1.94
+      },
+      {
+        "word": "off",
+        "start": 1.94,
+        "end": 2.44
+      },
+      {
+        "word": "because",
+        "start": 2.44,
+        "end": 2.86
+      },
+      {
+        "word": "of",
+        "start": 2.86,
+        "end": 3.14
+      },
+      {
+        "word": "chlorine,",
+        "start": 3.14,
+        "end": 3.4
+      },
+      {
+        "word": "copper,",
+        "start": 4.02,
+        "end": 4.24
+      },
+      {
+        "word": "lead,",
+        "start": 4.94,
+        "end": 5.02
+      },
+      {
+        "word": "and",
+        "start": 5.54,
+        "end": 5.64
+      },
+      {
+        "word": "chalky",
+        "start": 5.64,
+        "end": 6.02
+      },
+      {
+        "word": "minerals.",
+        "start": 6.02,
+        "end": 6.32
+      },
+      {
+        "word": "A",
+        "start": 7.36,
+        "end": 7.4
+      },
+      {
+        "word": "mesh",
+        "start": 7.4,
+        "end": 7.66
+      },
+      {
+        "word": "can't",
+        "start": 7.66,
+        "end": 8.26
+      },
+      {
+        "word": "catch",
+        "start": 8.26,
+        "end": 8.58
+      },
+      {
+        "word": "dissolved",
+        "start": 8.58,
+        "end": 8.96
+      },
+      {
+        "word": "stuff.",
+        "start": 8.96,
+        "end": 9.6
+      },
+      {
+        "word": "So",
+        "start": 10.24,
+        "end": 10.46
+      },
+      {
+        "word": "Brita",
+        "start": 10.46,
+        "end": 10.86
+      },
+      {
+        "word": "uses",
+        "start": 10.86,
+        "end": 11.16
+      },
+      {
+        "word": "chemistry,",
+        "start": 11.16,
+        "end": 11.52
+      },
+      {
+        "word": "not",
+        "start": 12.36,
+        "end": 12.46
+      },
+      {
+        "word": "a",
+        "start": 12.46,
+        "end": 12.58
+      },
+      {
+        "word": "sieve.",
+        "start": 12.58,
+        "end": 12.82
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "wav": "/Users/aditya/Projects/meta-hackathon-project/outputs/3e32744eae16/seg2.wav",
+    "duration": 31.28,
+    "words": [
+      {
+        "word": "Picture",
+        "start": 0.71,
+        "end": 0.71
+      },
+      {
+        "word": "five",
+        "start": 0.71,
+        "end": 1.29
+      },
+      {
+        "word": "intruders",
+        "start": 1.29,
+        "end": 2.01
+      },
+      {
+        "word": "floating",
+        "start": 2.01,
+        "end": 2.23
+      },
+      {
+        "word": "by.",
+        "start": 2.23,
+        "end": 2.57
+      },
+      {
+        "word": "Two",
+        "start": 3.21,
+        "end": 3.45
+      },
+      {
+        "word": "chlorine",
+        "start": 3.45,
+        "end": 3.79
+      },
+      {
+        "word": "bits,",
+        "start": 3.79,
+        "end": 4.11
+      },
+      {
+        "word": "one",
+        "start": 4.53,
+        "end": 4.73
+      },
+      {
+        "word": "copper,",
+        "start": 4.73,
+        "end": 5.01
+      },
+      {
+        "word": "one",
+        "start": 5.51,
+        "end": 5.71
+      },
+      {
+        "word": "lead,",
+        "start": 5.71,
+        "end": 5.93
+      },
+      {
+        "word": "one",
+        "start": 6.43,
+        "end": 6.61
+      },
+      {
+        "word": "calcium.",
+        "start": 6.61,
+        "end": 6.85
+      },
+      {
+        "word": "First,",
+        "start": 7.65,
+        "end": 8.25
+      },
+      {
+        "word": "black",
+        "start": 8.49,
+        "end": 8.89
+      },
+      {
+        "word": "activated",
+        "start": 8.89,
+        "end": 9.41
+      },
+      {
+        "word": "carbon.",
+        "start": 9.41,
+        "end": 9.87
+      },
+      {
+        "word": "It's",
+        "start": 10.73,
+        "end": 10.91
+      },
+      {
+        "word": "full",
+        "start": 10.91,
+        "end": 11.13
+      },
+      {
+        "word": "of",
+        "start": 11.13,
+        "end": 11.35
+      },
+      {
+        "word": "tiny",
+        "start": 11.35,
+        "end": 11.67
+      },
+      {
+        "word": "pores,",
+        "start": 11.67,
+        "end": 12.07
+      },
+      {
+        "word": "like",
+        "start": 12.49,
+        "end": 12.69
+      },
+      {
+        "word": "a",
+        "start": 12.69,
+        "end": 12.79
+      },
+      {
+        "word": "giant",
+        "start": 12.79,
+        "end": 13.13
+      },
+      {
+        "word": "sponge.",
+        "start": 13.13,
+        "end": 13.51
+      },
+      {
+        "word": "Chlorine",
+        "start": 14.37,
+        "end": 14.87
+      },
+      {
+        "word": "sticks",
+        "start": 14.87,
+        "end": 15.11
+      },
+      {
+        "word": "to",
+        "start": 15.11,
+        "end": 15.41
+      },
+      {
+        "word": "it",
+        "start": 15.41,
+        "end": 15.55
+      },
+      {
+        "word": "and",
+        "start": 15.55,
+        "end": 15.77
+      },
+      {
+        "word": "gets",
+        "start": 15.77,
+        "end": 15.91
+      },
+      {
+        "word": "trapped.",
+        "start": 15.91,
+        "end": 16.91
+      },
+      {
+        "word": "That's",
+        "start": 16.91,
+        "end": 17.15
+      },
+      {
+        "word": "why",
+        "start": 17.15,
+        "end": 17.25
+      },
+      {
+        "word": "the",
+        "start": 17.25,
+        "end": 17.39
+      },
+      {
+        "word": "taste",
+        "start": 17.39,
+        "end": 17.57
+      },
+      {
+        "word": "vanishes.",
+        "start": 17.57,
+        "end": 18.03
+      },
+      {
+        "word": "Next,",
+        "start": 18.97,
+        "end": 19.25
+      },
+      {
+        "word": "little",
+        "start": 19.63,
+        "end": 19.85
+      },
+      {
+        "word": "resin",
+        "start": 19.85,
+        "end": 20.09
+      },
+      {
+        "word": "beads.",
+        "start": 20.09,
+        "end": 20.43
+      },
+      {
+        "word": "They're",
+        "start": 21.09,
+        "end": 21.23
+      },
+      {
+        "word": "loaded",
+        "start": 21.23,
+        "end": 21.53
+      },
+      {
+        "word": "with",
+        "start": 21.53,
+        "end": 21.83
+      },
+      {
+        "word": "hydrogen.",
+        "start": 21.83,
+        "end": 22.19
+      },
+      {
+        "word": "When",
+        "start": 22.95,
+        "end": 23.07
+      },
+      {
+        "word": "copper,",
+        "start": 23.07,
+        "end": 23.37
+      },
+      {
+        "word": "lead,",
+        "start": 23.77,
+        "end": 23.99
+      },
+      {
+        "word": "or",
+        "start": 24.25,
+        "end": 24.35
+      },
+      {
+        "word": "calcium",
+        "start": 24.35,
+        "end": 24.69
+      },
+      {
+        "word": "touch",
+        "start": 24.69,
+        "end": 25.17
+      },
+      {
+        "word": "them,",
+        "start": 25.17,
+        "end": 25.47
+      },
+      {
+        "word": "they",
+        "start": 25.79,
+        "end": 25.97
+      },
+      {
+        "word": "trade",
+        "start": 25.97,
+        "end": 26.19
+      },
+      {
+        "word": "places.",
+        "start": 26.19,
+        "end": 26.51
+      },
+      {
+        "word": "Bad",
+        "start": 27.39,
+        "end": 27.67
+      },
+      {
+        "word": "metals",
+        "start": 27.67,
+        "end": 27.87
+      },
+      {
+        "word": "stick",
+        "start": 27.87,
+        "end": 28.29
+      },
+      {
+        "word": "to",
+        "start": 28.29,
+        "end": 28.47
+      },
+      {
+        "word": "the",
+        "start": 28.47,
+        "end": 28.57
+      },
+      {
+        "word": "bead.",
+        "start": 28.57,
+        "end": 28.73
+      },
+      {
+        "word": "Harmless",
+        "start": 29.37,
+        "end": 29.61
+      },
+      {
+        "word": "hydrogen",
+        "start": 29.61,
+        "end": 30.05
+      },
+      {
+        "word": "floats",
+        "start": 30.05,
+        "end": 30.57
+      },
+      {
+        "word": "out.",
+        "start": 30.57,
+        "end": 30.95
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "wav": "/Users/aditya/Projects/meta-hackathon-project/outputs/3e32744eae16/seg3.wav",
+    "duration": 8.261,
+    "words": [
+      {
+        "word": "So",
+        "start": 0.33,
+        "end": 0.77
+      },
+      {
+        "word": "water",
+        "start": 0.77,
+        "end": 1.07
+      },
+      {
+        "word": "isn't",
+        "start": 1.07,
+        "end": 1.61
+      },
+      {
+        "word": "filtered.",
+        "start": 1.61,
+        "end": 1.83
+      },
+      {
+        "word": "It's",
+        "start": 2.45,
+        "end": 2.75
+      },
+      {
+        "word": "swapped.",
+        "start": 2.75,
+        "end": 2.97
+      },
+      {
+        "word": "Clean",
+        "start": 2.97,
+        "end": 3.89
+      },
+      {
+        "word": "taste",
+        "start": 3.89,
+        "end": 4.25
+      },
+      {
+        "word": "in,",
+        "start": 4.25,
+        "end": 4.57
+      },
+      {
+        "word": "heavy",
+        "start": 4.93,
+        "end": 5.23
+      },
+      {
+        "word": "metals",
+        "start": 5.23,
+        "end": 5.49
+      },
+      {
+        "word": "out,",
+        "start": 5.49,
+        "end": 5.83
+      },
+      {
+        "word": "until",
+        "start": 6.25,
+        "end": 6.75
+      },
+      {
+        "word": "the",
+        "start": 6.75,
+        "end": 7.03
+      },
+      {
+        "word": "trap",
+        "start": 7.03,
+        "end": 7.27
+      },
+      {
+        "word": "fills",
+        "start": 7.27,
+        "end": 7.59
+      },
+      {
+        "word": "up.",
+        "start": 7.59,
+        "end": 7.99
+      }
+    ]
+  }
+]

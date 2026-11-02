@@ -1,0 +1,40 @@
+{
+  "id": "20261102-remotion-8ce105",
+  "renderer": "remotion",
+  "topic": "How does brita water filter work",
+  "role": "hook",
+  "narration": "Your Brita doesn't strain water. It kidnaps flavor.",
+  "description": "Vertical 1080x1920 2D scene on white background, all action in middle safe band (y ~15% to 70%, nothing in top 10% or bottom 25%). Center-mid: large clear Brita pitcher outline in muted grey with blue water filling from bottom upward. Above pitcher mid-upper: big bold fg-white on dark pill kinetic title text. Two glowing impurity icons (good=green dot and accent3=yellow-orange dot) falling in pour stream. Red X over small mesh icon to show no straining.",
+  "beats": [
+    {
+      "t": 0.0,
+      "word": "Your",
+      "action": "Clear pitcher outline pops in center-mid on frame 0 with big title YOUR BRITA above it"
+    },
+    {
+      "t": 0.86,
+      "word": "doesn't",
+      "action": "Word DOESN'T slams in accent2=magenta over pitcher, small mesh icon crossed out"
+    },
+    {
+      "t": 1.48,
+      "word": "strain",
+      "action": "Blue water level rises fast inside pitcher from bottom to middle"
+    },
+    {
+      "t": 2.96,
+      "word": "kidnaps",
+      "action": "Green and orange impurity dots in pour stream snap-vanish with white flash and snap scale pop"
+    },
+    {
+      "t": 3.58,
+      "word": "flavor.",
+      "action": "Big accent3=yellow text KIDNAPS FLAVOR pops center over pitcher"
+    }
+  ],
+  "duration": 3.9,
+  "attempts": 1,
+  "source": "3e32744eae16",
+  "created": "2026-11-02T22:13:04+00:00",
+  "starred": false
+}

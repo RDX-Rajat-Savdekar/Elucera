@@ -1,0 +1,164 @@
+[
+  {
+    "index": 0,
+    "renderer": "remotion",
+    "duration": 3.9,
+    "description": "Vertical 1080x1920 2D scene on white background, all action in middle safe band (y ~15% to 70%, nothing in top 10% or bottom 25%). Center-mid: large clear Brita pitcher outline in muted grey with blue water filling from bottom upward. Above pitcher mid-upper: big bold fg-white on dark pill kinetic title text. Two glowing impurity icons (good=green dot and accent3=yellow-orange dot) falling in pour stream. Red X over small mesh icon to show no straining.",
+    "beats": [
+      {
+        "t": 0.0,
+        "word": "Your",
+        "action": "Clear pitcher outline pops in center-mid on frame 0 with big title YOUR BRITA above it"
+      },
+      {
+        "t": 0.86,
+        "word": "doesn't",
+        "action": "Word DOESN'T slams in accent2=magenta over pitcher, small mesh icon crossed out"
+      },
+      {
+        "t": 1.48,
+        "word": "strain",
+        "action": "Blue water level rises fast inside pitcher from bottom to middle"
+      },
+      {
+        "t": 2.96,
+        "word": "kidnaps",
+        "action": "Green and orange impurity dots in pour stream snap-vanish with white flash and snap scale pop"
+      },
+      {
+        "t": 3.58,
+        "word": "flavor.",
+        "action": "Big accent3=yellow text KIDNAPS FLAVOR pops center over pitcher"
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "renderer": "remotion",
+    "duration": 13.53,
+    "description": "Vertical 1080x1920 2D macro water scene, safe middle band only. Background soft cyan-tinted water with floating labeled dots: chlorine good=green, copper orange, lead accent2=magenta, calcium chalky fg=white. Dots drift slowly center. Mid-scene a grey sieve mesh grid swings in from right to center. End state mesh fades and cyan chemistry glow with flask icon remains. No important elements in top 10% or bottom 25%.",
+    "beats": [
+      {
+        "t": 0.0,
+        "word": "Tap",
+        "action": "Blue water field fades in with faint drifting particles center-mid"
+      },
+      {
+        "t": 3.14,
+        "word": "chlorine,",
+        "action": "Good=green dot labeled CHLORINE pops in left-center and bobs"
+      },
+      {
+        "t": 4.02,
+        "word": "copper,",
+        "action": "Orange dot labeled COPPER pops in right-center and bobs"
+      },
+      {
+        "t": 4.94,
+        "word": "lead,",
+        "action": "Accent2=magenta dot labeled LEAD pops in center"
+      },
+      {
+        "t": 5.64,
+        "word": "chalky",
+        "action": "Fg-white dot labeled CALCIUM pops in lower-center, all four drift"
+      },
+      {
+        "t": 7.4,
+        "word": "mesh",
+        "action": "Grey sieve mesh swings in from right to cover center"
+      },
+      {
+        "t": 8.58,
+        "word": "dissolved",
+        "action": "All four dots slip straight through mesh holes and continue falling, mesh shakes"
+      },
+      {
+        "t": 11.16,
+        "word": "chemistry,",
+        "action": "Mesh fades out with red X, cyan accent glow and CHEMISTRY NOT A SIEVE text pulses center"
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "renderer": "manim",
+    "duration": 31.28,
+    "description": "Vertical 1080x1920 3D cutaway filter cartridge centered in safe middle band, slight slow rotation. Top half: black porous carbon block with visible sponge holes (dark grey/black). Bottom half: bed of amber translucent resin beads (orange-yellow spheres). Top inlet pours five glowing dots downward: two good=green chlorine, one orange copper, one accent2=magenta lead, one fg=white calcium. Lighting cyan accent rim, background dark navy for contrast. Camera starts top then dollies down to beads.\n\nViewer feedback for this new version (follow it): Make this 2d",
+    "beats": [
+      {
+        "t": 0.71,
+        "word": "five",
+        "action": "Five glowing intruder dots spawn above cartridge and start flowing down center"
+      },
+      {
+        "t": 3.45,
+        "word": "chlorine",
+        "action": "Two good=green dots pulse larger to highlight while falling toward black layer"
+      },
+      {
+        "t": 8.49,
+        "word": "black",
+        "action": "Camera focuses top half, black carbon block lights up and pores expand visible"
+      },
+      {
+        "t": 14.87,
+        "word": "sticks",
+        "action": "Both green chlorine dots stick to carbon pores, stop moving and dim locked"
+      },
+      {
+        "t": 17.39,
+        "word": "taste",
+        "action": "Green taste wave icon above carbon dissolves and vanishes"
+      },
+      {
+        "t": 19.85,
+        "word": "resin",
+        "action": "Camera dollies down to lower half, amber resin beads glow and enlarge"
+      },
+      {
+        "t": 25.97,
+        "word": "trade",
+        "action": "Copper orange, lead magenta, calcium white dots touch beads, flash white and swap places"
+      },
+      {
+        "t": 29.61,
+        "word": "hydrogen",
+        "action": "Small fg-white hydrogen dots detach from beads and float out downward as clean water stream"
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "renderer": "three",
+    "duration": 8.261,
+    "description": "Vertical 1080x1920 3D payoff, same dark navy world for continuity, safe middle band only. Foreground center: sparkling clear glass of cyan-tinted water sliding forward with glints. Background center: dark used cartridge (black top + amber beads now darkened) holding locked orange, magenta, white metal icons inside. Accent swap arrows cyan/magenta between them. Fill meter bar beside cartridge rises to full.",
+    "beats": [
+      {
+        "t": 0.33,
+        "word": "So",
+        "action": "Sparkling glass slides forward to foreground center, cartridge sits behind blurred"
+      },
+      {
+        "t": 2.75,
+        "word": "swapped.",
+        "action": "Big fg-white SWAPPED text pops mid-frame with cyan double-arrow swap animation"
+      },
+      {
+        "t": 3.89,
+        "word": "taste",
+        "action": "Clean cyan water swirls in glass with sparkles, CLEAN IN label flashes"
+      },
+      {
+        "t": 5.23,
+        "word": "metals",
+        "action": "Orange, magenta, white metal icons rattle locked inside background cartridge, METALS OUT label"
+      },
+      {
+        "t": 7.03,
+        "word": "trap",
+        "action": "Background cartridge pulses dark red and fill meter hits full, glass stays bright foreground"
+      }
+    ]
+  }
+]

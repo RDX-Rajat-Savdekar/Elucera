@@ -1,5 +1,5 @@
 [project]
-name = "reelgen"
+name = "elucera"
 version = "0.1.0"
 description = "Automated short-form science explainer reel pipeline"
 requires-python = ">=3.11"
@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [project.scripts]
-reelgen = "reelgen.cli:app"
+elucera = "elucera.cli:app"
 
 [dependency-groups]
 dev = [

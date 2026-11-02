@@ -1,0 +1,655 @@
+[
+  {
+    "index": 0,
+    "wav": "/Users/aditya/Projects/meta-hackathon-project/outputs/b3dd4c224ef1/seg0.wav",
+    "duration": 3.2,
+    "words": [
+      {
+        "word": "Anyone",
+        "start": 0.0,
+        "end": 0.46
+      },
+      {
+        "word": "can",
+        "start": 0.46,
+        "end": 0.82
+      },
+      {
+        "word": "lock",
+        "start": 0.82,
+        "end": 1.08
+      },
+      {
+        "word": "it.",
+        "start": 1.08,
+        "end": 1.28
+      },
+      {
+        "word": "Only",
+        "start": 1.78,
+        "end": 1.94
+      },
+      {
+        "word": "you",
+        "start": 1.94,
+        "end": 2.22
+      },
+      {
+        "word": "can",
+        "start": 2.22,
+        "end": 2.44
+      },
+      {
+        "word": "open",
+        "start": 2.44,
+        "end": 2.74
+      },
+      {
+        "word": "it.",
+        "start": 2.74,
+        "end": 2.96
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "wav": "/Users/aditya/Projects/meta-hackathon-project/outputs/b3dd4c224ef1/seg1.wav",
+    "duration": 7.83,
+    "words": [
+      {
+        "word": "You",
+        "start": 0.24,
+        "end": 0.3
+      },
+      {
+        "word": "want",
+        "start": 0.3,
+        "end": 0.48
+      },
+      {
+        "word": "secret",
+        "start": 0.48,
+        "end": 0.74
+      },
+      {
+        "word": "messages",
+        "start": 0.74,
+        "end": 1.28
+      },
+      {
+        "word": "over",
+        "start": 1.28,
+        "end": 1.66
+      },
+      {
+        "word": "the",
+        "start": 1.66,
+        "end": 1.78
+      },
+      {
+        "word": "open",
+        "start": 1.78,
+        "end": 2.08
+      },
+      {
+        "word": "internet.",
+        "start": 2.08,
+        "end": 2.42
+      },
+      {
+        "word": "But",
+        "start": 2.94,
+        "end": 3.04
+      },
+      {
+        "word": "if",
+        "start": 3.04,
+        "end": 3.16
+      },
+      {
+        "word": "you",
+        "start": 3.16,
+        "end": 3.26
+      },
+      {
+        "word": "share",
+        "start": 3.26,
+        "end": 3.48
+      },
+      {
+        "word": "the",
+        "start": 3.48,
+        "end": 3.66
+      },
+      {
+        "word": "key,",
+        "start": 3.66,
+        "end": 3.9
+      },
+      {
+        "word": "spies",
+        "start": 4.3,
+        "end": 4.36
+      },
+      {
+        "word": "can",
+        "start": 4.36,
+        "end": 4.76
+      },
+      {
+        "word": "steal",
+        "start": 4.76,
+        "end": 5.0
+      },
+      {
+        "word": "it.",
+        "start": 5.0,
+        "end": 5.22
+      },
+      {
+        "word": "So",
+        "start": 5.74,
+        "end": 5.74
+      },
+      {
+        "word": "how",
+        "start": 5.74,
+        "end": 5.96
+      },
+      {
+        "word": "do",
+        "start": 5.96,
+        "end": 6.06
+      },
+      {
+        "word": "you",
+        "start": 6.06,
+        "end": 6.12
+      },
+      {
+        "word": "let",
+        "start": 6.12,
+        "end": 6.28
+      },
+      {
+        "word": "strangers",
+        "start": 6.28,
+        "end": 6.6
+      },
+      {
+        "word": "send",
+        "start": 6.6,
+        "end": 7.08
+      },
+      {
+        "word": "secrets?",
+        "start": 7.08,
+        "end": 7.42
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "wav": "/Users/aditya/Projects/meta-hackathon-project/outputs/b3dd4c224ef1/seg2.wav",
+    "duration": 22.99,
+    "words": [
+      {
+        "word": "Bob",
+        "start": 0.41,
+        "end": 0.47
+      },
+      {
+        "word": "makes",
+        "start": 0.47,
+        "end": 0.81
+      },
+      {
+        "word": "two",
+        "start": 0.81,
+        "end": 1.13
+      },
+      {
+        "word": "linked",
+        "start": 1.13,
+        "end": 1.35
+      },
+      {
+        "word": "keys.",
+        "start": 1.35,
+        "end": 1.71
+      },
+      {
+        "word": "One",
+        "start": 2.15,
+        "end": 2.29
+      },
+      {
+        "word": "public",
+        "start": 2.29,
+        "end": 2.61
+      },
+      {
+        "word": "lock,",
+        "start": 2.61,
+        "end": 2.85
+      },
+      {
+        "word": "one",
+        "start": 3.13,
+        "end": 3.37
+      },
+      {
+        "word": "secret",
+        "start": 3.37,
+        "end": 3.71
+      },
+      {
+        "word": "key.",
+        "start": 3.71,
+        "end": 4.03
+      },
+      {
+        "word": "He",
+        "start": 4.47,
+        "end": 4.63
+      },
+      {
+        "word": "posts",
+        "start": 4.63,
+        "end": 4.85
+      },
+      {
+        "word": "the",
+        "start": 4.85,
+        "end": 5.11
+      },
+      {
+        "word": "lock",
+        "start": 5.11,
+        "end": 5.25
+      },
+      {
+        "word": "for",
+        "start": 5.25,
+        "end": 5.45
+      },
+      {
+        "word": "everyone.",
+        "start": 5.45,
+        "end": 5.79
+      },
+      {
+        "word": "Alice",
+        "start": 6.37,
+        "end": 6.57
+      },
+      {
+        "word": "wants",
+        "start": 6.57,
+        "end": 6.83
+      },
+      {
+        "word": "to",
+        "start": 6.83,
+        "end": 7.01
+      },
+      {
+        "word": "send",
+        "start": 7.01,
+        "end": 7.21
+      },
+      {
+        "word": "the",
+        "start": 7.21,
+        "end": 7.31
+      },
+      {
+        "word": "number",
+        "start": 7.31,
+        "end": 7.47
+      },
+      {
+        "word": "forty",
+        "start": 7.47,
+        "end": 7.97
+      },
+      {
+        "word": "two.",
+        "start": 7.97,
+        "end": 8.47
+      },
+      {
+        "word": "She",
+        "start": 8.47,
+        "end": 8.61
+      },
+      {
+        "word": "puts",
+        "start": 8.61,
+        "end": 8.81
+      },
+      {
+        "word": "it",
+        "start": 8.81,
+        "end": 8.99
+      },
+      {
+        "word": "in",
+        "start": 8.99,
+        "end": 9.11
+      },
+      {
+        "word": "a",
+        "start": 9.11,
+        "end": 9.17
+      },
+      {
+        "word": "box",
+        "start": 9.17,
+        "end": 9.37
+      },
+      {
+        "word": "and",
+        "start": 9.37,
+        "end": 9.67
+      },
+      {
+        "word": "snaps",
+        "start": 9.67,
+        "end": 9.95
+      },
+      {
+        "word": "Bob's",
+        "start": 9.95,
+        "end": 10.47
+      },
+      {
+        "word": "lock",
+        "start": 10.47,
+        "end": 10.61
+      },
+      {
+        "word": "shut.",
+        "start": 10.61,
+        "end": 10.87
+      },
+      {
+        "word": "Now",
+        "start": 11.39,
+        "end": 11.49
+      },
+      {
+        "word": "even",
+        "start": 11.49,
+        "end": 11.75
+      },
+      {
+        "word": "she",
+        "start": 11.75,
+        "end": 12.03
+      },
+      {
+        "word": "can't",
+        "start": 12.03,
+        "end": 12.61
+      },
+      {
+        "word": "reopen",
+        "start": 12.61,
+        "end": 12.61
+      },
+      {
+        "word": "it.",
+        "start": 12.61,
+        "end": 12.93
+      },
+      {
+        "word": "The",
+        "start": 13.37,
+        "end": 13.47
+      },
+      {
+        "word": "locked",
+        "start": 13.47,
+        "end": 13.67
+      },
+      {
+        "word": "box",
+        "start": 13.67,
+        "end": 13.99
+      },
+      {
+        "word": "travels",
+        "start": 13.99,
+        "end": 14.37
+      },
+      {
+        "word": "across",
+        "start": 14.37,
+        "end": 14.79
+      },
+      {
+        "word": "the",
+        "start": 14.79,
+        "end": 15.05
+      },
+      {
+        "word": "internet.",
+        "start": 15.05,
+        "end": 15.25
+      },
+      {
+        "word": "Thieves",
+        "start": 15.89,
+        "end": 15.91
+      },
+      {
+        "word": "see",
+        "start": 15.91,
+        "end": 16.27
+      },
+      {
+        "word": "it",
+        "start": 16.27,
+        "end": 16.39
+      },
+      {
+        "word": "but",
+        "start": 16.39,
+        "end": 16.55
+      },
+      {
+        "word": "can't",
+        "start": 16.55,
+        "end": 16.87
+      },
+      {
+        "word": "pick",
+        "start": 16.87,
+        "end": 16.99
+      },
+      {
+        "word": "the",
+        "start": 16.99,
+        "end": 17.13
+      },
+      {
+        "word": "lock.",
+        "start": 17.13,
+        "end": 17.31
+      },
+      {
+        "word": "Only",
+        "start": 17.31,
+        "end": 18.09
+      },
+      {
+        "word": "Bob's",
+        "start": 18.09,
+        "end": 18.53
+      },
+      {
+        "word": "secret",
+        "start": 18.53,
+        "end": 18.77
+      },
+      {
+        "word": "key",
+        "start": 18.77,
+        "end": 19.05
+      },
+      {
+        "word": "fits.",
+        "start": 19.05,
+        "end": 19.33
+      },
+      {
+        "word": "He",
+        "start": 19.83,
+        "end": 19.93
+      },
+      {
+        "word": "turns",
+        "start": 19.93,
+        "end": 20.15
+      },
+      {
+        "word": "it,",
+        "start": 20.15,
+        "end": 20.37
+      },
+      {
+        "word": "the",
+        "start": 20.55,
+        "end": 20.63
+      },
+      {
+        "word": "box",
+        "start": 20.63,
+        "end": 20.75
+      },
+      {
+        "word": "opens,",
+        "start": 20.75,
+        "end": 21.19
+      },
+      {
+        "word": "and",
+        "start": 21.19,
+        "end": 21.45
+      },
+      {
+        "word": "out",
+        "start": 21.45,
+        "end": 21.65
+      },
+      {
+        "word": "comes",
+        "start": 21.65,
+        "end": 21.93
+      },
+      {
+        "word": "forty",
+        "start": 21.93,
+        "end": 22.46
+      },
+      {
+        "word": "two.",
+        "start": 22.46,
+        "end": 22.99
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "wav": "/Users/aditya/Projects/meta-hackathon-project/outputs/b3dd4c224ef1/seg3.wav",
+    "duration": 5.631,
+    "words": [
+      {
+        "word": "That's",
+        "start": 0.0,
+        "end": 0.36
+      },
+      {
+        "word": "the",
+        "start": 0.36,
+        "end": 0.46
+      },
+      {
+        "word": "trick.",
+        "start": 0.46,
+        "end": 0.6
+      },
+      {
+        "word": "Everyone",
+        "start": 1.42,
+        "end": 1.42
+      },
+      {
+        "word": "can",
+        "start": 1.42,
+        "end": 1.64
+      },
+      {
+        "word": "lock,",
+        "start": 1.64,
+        "end": 1.84
+      },
+      {
+        "word": "only",
+        "start": 2.18,
+        "end": 2.42
+      },
+      {
+        "word": "one",
+        "start": 2.42,
+        "end": 2.68
+      },
+      {
+        "word": "can",
+        "start": 2.68,
+        "end": 2.9
+      },
+      {
+        "word": "unlock.",
+        "start": 2.9,
+        "end": 3.12
+      },
+      {
+        "word": "That's",
+        "start": 3.7,
+        "end": 3.96
+      },
+      {
+        "word": "how",
+        "start": 3.96,
+        "end": 4.04
+      },
+      {
+        "word": "the",
+        "start": 4.04,
+        "end": 4.14
+      },
+      {
+        "word": "whole",
+        "start": 4.14,
+        "end": 4.32
+      },
+      {
+        "word": "internet",
+        "start": 4.32,
+        "end": 4.62
+      },
+      {
+        "word": "stays",
+        "start": 4.62,
+        "end": 4.98
+      },
+      {
+        "word": "secret.",
+        "start": 4.98,
+        "end": 5.28
+      }
+    ]
+  }
+]

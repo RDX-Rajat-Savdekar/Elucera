@@ -1,0 +1,40 @@
+{
+  "id": "20261102-remotion-915169",
+  "renderer": "remotion",
+  "topic": "two_sum_ii",
+  "role": "mechanism",
+  "narration": "Left is one, right is eleven. Twelve is too big, so right moves in. One plus seven is eight, too small, so left moves up. Two plus seven is nine. Found it.",
+  "description": "Two Sum II walkthrough on the sorted array [1, 2, 4, 5, 7, 11], target 9. Show the array with pointers l and r at both ends; each beat moves one pointer and marks the two compared cells, with a note showing the sum; dim ruled-out cells; at the end mark indices 1 and 4 as found and bracket them. Show target and sum as live variables below.",
+  "beats": [
+    {
+      "t": 0.2,
+      "word": "Left",
+      "action": "beat 1"
+    },
+    {
+      "t": 2.51,
+      "word": "Twelve",
+      "action": "beat 2"
+    },
+    {
+      "t": 5.58,
+      "word": "One",
+      "action": "beat 3"
+    },
+    {
+      "t": 9.82,
+      "word": "Two",
+      "action": "beat 4"
+    },
+    {
+      "t": 11.74,
+      "word": "Found",
+      "action": "beat 5"
+    }
+  ],
+  "duration": 13.04,
+  "attempts": 1,
+  "source": "two_sum_ii",
+  "created": "2026-11-02T23:18:04+00:00",
+  "starred": false
+}

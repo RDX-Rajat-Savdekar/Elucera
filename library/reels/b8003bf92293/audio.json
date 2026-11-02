@@ -1,0 +1,625 @@
+[
+  {
+    "index": 0,
+    "wav": "/Users/aditya/Projects/meta-hackathon-project/outputs/b8003bf92293/seg0.wav",
+    "duration": 2.86,
+    "words": [
+      {
+        "word": "A",
+        "start": 0.0,
+        "end": 0.3
+      },
+      {
+        "word": "million",
+        "start": 0.3,
+        "end": 0.66
+      },
+      {
+        "word": "reads",
+        "start": 0.66,
+        "end": 0.96
+      },
+      {
+        "word": "can",
+        "start": 0.96,
+        "end": 1.36
+      },
+      {
+        "word": "kill",
+        "start": 1.36,
+        "end": 1.74
+      },
+      {
+        "word": "one",
+        "start": 1.74,
+        "end": 2.1
+      },
+      {
+        "word": "database.",
+        "start": 2.1,
+        "end": 2.4
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "wav": "/Users/aditya/Projects/meta-hackathon-project/outputs/b8003bf92293/seg1.wav",
+    "duration": 8.3,
+    "words": [
+      {
+        "word": "Most",
+        "start": 0.46,
+        "end": 0.76
+      },
+      {
+        "word": "apps",
+        "start": 0.76,
+        "end": 1.04
+      },
+      {
+        "word": "read",
+        "start": 1.04,
+        "end": 1.38
+      },
+      {
+        "word": "way",
+        "start": 1.38,
+        "end": 1.68
+      },
+      {
+        "word": "more",
+        "start": 1.68,
+        "end": 1.98
+      },
+      {
+        "word": "than",
+        "start": 1.98,
+        "end": 2.16
+      },
+      {
+        "word": "they",
+        "start": 2.16,
+        "end": 2.28
+      },
+      {
+        "word": "write.",
+        "start": 2.28,
+        "end": 2.48
+      },
+      {
+        "word": "If",
+        "start": 3.2,
+        "end": 3.3
+      },
+      {
+        "word": "every",
+        "start": 3.3,
+        "end": 3.54
+      },
+      {
+        "word": "profile",
+        "start": 3.54,
+        "end": 3.98
+      },
+      {
+        "word": "view",
+        "start": 3.98,
+        "end": 4.3
+      },
+      {
+        "word": "hits",
+        "start": 4.3,
+        "end": 4.56
+      },
+      {
+        "word": "your",
+        "start": 4.56,
+        "end": 4.74
+      },
+      {
+        "word": "main",
+        "start": 4.74,
+        "end": 4.88
+      },
+      {
+        "word": "database,",
+        "start": 4.88,
+        "end": 5.18
+      },
+      {
+        "word": "it",
+        "start": 5.68,
+        "end": 5.78
+      },
+      {
+        "word": "melts.",
+        "start": 5.78,
+        "end": 6.04
+      },
+      {
+        "word": "So",
+        "start": 6.9,
+        "end": 6.92
+      },
+      {
+        "word": "you",
+        "start": 6.92,
+        "end": 7.02
+      },
+      {
+        "word": "stop",
+        "start": 7.02,
+        "end": 7.28
+      },
+      {
+        "word": "reading",
+        "start": 7.28,
+        "end": 7.58
+      },
+      {
+        "word": "from",
+        "start": 7.58,
+        "end": 7.9
+      },
+      {
+        "word": "it.",
+        "start": 7.9,
+        "end": 8.06
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "wav": "/Users/aditya/Projects/meta-hackathon-project/outputs/b8003bf92293/seg2.wav",
+    "duration": 27.84,
+    "words": [
+      {
+        "word": "Say",
+        "start": 0.24,
+        "end": 0.72
+      },
+      {
+        "word": "a",
+        "start": 0.72,
+        "end": 1.12
+      },
+      {
+        "word": "thousand",
+        "start": 1.12,
+        "end": 1.52
+      },
+      {
+        "word": "people",
+        "start": 1.52,
+        "end": 1.8
+      },
+      {
+        "word": "want",
+        "start": 1.8,
+        "end": 2.04
+      },
+      {
+        "word": "user",
+        "start": 2.04,
+        "end": 2.34
+      },
+      {
+        "word": "four",
+        "start": 2.34,
+        "end": 3.14
+      },
+      {
+        "word": "two.",
+        "start": 3.14,
+        "end": 3.94
+      },
+      {
+        "word": "First",
+        "start": 3.94,
+        "end": 3.94
+      },
+      {
+        "word": "request",
+        "start": 3.94,
+        "end": 4.26
+      },
+      {
+        "word": "checks",
+        "start": 4.26,
+        "end": 4.74
+      },
+      {
+        "word": "a",
+        "start": 4.74,
+        "end": 5.02
+      },
+      {
+        "word": "RED-iss",
+        "start": 5.02,
+        "end": 5.36
+      },
+      {
+        "word": "cache.",
+        "start": 5.36,
+        "end": 5.54
+      },
+      {
+        "word": "It's",
+        "start": 6.24,
+        "end": 6.36
+      },
+      {
+        "word": "empty,",
+        "start": 6.36,
+        "end": 6.62
+      },
+      {
+        "word": "so",
+        "start": 7.16,
+        "end": 7.32
+      },
+      {
+        "word": "it",
+        "start": 7.32,
+        "end": 7.44
+      },
+      {
+        "word": "reads",
+        "start": 7.44,
+        "end": 7.64
+      },
+      {
+        "word": "from",
+        "start": 7.64,
+        "end": 7.96
+      },
+      {
+        "word": "a",
+        "start": 7.96,
+        "end": 8.06
+      },
+      {
+        "word": "read",
+        "start": 8.06,
+        "end": 8.26
+      },
+      {
+        "word": "replica,",
+        "start": 8.26,
+        "end": 8.66
+      },
+      {
+        "word": "not",
+        "start": 9.04,
+        "end": 9.28
+      },
+      {
+        "word": "the",
+        "start": 9.28,
+        "end": 9.46
+      },
+      {
+        "word": "main",
+        "start": 9.46,
+        "end": 9.62
+      },
+      {
+        "word": "database.",
+        "start": 9.62,
+        "end": 9.88
+      },
+      {
+        "word": "Then",
+        "start": 10.76,
+        "end": 10.9
+      },
+      {
+        "word": "it",
+        "start": 10.9,
+        "end": 11.02
+      },
+      {
+        "word": "saves",
+        "start": 11.02,
+        "end": 11.28
+      },
+      {
+        "word": "that",
+        "start": 11.28,
+        "end": 11.54
+      },
+      {
+        "word": "profile",
+        "start": 11.54,
+        "end": 11.84
+      },
+      {
+        "word": "in",
+        "start": 11.84,
+        "end": 12.14
+      },
+      {
+        "word": "cache",
+        "start": 12.14,
+        "end": 12.32
+      },
+      {
+        "word": "for",
+        "start": 12.32,
+        "end": 12.66
+      },
+      {
+        "word": "sixty",
+        "start": 12.66,
+        "end": 13.0
+      },
+      {
+        "word": "seconds.",
+        "start": 13.0,
+        "end": 13.46
+      },
+      {
+        "word": "The",
+        "start": 14.2,
+        "end": 14.28
+      },
+      {
+        "word": "next",
+        "start": 14.28,
+        "end": 14.46
+      },
+      {
+        "word": "nine",
+        "start": 14.46,
+        "end": 14.68
+      },
+      {
+        "word": "hundred",
+        "start": 14.68,
+        "end": 14.9
+      },
+      {
+        "word": "ninety",
+        "start": 14.9,
+        "end": 15.12
+      },
+      {
+        "word": "nine",
+        "start": 15.12,
+        "end": 15.34
+      },
+      {
+        "word": "requests",
+        "start": 15.34,
+        "end": 15.96
+      },
+      {
+        "word": "hit",
+        "start": 15.96,
+        "end": 16.42
+      },
+      {
+        "word": "that",
+        "start": 16.42,
+        "end": 16.58
+      },
+      {
+        "word": "cache",
+        "start": 16.58,
+        "end": 16.84
+      },
+      {
+        "word": "and",
+        "start": 16.84,
+        "end": 17.22
+      },
+      {
+        "word": "never",
+        "start": 17.22,
+        "end": 17.46
+      },
+      {
+        "word": "touch",
+        "start": 17.46,
+        "end": 17.8
+      },
+      {
+        "word": "any",
+        "start": 17.8,
+        "end": 18.12
+      },
+      {
+        "word": "database.",
+        "start": 18.12,
+        "end": 18.48
+      },
+      {
+        "word": "When",
+        "start": 19.48,
+        "end": 19.56
+      },
+      {
+        "word": "someone",
+        "start": 19.56,
+        "end": 19.8
+      },
+      {
+        "word": "updates",
+        "start": 19.8,
+        "end": 20.18
+      },
+      {
+        "word": "the",
+        "start": 20.18,
+        "end": 20.44
+      },
+      {
+        "word": "profile,",
+        "start": 20.44,
+        "end": 20.7
+      },
+      {
+        "word": "you",
+        "start": 21.1,
+        "end": 21.14
+      },
+      {
+        "word": "delete",
+        "start": 21.14,
+        "end": 21.36
+      },
+      {
+        "word": "that",
+        "start": 21.36,
+        "end": 21.7
+      },
+      {
+        "word": "cache",
+        "start": 21.7,
+        "end": 21.92
+      },
+      {
+        "word": "key.",
+        "start": 21.92,
+        "end": 22.24
+      },
+      {
+        "word": "Next",
+        "start": 22.78,
+        "end": 22.92
+      },
+      {
+        "word": "read",
+        "start": 22.92,
+        "end": 23.16
+      },
+      {
+        "word": "reloads",
+        "start": 23.74,
+        "end": 23.9
+      },
+      {
+        "word": "it",
+        "start": 23.9,
+        "end": 23.98
+      },
+      {
+        "word": "fresh.",
+        "start": 23.98,
+        "end": 24.16
+      },
+      {
+        "word": "Reads",
+        "start": 24.16,
+        "end": 25.26
+      },
+      {
+        "word": "scale",
+        "start": 25.26,
+        "end": 25.5
+      },
+      {
+        "word": "out.",
+        "start": 25.5,
+        "end": 25.92
+      },
+      {
+        "word": "Writes",
+        "start": 26.36,
+        "end": 26.56
+      },
+      {
+        "word": "stay",
+        "start": 27.08,
+        "end": 27.14
+      },
+      {
+        "word": "safe.",
+        "start": 27.14,
+        "end": 27.4
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "wav": "/Users/aditya/Projects/meta-hackathon-project/outputs/b8003bf92293/seg3.wav",
+    "duration": 5.611,
+    "words": [
+      {
+        "word": "That's",
+        "start": 0.44,
+        "end": 0.6
+      },
+      {
+        "word": "the",
+        "start": 0.6,
+        "end": 0.68
+      },
+      {
+        "word": "trick.",
+        "start": 0.68,
+        "end": 0.84
+      },
+      {
+        "word": "Your",
+        "start": 1.56,
+        "end": 1.6
+      },
+      {
+        "word": "main",
+        "start": 1.6,
+        "end": 1.74
+      },
+      {
+        "word": "database",
+        "start": 1.74,
+        "end": 2.04
+      },
+      {
+        "word": "does",
+        "start": 2.04,
+        "end": 2.4
+      },
+      {
+        "word": "almost",
+        "start": 2.4,
+        "end": 2.68
+      },
+      {
+        "word": "no",
+        "start": 2.68,
+        "end": 3.02
+      },
+      {
+        "word": "work,",
+        "start": 3.02,
+        "end": 3.26
+      },
+      {
+        "word": "but",
+        "start": 3.56,
+        "end": 3.68
+      },
+      {
+        "word": "everyone",
+        "start": 3.68,
+        "end": 4.02
+      },
+      {
+        "word": "feels",
+        "start": 4.02,
+        "end": 4.4
+      },
+      {
+        "word": "instant",
+        "start": 4.4,
+        "end": 4.8
+      },
+      {
+        "word": "loads.",
+        "start": 4.8,
+        "end": 5.22
+      }
+    ]
+  }
+]

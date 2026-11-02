@@ -1,0 +1,144 @@
+[
+  {
+    "index": 0,
+    "renderer": "remotion",
+    "duration": 3.2,
+    "description": "Vertical 1080x1920 flat 2D scene on dark navy background. Frame 0 shows huge open padlock centered at (540,850) in accent cyan body with accent3 yellow open shackle angled up, plus bold fg white kinetic text 'Anyone can lock it.' at (540,380) in safe zone below top 10%. Gold key icon (accent3 yellow) hidden behind padlock. Silver key icons (muted grey) off-screen. Action: padlock pops in with scale bounce, shackle slams shut, then duplicates into flying silver keys while gold key remains center. All important content stays between y 200-1400, clear of captions.",
+    "beats": [
+      {
+        "t": 0.0,
+        "word": "Anyone",
+        "action": "Large open padlock scales from 0 to full in center and headline 'Anyone can lock it.' slams in word by word"
+      },
+      {
+        "t": 0.82,
+        "word": "lock",
+        "action": "Open shackle rotates down and snaps shut with flash, padlock body turns accent cyan and shakes"
+      },
+      {
+        "t": 1.78,
+        "word": "Only",
+        "action": "Padlock duplicates puff; dozens of small muted grey silver keys explode outward from center to edges while one large accent3 yellow gold key stays locked beside padlock"
+      },
+      {
+        "t": 2.44,
+        "word": "open",
+        "action": "Gold key spins, glows accent3 yellow and lifts toward padlock keyhole, headline swaps to 'Only you can open it.'"
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "renderer": "remotion",
+    "duration": 7.83,
+    "description": "Same flat 2D vertical style, dark background. Upper-mid (540,500) minimal fg white laptop labeled SENDER, lower-mid (540,1150) laptop labeled RECEIVER, connected by vertical exposed dashed accent cyan wire down center (540,800). Three muted grey eye icons snooping along wire sides. Single accent3 yellow key icon with red glow travels along wire. Large fg white question text appears late at (540,380). All focal in middle 15%-70%, no key content in top 10% or bottom 25%.",
+    "beats": [
+      {
+        "t": 0.24,
+        "word": "You",
+        "action": "Sender laptop top and Receiver laptop bottom slide in, vertical dashed wire draws connecting them"
+      },
+      {
+        "t": 1.78,
+        "word": "open",
+        "action": "Three eye icons fade in along wire and blink, wire pulses to show exposed internet"
+      },
+      {
+        "t": 3.26,
+        "word": "share",
+        "action": "Single accent3 yellow secret key appears above sender and starts sliding down the wire"
+      },
+      {
+        "t": 4.3,
+        "word": "spies",
+        "action": "Middle eye turns accent2 magenta, grows, grabs key mid-wire and key flashes red with warning shake"
+      },
+      {
+        "t": 5.74,
+        "word": "how",
+        "action": "Red key breaks, question text 'how do strangers send secrets?' types on in upper-mid"
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "renderer": "remotion",
+    "duration": 22.99,
+    "description": "Same flat 2D vertical style continuing Bob (accent cyan circle avatar right) and Alice (accent2 magenta circle avatar left). Center stage (540,850) holds linked keys, public board, and box. Props: large accent3 yellow gold private key + large muted grey silver padlock linked by glowing chain, public bulletin board with rows of small silver locks, cardboard box with fg white '42' number card, horizontal internet wire with thief eye icons. Camera stays fixed, focus shifts sequentially to keep one focal element center. All action between y 300-1300.",
+    "beats": [
+      {
+        "t": 0.41,
+        "word": "Bob",
+        "action": "Bob avatar slides in center with large gold key and silver padlock linked by glowing chain, chain wiggles"
+      },
+      {
+        "t": 4.63,
+        "word": "posts",
+        "action": "Silver padlock duplicates into 6 small silver locks that fly up to bulletin board titled EVERYONE at top-mid"
+      },
+      {
+        "t": 6.37,
+        "word": "Alice",
+        "action": "Alice avatar slides in left-mid holding large fg white card '42' above open cardboard box center"
+      },
+      {
+        "t": 9.67,
+        "word": "snaps",
+        "action": "Card drops into box, box lid closes, one silver Bob lock flies onto box front and shackle snaps shut"
+      },
+      {
+        "t": 12.03,
+        "word": "can't",
+        "action": "Alice tugs lock, lock shakes no and turns muted grey, red X pops to show even she cannot reopen"
+      },
+      {
+        "t": 13.99,
+        "word": "travels",
+        "action": "Locked box slides right along horizontal dotted wire across screen past scrolling internet dots"
+      },
+      {
+        "t": 15.89,
+        "word": "Thieves",
+        "action": "Two thief eye icons lunge at box, lock picks snap and bounce off, lock stays shut with spark"
+      },
+      {
+        "t": 18.09,
+        "word": "Bob's",
+        "action": "Box arrives at Bob right-mid, Bob holds up large glowing gold private key to lock"
+      },
+      {
+        "t": 19.93,
+        "word": "turns",
+        "action": "Gold key inserts and turns, lock pops open, lid springs and '42' card jumps out glowing"
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "renderer": "remotion",
+    "duration": 5.631,
+    "description": "Same flat 2D vertical style, payoff. Center (540,800) large fg white wireframe globe with accent cyan continents rotating slowly. Around it 8 small locked boxes with silver locks orbit inward. Below globe at (540,1200) secure server tower in accent cyan with glowing accent3 yellow gold private key floating beside it. Background dark with faint dotted flows. All boxes open in sync at end with fg white 'secret' sparkles. Nothing in top 10% or bottom 25% caption zones.",
+    "beats": [
+      {
+        "t": 0.0,
+        "word": "That's",
+        "action": "Camera zooms out, globe scales up center with orbiting locked boxes appearing around it"
+      },
+      {
+        "t": 1.42,
+        "word": "Everyone",
+        "action": "Dozens of tiny silver locks rain from edges onto boxes, text 'Everyone can lock' pops upper-mid"
+      },
+      {
+        "t": 2.18,
+        "word": "only",
+        "action": "Flow lines redirect all boxes toward single server below, gold private key glows bright accent3 yellow beside server"
+      },
+      {
+        "t": 3.7,
+        "word": "That's",
+        "action": "All boxes fly into server and pop open at once releasing glow, text swaps to 'whole internet stays secret'"
+      }
+    ]
+  }
+]

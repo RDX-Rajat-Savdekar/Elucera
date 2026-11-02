@@ -3,9 +3,9 @@
 import pytest
 from google.genai import errors
 
-from reelgen.audio import keys as keymod
-from reelgen.audio import tts
-from reelgen.audio.keys import KeyPool
+from elucera.audio import keys as keymod
+from elucera.audio import tts
+from elucera.audio.keys import KeyPool
 
 
 def api_error(code: int, msg: str) -> errors.APIError:

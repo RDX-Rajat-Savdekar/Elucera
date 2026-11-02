@@ -1,0 +1,65 @@
+{
+  "id": "20261102-three-1bb01e",
+  "renderer": "three",
+  "topic": "System design for Read heavy workloads",
+  "role": "mechanism",
+  "narration": "Say a thousand people want user four two. First request checks a RED-iss cache. It's empty, so it reads from a read replica, not the main database. Then it saves that profile in cache for sixty seconds. The next nine hundred ninety nine requests hit that cache and never touch any database. When someone updates the profile, you delete that cache key. Next read reloads it fresh. Reads scale out. Writes stay safe.",
+  "description": "Vertical 1080x1920 remotion 2D top-down network diagram on black background, all action in 15-72% height. Top row: cloud of small fg white user dots at 20% height labeled '1000 users want user 42'. Middle: large rounded cache box at 40% height labeled REDIS CACHE in accent cyan, initially empty outline in muted grey. Lower: two cylinders side-by-side at 62% height - left read replica cylinder in accent cyan labeled READ REPLICA, right main database cylinder in muted grey labeled MAIN DB crossed out. Green good bounce-offs, accent3 yellow timer, single accent2 magenta update arrow.\n\nViewer feedback for this new version (follow it): Make sure there are no overlapping components",
+  "beats": [
+    {
+      "t": 2.04,
+      "word": "user",
+      "action": "profile card 'user 42' in fg white pops center-top surrounded by swarm of fg white user dots"
+    },
+    {
+      "t": 3.94,
+      "word": "First",
+      "action": "one highlighted dot travels down from swarm to REDIS cache box, cache box glows accent cyan"
+    },
+    {
+      "t": 5.02,
+      "word": "RED-iss",
+      "action": "cache box label REDIS CACHE zooms large in accent cyan, box shakes empty"
+    },
+    {
+      "t": 6.36,
+      "word": "empty,",
+      "action": "cache shows EMPTY in muted grey with red MISS badge, dot bounces off"
+    },
+    {
+      "t": 8.06,
+      "word": "read",
+      "action": "miss line drops down to read replica cylinder which lights accent cyan, main DB stays dim muted grey with X, profile packet travels up"
+    },
+    {
+      "t": 11.02,
+      "word": "saves",
+      "action": "profile card slides into cache box, box fills solid good green with FULL label and 60s timer in accent3 yellow starts counting"
+    },
+    {
+      "t": 15.96,
+      "word": "hit",
+      "action": "swarm of hundreds of fg white dots flood in and bounce off green cache with good green HIT flashes, replica line goes quiet"
+    },
+    {
+      "t": 21.14,
+      "word": "delete",
+      "action": "accent2 magenta update arrow strikes cache, one key block explodes and wipes to empty muted grey with DELETED puff"
+    },
+    {
+      "t": 23.74,
+      "word": "reloads",
+      "action": "next dot drops through cache to replica again and refills cache to good green FRESH"
+    },
+    {
+      "t": 25.26,
+      "word": "scale",
+      "action": "cache duplicates into three green boxes fanning out labeled SCALE OUT, writes icon locks safe in accent3 yellow"
+    }
+  ],
+  "duration": 27.84,
+  "attempts": 1,
+  "source": "b8003bf92293",
+  "created": "2026-11-02T20:57:43+00:00",
+  "starred": false
+}

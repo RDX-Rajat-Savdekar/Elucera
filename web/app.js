@@ -1,4 +1,4 @@
-// reelgen web UI: a home page of samples from the library, and a studio where each request streams
+// Elucera web UI: a home page of samples from the library, and a studio where each request streams
 // structured events (stages, script, voice, per-scene attempts and errors) from /jobs/{id}/events.
 
 const SUGGESTIONS = [
@@ -14,11 +14,13 @@ const SUGGESTIONS = [
   "Why is the sky blue?",
 ];
 
-const ENGINES = [
-  { key: "manim", name: "Manim", blurb: "Math-grade animation for algorithms, graphs, equations and proofs." },
-  { key: "remotion", name: "Motion graphics", blurb: "Kinetic type, diagrams, code walkthroughs, UI mockups and charts." },
-  { key: "three", name: "3D", blurb: "Molecules, orbits, hardware and anything that needs depth — rendered in Three.js." },
-];
+// One-time migration of browser state saved under the product's old name (chats, theme, background pref).
+try {
+  for (const k of ["uid", "thread", "chat.v2", "theme", "bg3d"]) {
+    const old = localStorage.getItem(`reel${"gen"}.${k}`);
+    if (old !== null && localStorage.getItem(`elucera.${k}`) === null) localStorage.setItem(`elucera.${k}`, old);
+  }
+} catch { /* storage unavailable */ }
 const RENDERER = { manim: "Manim", remotion: "2D motion", three: "3D" };
 const STAGES = [
   ["script", "Script"],
@@ -28,7 +30,7 @@ const STAGES = [
   ["render", "Animate"],
   ["assemble", "Assemble"],
 ];
-const STORE_KEY = "reelgen.chat.v2";
+const STORE_KEY = "elucera.chat.v2";
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -37,14 +39,80 @@ const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : "");
 const fmt = (sec) => `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2, "0")}`;
 const ARROW = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
 
-async function getJSON(url, opts) {
-  const res = await fetch(url, opts);
+// Anonymous per-browser id: the server files chats under it, so history survives reloads without a login.
+const UID = (() => {
+  const make = () => (crypto.randomUUID ? crypto.randomUUID().replace(/-/g, "") : Math.random().toString(36).slice(2) + Date.now().toString(36)).slice(0, 24);
+  try {
+    let u = localStorage.getItem("elucera.uid");
+    if (!u) { u = make(); localStorage.setItem("elucera.uid", u); }
+    return u;
+  } catch { return make(); }
+})();
+
+async function getJSON(url, opts = {}) {
+  const res = await fetch(url, { ...opts, headers: { ...(opts.headers || {}), "X-Elucera-User": UID } });
   if (!res.ok) {
     let detail = res.statusText;
     try { detail = (await res.json()).detail || detail; } catch {}
     throw Object.assign(new Error(detail), { status: res.status });
   }
-  return res.json();
+  return res.status === 204 ? null : res.json();
+}
+const postJSON = (url, body = {}) => getJSON(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+
+// ---------- theme: system → light → dark ----------
+const THEMES = ["system", "light", "dark"];
+const THEME_ICON = {
+  system: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>`,
+  light: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>`,
+  dark: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>`,
+};
+let theme = (() => { try { return localStorage.getItem("elucera.theme") || "system"; } catch { return "system"; } })();
+function applyTheme(t) {
+  theme = THEMES.includes(t) ? t : "system";
+  if (theme === "system") delete document.documentElement.dataset.theme;
+  else document.documentElement.dataset.theme = theme;
+  try { localStorage.setItem("elucera.theme", theme); } catch {}
+  for (const b of document.querySelectorAll("[data-theme-toggle]")) {
+    b.innerHTML = THEME_ICON[theme];
+    b.title = `Theme: ${theme} (click to switch)`;
+    b.setAttribute("aria-label", b.title);
+  }
+}
+applyTheme(theme);
+document.addEventListener("click", (e) => {
+  if (e.target.closest("[data-theme-toggle]")) applyTheme(THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length]);
+});
+
+// Word-level diff (LCS) for showing exactly how a scene prompt changed.
+function wordDiff(a, b) {
+  const x = String(a || "").split(/(\s+)/), y = String(b || "").split(/(\s+)/);
+  if (x.length * y.length > 400000) return `<del>${esc(a)}</del>\n<ins>${esc(b)}</ins>`;
+  const m = x.length, n = y.length, L = Array.from({ length: m + 1 }, () => new Uint16Array(n + 1));
+  for (let i = m - 1; i >= 0; i--) for (let j = n - 1; j >= 0; j--) L[i][j] = x[i] === y[j] ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+  let i = 0, j = 0, out = "";
+  while (i < m && j < n) {
+    if (x[i] === y[j]) { out += esc(x[i]); i++; j++; }
+    else if (L[i + 1][j] >= L[i][j + 1]) out += `<del>${esc(x[i++])}</del>`;
+    else out += `<ins>${esc(y[j++])}</ins>`;
+  }
+  while (i < m) out += `<del>${esc(x[i++])}</del>`;
+  while (j < n) out += `<ins>${esc(y[j++])}</ins>`;
+  return out.replace(/<\/del><del>/g, "").replace(/<\/ins><ins>/g, "");
+}
+const STAGE_LABEL = { script: "Script", voice: "Voice", align: "Word sync", plan: "Direct", render: "Animate", assemble: "Assemble" };
+
+// ---------- guided flow bar: which of the 5 steps you're on, and what happens now ----------
+function updateFlow() {
+  const last = [...views.values()].pop();
+  const f = last?.flow?.() || { step: 1, hint: "<b>Describe</b> what you want explained. You'll get a storyboard to review before anything is recorded or animated." };
+  for (const li of document.querySelectorAll("#flow li")) {
+    const n = +li.dataset.step;
+    li.className = n < f.step ? "done" : n === f.step ? (f.warn ? "now warn" : "now") : "";
+    if (n === f.step) li.setAttribute("aria-current", "step"); else li.removeAttribute("aria-current");
+  }
+  const h = document.getElementById("flowHint");
+  if (h) h.innerHTML = f.hint;
 }
 
 function loadChat() { try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch { return []; } }
@@ -74,10 +142,13 @@ function route() {
   const h = location.hash || "#/";
   const job = h.match(/^#\/job\/([a-z0-9]+)/i);
   const studio = h.startsWith("#/create") || !!job;
-  $("#home").hidden = studio;
+  const analytics = h.startsWith("#/analytics");
+  $("#home").hidden = studio || analytics;
   $("#studio").hidden = !studio;
-  document.title = studio ? "Studio — reelgen" : "reelgen — any question, a 60-second reel";
+  $("#analytics").hidden = !analytics;
+  document.title = studio ? "Studio · Elucera" : analytics ? "Analytics · Elucera" : "Elucera: understand anything in 60 seconds";
   if (studio) openStudio(job?.[1]);
+  else if (analytics) { loadAnalytics(); window.scrollTo(0, 0); }
   else { loadHome(); window.scrollTo(0, 0); }
 }
 addEventListener("hashchange", route);
@@ -110,74 +181,54 @@ let reels = [];
 async function loadHome() {
   if (homeLoaded) return;
   homeLoaded = true;
-  const chips = [...SUGGESTIONS, ...SUGGESTIONS].map((s) => `<button class="chip" type="button">${esc(s)}</button>`).join("");
-  $("#marquee").innerHTML = chips;
-  $("#marquee").onclick = (e) => { const c = e.target.closest(".chip"); if (c) goCreate(c.textContent); };
+  const [reelsRes, kitsRes] = await Promise.allSettled([getJSON("/library/reels"), getJSON("/library/showcase")]);
+  reels = reelsRes.status === "fulfilled" ? reelsRes.value : [];
+  const kits = kitsRes.status === "fulfilled" ? kitsRes.value : [];
 
-  try { reels = await getJSON("/library/reels"); } catch { reels = []; }
-  let scenes = [];
-  try { scenes = await getJSON("/library/scenes"); } catch {}
-
-  // hero phones
+  // hero: three phones from the best reels
   const playable = reels.filter((r) => r.has_video).slice(0, 3);
   const order = playable.length === 3 ? [playable[1], playable[0], playable[2]] : playable;
   $("#heroPhones").innerHTML = order.map((r) => `
     <div class="phone">
       <video data-auto data-src="/library/reels/${encodeURIComponent(r.name)}/video" muted loop playsinline preload="none"></video>
-      <div class="label">${esc(r.title)}</div>
-    </div>`).join("") || `<div class="phone"><div style="display:grid;place-items:center;height:100%;color:var(--muted);padding:20px;text-align:center">Your first reel will appear here.</div></div>`;
+    </div>`).join("") || `<div class="phone"><div class="phone-empty">Your first reel will appear here.</div></div>`;
 
-  // samples grid
-  $("#reelsGrid").innerHTML = reels.map((r, i) => `
-    <button class="reel-card" type="button" data-reel="${i}" aria-label="Watch: ${esc(r.title)}">
-      ${r.has_video
-        ? `<video data-auto data-src="/library/reels/${encodeURIComponent(r.name)}/video#t=0.5" muted loop playsinline preload="none"></video>`
-        : `<img src="/library/reels/${encodeURIComponent(r.name)}/strip" alt="" loading="lazy" />`}
+  // gallery: reels only, clean cards
+  $("#reelsGrid").innerHTML = reels.filter((r) => r.has_video).map((r, i) => `
+    <button class="reel-card" type="button" data-reel="${reels.indexOf(r)}" aria-label="Watch: ${esc(r.title)}">
+      <video data-auto data-src="/library/reels/${encodeURIComponent(r.name)}/video#t=0.5" muted loop playsinline preload="none"></video>
       <div class="shade"></div>
-      <span class="play" aria-hidden="true"></span>
       ${r.duration ? `<span class="dur">${fmt(r.duration)}</span>` : ""}
       <div class="meta">
-        <div class="tags">${r.renderers.map((x) => `<span class="tag" data-r="${esc(x)}">${esc(RENDERER[x] || x)}</span>`).join("")}</div>
         <strong>${esc(r.title)}</strong>
-        <span class="hook">“${esc(r.hook)}”</span>
+        <span class="tags">${r.renderers.map((x) => esc(RENDERER[x] || x)).join(" · ")}</span>
       </div>
-    </button>`).join("") + `
-    <a class="reel-card make" href="#/create"><div><span class="plus">+</span><strong>Your idea here</strong><span>Ask anything — get a reel like these in minutes.</span></div></a>`;
+    </button>`).join("");
   $("#reelsGrid").onclick = (e) => {
     const card = e.target.closest("[data-reel]");
     if (card) openPlayer(reels[+card.dataset.reel]);
   };
 
-  // engines
-  $("#engineGrid").innerHTML = ENGINES.map((eng) => {
-    const clips = scenes.filter((s) => s.renderer === eng.key && s.has_clip)
-      .sort((a, b) => (b.starred - a.starred)).slice(0, 2);
-    const cells = clips.map((s) => `<video data-auto data-src="/library/scenes/${encodeURIComponent(s.id)}/clip" muted loop playsinline preload="none" title="${esc(s.topic)} — ${esc(s.role)}"></video>`);
-    while (cells.length < 2) cells.push(`<div class="empty-clip">More ${esc(eng.name)} scenes appear as you make reels</div>`);
-    const n = scenes.filter((s) => s.renderer === eng.key).length;
-    return `
-      <article class="engine">
-        <div class="clips">${cells.join("")}</div>
-        <div class="body">
-          <span class="tag" data-r="${eng.key}">${n} scene${n === 1 ? "" : "s"} in library</span>
-          <h3>${esc(eng.name)}</h3>
-          <p>${esc(eng.blurb)}</p>
-        </div>
-      </article>`;
-  }).join("");
-
-  // "you're in control" demo: two real scene clips
-  const demo = scenes.filter((s) => s.has_clip).slice(-2);
-  $("#controlDemo").innerHTML = demo.map((s, i) => `
-    <div class="reel-card" style="cursor:default">
-      <video data-auto data-src="/library/scenes/${encodeURIComponent(s.id)}/clip" muted loop playsinline preload="none"></video>
-      <div class="shade"></div>
-      <div class="meta">
-        <div class="tags"><span class="tag" data-r="${s.renderer}">${esc(RENDERER[s.renderer])}</span><span class="tag" style="color:var(--good)">✓ rendered</span></div>
-        <strong>${esc(cap(s.role) || `Scene ${i + 1}`)}</strong>
-        <span class="hook">${esc(s.topic)}</span>
+  // component kits: the two showreels
+  $("#kitGrid").innerHTML = kits.filter((k) => k.has_video).map((k) => `
+    <article class="kit">
+      <button class="kit-video" type="button" data-kit="${esc(k.id)}" aria-label="Watch: ${esc(k.title)}">
+        <video data-auto data-src="/library/showcase/${encodeURIComponent(k.id)}/video" poster="/library/showcase/${encodeURIComponent(k.id)}/poster" muted loop playsinline preload="none"></video>
+        <span class="play" aria-hidden="true"></span>
+      </button>
+      <div class="kit-body">
+        <span class="kit-engine">${esc(k.engine === "manim" ? "Manim" : "Remotion · 2D & 3D")}</span>
+        <h3>${esc(k.title)}</h3>
+        <p>${esc(k.summary)}</p>
+        <span class="kit-count">${k.components} components</span>
       </div>
-    </div>`).join("");
+    </article>`).join("") || `<p class="muted">Showreels appear here once they're rendered.</p>`;
+  $("#kitGrid").onclick = (e) => {
+    const b = e.target.closest("[data-kit]");
+    if (!b) return;
+    const k = kits.find((x) => x.id === b.dataset.kit);
+    if (k) openPlayer({ title: k.title, has_video: true, src: `/library/showcase/${encodeURIComponent(k.id)}/video`, kit: true });
+  };
 
   watch($("#home"));
 }
@@ -186,8 +237,9 @@ function openPlayer(r) {
   if (!r) return;
   if (!r.has_video) { goCreate(r.topic); return; }
   const dlg = $("#player");
-  $("#playerVideo").src = `/library/reels/${encodeURIComponent(r.name)}/video`;
+  $("#playerVideo").src = r.src || `/library/reels/${encodeURIComponent(r.name)}/video`;
   $("#playerTitle").textContent = r.title;
+  $("#playerMake").hidden = !!r.kit;
   $("#playerMake").onclick = () => { dlg.close(); goCreate(r.topic); };
   dlg.showModal();
   $("#playerVideo").play().catch(() => {});
@@ -274,10 +326,7 @@ function openStudio(jobId) {
     studioReady = true;
     $("#studioChips").innerHTML = SUGGESTIONS.slice(0, 6).map((s) => `<button class="chip" type="button">${esc(s)}</button>`).join("");
     $("#studioChips").onclick = (e) => { const c = e.target.closest(".chip"); if (c) { input.value = c.textContent; autosize(); updateSend(); input.focus(); } };
-    for (const item of chat) {
-      if (item.pitchId) mountPitch(item.pitchId, item.topic, item.renderer);
-      else mountJob(item.jobId, item.topic, item.renderer);
-    }
+    hydrate();
   }
   if (jobId && !views.has(jobId)) {
     getJSON(`/jobs/${jobId}`).then((job) => {
@@ -293,7 +342,49 @@ function openStudio(jobId) {
   if (!pendingPrefill) input.focus();
 }
 
-function scrollDown() { requestAnimationFrame(() => (threadWrap.scrollTop = threadWrap.scrollHeight)); }
+// Server is the source of truth for the current chat; the localStorage copy is only an offline fallback.
+const chatKey = (c) => (c.pitchId ? `p:${c.pitchId}` : `j:${c.jobId}`);
+const toChatItem = (i) => (i.kind === "pitch" ? { pitchId: i.id, topic: i.topic, renderer: i.renderer || undefined }
+                                               : { jobId: i.id, topic: i.topic, renderer: i.renderer || undefined });
+function storedThread() { try { return localStorage.getItem("elucera.thread"); } catch { return null; } }
+function mountItem(item) {
+  if (item.pitchId) mountPitch(item.pitchId, item.topic, item.renderer);
+  else mountJob(item.jobId, item.topic, item.renderer);
+}
+async function hydrate() {
+  const tid = storedThread();
+  if (tid) {
+    try {
+      // Only fetch threads the server knows for this browser (a brand-new chat isn't saved until its first pitch).
+      const mine = await getJSON("/chats");
+      if (!mine.some((x) => x.id === tid)) throw new Error("new chat");
+      const t = await getJSON(`/chats/${encodeURIComponent(tid)}`);
+      const items = t.items.map(toChatItem);
+      const known = new Set(items.map(chatKey));
+      for (const c of chat) if (!known.has(chatKey(c)) && c.jobId) items.push(c); // e.g. a shared #/job link
+      chat = items;
+      saveChat();
+    } catch { /* offline or new chat: fall back to the local copy */ }
+  }
+  for (const item of chat) mountItem(item);
+  updateFlow();
+}
+
+// Autoscroll: follow new activity while the reader is at the bottom; stop following once they scroll up.
+let pinned = true;
+const latestBtn = document.createElement("button");
+latestBtn.type = "button"; latestBtn.className = "latest"; latestBtn.hidden = true; latestBtn.textContent = "↓ Latest";
+latestBtn.onclick = () => { pinned = true; latestBtn.hidden = true; threadWrap.scrollTo({ top: threadWrap.scrollHeight, behavior: "smooth" }); };
+threadWrap.append(latestBtn);
+threadWrap.addEventListener("scroll", () => {
+  pinned = threadWrap.scrollHeight - threadWrap.scrollTop - threadWrap.clientHeight < 140;
+  if (pinned) latestBtn.hidden = true;
+}, { passive: true });
+function follow() {
+  if (pinned) requestAnimationFrame(() => { threadWrap.scrollTop = threadWrap.scrollHeight; });
+  else latestBtn.hidden = false;
+}
+function scrollDown() { pinned = true; follow(); }
 
 function addUser(text, renderer) {
   $("#studioEmpty")?.remove();
@@ -345,16 +436,16 @@ input.addEventListener("keydown", (e) => {
 });
 function getThreadId() {
   let tid = null;
-  try { tid = localStorage.getItem("reelgen.thread"); } catch { tid = null; }
+  try { tid = localStorage.getItem("elucera.thread"); } catch { tid = null; }
   if (!tid) {
     tid = Math.random().toString(36).slice(2, 10);
-    try { localStorage.setItem("reelgen.thread", tid); } catch { /* private mode */ }
+    try { localStorage.setItem("elucera.thread", tid); } catch { /* private mode */ }
   }
   return tid;
 }
 function resetThread() {
   const tid = Math.random().toString(36).slice(2, 10);
-  try { localStorage.setItem("reelgen.thread", tid); } catch { /* private mode */ }
+  try { localStorage.setItem("elucera.thread", tid); } catch { /* private mode */ }
   return tid;
 }
 
@@ -363,10 +454,11 @@ $("#newChat").onclick = () => {
   views.clear();
   chat = []; saveChat();
   resetThread();
-  thread.innerHTML = `<section class="studio-empty" id="studioEmpty"><h2>What should we explain?</h2><p>Describe the idea you want to understand. You'll see every step as it happens.</p><div class="chips" id="studioChips"></div></section>`;
+  thread.innerHTML = `<section class="studio-empty" id="studioEmpty"><h2>What should we explain?</h2><p>Type a question or concept. You'll get a <b>storyboard</b> first: the words the narrator will say and what's on screen in each scene. Nothing is recorded or animated until you approve it.</p><div class="chips" id="studioChips"></div></section>`;
   studioReady = false;
   history.replaceState(null, "", "#/create");
   openStudio();
+  updateFlow();
 };
 
 // ---------------------------------------------------------------------
@@ -380,7 +472,8 @@ class JobView {
     this.demo = !!opts.demo;
     this.urls = opts.urls || null;
     this.demoTimers = [];
-    this.s = { stages: {}, scenes: {}, plan: null, script: null, voice: null, done: null, failed: null, t0: null, t1: null, lastSeq: -1, running: true };
+    this.s = { stages: {}, scenes: {}, plan: null, script: null, voice: null, done: null, failed: null, t0: null, t1: null, lastSeq: -1, running: true,
+               dirty: new Set(), history: {}, autoRetry: null, rebaking: false, redoing: null };
     el.innerHTML = `
       <div class="bubble">
         <div class="job-head"><span class="live">Live</span><strong>Making your reel</strong><span class="elapsed"></span></div>
@@ -389,6 +482,7 @@ class JobView {
         <div class="slot-script"></div>
         <div class="slot-voice"></div>
         <div class="scenes"></div>
+        <div class="slot-rebake"></div>
         <div class="slot-final"></div>
       </div>`;
     this.feed = $(".feed", el);
@@ -397,6 +491,7 @@ class JobView {
   }
 
   sceneClipURL(i, v) { return this.urls ? this.urls.scene(i) : `/jobs/${this.id}/scenes/${i}/clip?v=${v}`; }
+  versionClipURL(i, n) { return this.urls ? this.urls.scene(i) : `/jobs/${this.id}/scenes/${i}/clip?version=${n}`; }
   finalURL(seq) { return this.urls ? this.urls.final : `/jobs/${this.id}/video?v=${seq}#t=0.8`; }
   finalDownloadURL() { return this.urls ? this.urls.final : `/jobs/${this.id}/video`; }
 
@@ -413,9 +508,21 @@ class JobView {
       this.s.lastSeq = ev.seq;
       this.apply(ev);
     };
-    es.addEventListener("end", () => {
+    es.addEventListener("end", (m) => {
       es.close();
+      let status = "";
+      try { status = JSON.parse(m.data).status; } catch {}
+      // Jobs from before the event log have nothing to replay: trust the server's final status.
+      if (status === "done" && !this.s.done) {
+        this.s.done = { seq: -1, t: Date.now() / 1000, duration: "" };
+        for (const [k] of STAGES) this.s.stages[k] = "done";
+        getJSON(`/jobs/${this.id}/details`).then((d) => { if (d.script && !this.s.script) { this.s.script = d.script; this.render(); } }).catch(() => {});
+      } else if (status === "failed" && !this.s.failed) {
+        this.s.failed = { seq: -1, t: Date.now() / 1000, error: "This run stopped. Its log isn't available.", stage: "", resumable: true };
+      }
       this.s.running = false;
+      this.s.redoing = null;
+      if (!this.s.failed) for (const [k] of STAGES) if (this.s.stages[k] === "active") this.s.stages[k] = "done";
       activeJobs.delete(this.id);
       signal(this.s.failed ? "error" : "done");
       this.render();
@@ -459,16 +566,53 @@ class JobView {
         break;
       case "script":
         s.script = ev.script;
-        this.log(ev, `Script ready: “${ev.script.title}”`, "ok");
+        this.log(ev, ev.approved ? `✓ Using the storyboard you approved: “${ev.script.title}” (not rewritten)`
+          : ev.reused ? `♻ Reusing the finished script: “${ev.script.title}”` : `Script ready: “${ev.script.title}”`, "ok");
         break;
       case "voice":
         s.voice = ev;
-        this.log(ev, `Voiceover recorded: ${ev.duration}s (${ev.provider === "gemini" ? "Gemini · Puck" : "macOS fallback voice"})`, ev.provider === "gemini" ? "ok" : "warn");
+        if (ev.cached) this.log(ev, `♻ Voiceover reused: narration unchanged, so the earlier ${ev.duration}s recording and word timings were reused (no new recording)`, "ok");
+        else this.log(ev, `Voiceover recorded: ${ev.duration}s (${ev.provider === "gemini" ? "Gemini · Puck" : "macOS fallback voice"})`, ev.provider === "gemini" ? "ok" : "warn");
         break;
+      case "plan_cached":
+        this.log(ev, "♻ Scene plan reused: it was made while you reviewed the storyboard", "ok");
+        break;
+      case "prefetch_wait":
+        this.log(ev, "Finishing the voiceover and scene plan that started while you reviewed…");
+        break;
+      case "auto_retry":
+        s.autoRetry = ev; s.failed = null;
+        this.log(ev, `⚠ Temporary problem${ev.stage ? ` during ${STAGE_LABEL[ev.stage] || ev.stage}` : ""}: ${ev.error}. Retrying automatically once (finished work is kept)…`, "warn");
+        break;
+      case "resume":
+        s.failed = null; s.t1 = null;
+        this.log(ev, `↻ Resuming from “${STAGE_LABEL[ev.stage] || ev.label}”. Everything already finished is reused.`);
+        break;
+      case "rebake":
+        s.rebaking = true; s.failed = null; s.t1 = null;
+        this.log(ev, `Rebaking the reel: stitching ${ev.scenes} scene clips with the narration and captions`);
+        break;
+      case "scene_redone": {
+        (s.history[ev.index] ??= []).push(ev);
+        s.dirty.add(ev.index); s.redoing = null;
+        const sc = (s.scenes[ev.index] ??= { errors: [] });
+        Object.assign(sc, { status: ev.fallback ? "fallback" : "done", renderer: ev.renderer_after, v: ev.seq, redo: false });
+        if (s.plan) { const p = s.plan.find((x) => x.index === ev.index); if (p) { p.renderer = ev.renderer_after; p.description = ev.description_after; } }
+        const name = this.sceneLabel(ev.index);
+        if (ev.reverted_to) this.log(ev, `↩ ${name} reverted to version ${ev.reverted_to}. Rebake to use it in the reel.`, "ok");
+        else {
+          const what = [
+            ev.renderer_before !== ev.renderer_after ? `engine ${RENDERER[ev.renderer_before]} → ${RENDERER[ev.renderer_after]}` : `kept ${RENDERER[ev.renderer_after]}`,
+            ev.description_edited ? "prompt edited" : "", ev.note ? `note “${ev.note}”` : "", ev.library_scene ? `library scene ${ev.library_scene}` : "",
+          ].filter(Boolean).join(" · ");
+          this.log(ev, `✓ ${name} redone as version ${ev.version} (${what}). ${ev.fallback ? "Fell back to a title card." : ev.attempts ? `Rendered in ${ev.attempts} attempt${ev.attempts > 1 ? "s" : ""}.` : ""} The reel isn't updated until you rebake.`, ev.fallback ? "warn" : "ok");
+        }
+        break;
+      }
       case "plan":
         s.plan = ev.scenes;
         for (const p of ev.scenes) s.scenes[p.index] ??= { status: "queued", renderer: p.renderer, errors: [], attempt: 0, max: 3, player: false };
-        this.log(ev, `Directed ${ev.scenes.length} scenes: ${ev.scenes.map((p) => `${cap(p.role)} → ${RENDERER[p.renderer]}`).join(", ")}`);
+        this.log(ev, `${ev.reused ? "♻ Reusing the plan for" : "Directed"} ${ev.scenes.length} scenes: ${ev.scenes.map((p) => `${cap(p.role)} → ${RENDERER[p.renderer]}`).join(", ")}`);
         break;
       case "scene": {
         const sc = (s.scenes[ev.index] ??= { status: "queued", renderer: ev.renderer, errors: [], attempt: 0, max: 3, player: false });
@@ -482,34 +626,44 @@ class JobView {
         else if (ev.status === "error") {
           sc.errors.push({ attempt: ev.attempt, stage: ev.stage, error: ev.error, detail: ev.detail });
           this.log(ev, `✕ ${name} failed while ${ev.stage}: ${ev.error}`, "err");
-        } else if (ev.status === "done") { sc.v = ev.seq; this.log(ev, `✓ ${name} rendered${ev.attempt > 1 ? ` after ${ev.attempt} attempts` : ""}`, "ok"); }
+        } else if (ev.status === "done") {
+          sc.v = ev.seq; sc.cached = !!ev.cached; sc.library = ev.library || null;
+          if (ev.reused) this.log(ev, `♻ ${name} kept from the earlier run`, "ok");
+          else if (ev.cached) this.log(ev, `♻ ${name} reused from cache: an identical scene was already rendered (no new code)`, "ok");
+          else if (ev.library) this.log(ev, `${name}: using library scene ${ev.library}`, "ok");
+          else this.log(ev, `✓ ${name} rendered${ev.attempt > 1 ? ` after ${ev.attempt} attempts` : ""}`, "ok");
+        }
         else if (ev.status === "fallback_rendering") this.log(ev, `${name}: all attempts failed — making a title card instead`, "warn");
         else if (ev.status === "fallback") { sc.v = ev.seq; this.log(ev, `⚠ ${name} is using a title card`, "warn"); }
         else if (ev.status === "failed") this.log(ev, `✕ ${name} could not be rendered: ${ev.error}`, "err");
         break;
       }
       case "retry": {
-        s.done = null; s.failed = null; s.t1 = null;
-        s.stages.render = "active"; s.stages.assemble = undefined;
+        // Only this scene is rebuilt; the finished reel stays as-is until a rebake.
+        s.failed = null; s.t1 = null; s.redoing = ev.index;
         const sc = (s.scenes[ev.index] ??= { errors: [] });
-        Object.assign(sc, { status: "queued", renderer: ev.renderer, errors: [], attempt: 0, redo: false, v: null });
+        Object.assign(sc, { status: "queued", renderer: ev.renderer, errors: [], attempt: 0, redo: false, compare: false, cached: false });
         if (s.plan) { const p = s.plan.find((x) => x.index === ev.index); if (p) p.renderer = ev.renderer; }
-        this.log(ev, `Redoing ${this.sceneLabel(ev.index)} with ${RENDERER[ev.renderer]}${ev.note ? ` — “${ev.note}”` : ""}`);
+        const how = [ev.library_scene ? `reusing library scene ${ev.library_scene}` : `with ${RENDERER[ev.renderer]}`,
+          ev.edited ? "your edited prompt" : "", ev.note ? `note “${ev.note}”` : ""].filter(Boolean).join(", ");
+        this.log(ev, `Redoing ${this.sceneLabel(ev.index)} ${how}. Only this scene is rebuilt.`);
         break;
       }
-      case "done":
+      case "done": {
         for (const [k] of STAGES) s.stages[k] = "done";
-        s.done = ev; s.t1 = ev.t;
-        this.log(ev, `✓ Reel ready — ${ev.duration}s`, "ok");
+        const rebaked = s.rebaking || s.dirty.size > 0;
+        s.done = ev; s.t1 = ev.t; s.rebaking = false; s.redoing = null; s.dirty.clear();
+        this.log(ev, rebaked ? `✓ Reel rebaked with your redone scenes: ${ev.duration}s` : `✓ Reel ready: ${ev.duration}s`, "ok");
         break;
+      }
       case "failed":
-        s.failed = ev; s.t1 = ev.t;
+        s.failed = ev; s.t1 = ev.t; s.rebaking = false; s.redoing = null;
         for (const [k] of STAGES) if (s.stages[k] === "active") s.stages[k] = "failed";
         this.log(ev, `✕ Stopped${ev.stage ? ` during ${ev.stage}` : ""}: ${ev.error}`, "err");
         break;
     }
     this.render();
-    if (["scene", "done", "failed", "plan"].includes(ev.type) && ev.status !== "checking") signal("pulse");
+    if (["scene", "done", "failed", "plan", "scene_redone"].includes(ev.type) && ev.status !== "checking") signal("pulse");
   }
 
   renderClock() {
@@ -525,7 +679,8 @@ class JobView {
     const live = $(".live", el);
     live.className = `live${s.running ? "" : s.failed ? " bad" : " off"}`;
     live.textContent = s.running ? "Live" : s.failed ? "Stopped" : "Finished";
-    $(".job-head strong", el).textContent = s.done ? "Your reel is ready" : s.failed ? "This run hit a problem" : "Making your reel";
+    $(".job-head strong", el).textContent = s.failed ? "This run hit a problem" : s.rebaking ? "Rebaking your reel"
+      : s.redoing != null ? `Redoing scene ${s.redoing + 1}` : s.done ? (s.dirty.size ? "Scenes changed: rebake to update the reel" : "Your reel is ready") : "Making your reel";
     for (const [k] of STAGES) $(`.pipe[data-stage="${k}"]`, el).className = `pipe ${s.stages[k] || ""}`;
     this.renderClock();
 
@@ -554,26 +709,40 @@ class JobView {
     const idx = Object.keys(s.scenes).map(Number).sort((a, b) => a - b);
     for (const i of idx) this.renderScene(box, i);
 
+    // rebake banner: redone scenes are not in the reel until it is reassembled
+    const rb = $(".slot-rebake", el);
+    const dirty = [...s.dirty].sort((a, b) => a - b);
+    const rkey = `${dirty.join(",")}|${s.running}|${s.rebaking}`;
+    if (rb.dataset.key !== rkey) {
+      rb.dataset.key = rkey;
+      if (s.rebaking && s.running) rb.innerHTML = `<div class="rebake"><span><b>Rebaking…</b> stitching the current clips with the narration and captions.</span><div class="spinner" aria-hidden="true" style="width:20px;height:20px"></div></div>`;
+      else if (dirty.length && !s.running) {
+        rb.innerHTML = `<div class="rebake"><span><b>${dirty.length} scene${dirty.length > 1 ? "s" : ""} changed</b> since the reel was baked (${dirty.map((i) => `Scene ${i + 1}`).join(", ")}). The video below is the old version until you rebake.</span><button class="cta small" type="button" data-rebake>Rebake reel</button></div>`;
+        $("[data-rebake]", rb).onclick = (e) => this.rebake(e.target);
+      } else rb.innerHTML = "";
+    }
+
     // final / failure
     const fin = $(".slot-final", el);
-    const key = s.done ? `done-${s.done.seq}` : s.failed ? `fail-${s.failed.seq}` : "";
+    const key = s.done ? `done-${s.done.seq}-${dirty.length}` : s.failed ? `fail-${s.failed.seq}` : "";
     if (fin.dataset.key !== key) {
       fin.dataset.key = key;
       if (s.done) {
         const engines = [...new Set(Object.values(s.scenes).map((x) => RENDERER[x.renderer]))].join(", ");
         const cards = Object.values(s.scenes).filter((x) => x.status === "fallback").length;
         fin.innerHTML = `
-          <div class="final">
+          <div class="final${dirty.length ? " outdated" : ""}">
             <video src="${esc(this.finalURL(s.done.seq))}" controls playsinline preload="metadata"></video>
             <div class="side">
+              ${dirty.length ? `<span class="outdated-tag">Outdated: doesn't include your redone scenes yet</span>` : ""}
               <h3>${esc(s.script?.title || "Your reel")}</h3>
-              <p>${s.done.duration}s · animated with ${esc(engines || "code")}${cards ? ` · ${cards} scene${cards > 1 ? "s" : ""} used a title card — redo ${cards > 1 ? "them" : "it"} above` : ""}.</p>
+              <p>${s.done.duration ? `${s.done.duration}s · ` : ""}animated with ${esc(engines || "code")}${cards ? ` · ${cards} scene${cards > 1 ? "s" : ""} used a title card — redo ${cards > 1 ? "them" : "it"} above` : ""}.</p>
               ${this.demo ? `<p style="color:var(--accent3)">Demo preview — clips from the library, no pipeline run.</p>` : ""}
               <div class="row">
                 <a class="cta small" href="${esc(this.finalDownloadURL())}" download="reel-${this.id}.mp4">Download MP4</a>
                 <button class="btn" type="button" data-share>Copy link</button>
               </div>
-              <p>Not quite right? Use <b>Redo scene</b> on any scene above — add a note or switch its engine.</p>
+              <p>Not quite right? <b>Redo</b> any scene above: edit its prompt, add a note, switch engine or reuse a library scene. You'll see before and after, then <b>Rebake</b> to update the reel.</p>
             </div>
           </div>`;
         $("[data-share]", fin).onclick = async (e) => {
@@ -581,22 +750,135 @@ class JobView {
         };
       } else if (s.failed) {
         const hasScenes = idx.length > 0 && s.stages.render;
+        const stage = STAGE_LABEL[s.failed.stage] || s.failed.stage;
+        const canResume = s.failed.resumable && !this.demo;
         fin.innerHTML = `
           <div class="failbox">
-            <strong>Stopped${s.failed.stage ? ` during “${esc(s.failed.stage)}”` : ""}</strong>
+            <strong>Something went wrong${stage ? ` during “${esc(stage)}”` : ""}</strong>
             <p>${esc(s.failed.error)}</p>
+            ${s.autoRetry ? `<p style="color:var(--muted);font-size:13px">It was already retried once automatically, and that didn't work either.</p>` : ""}
             ${s.failed.detail ? `<details><summary>Technical details</summary><pre>${esc(s.failed.detail)}</pre></details>` : ""}
             <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
-              <button class="cta small" type="button" data-again>Start over</button>
+              ${canResume ? `<button class="cta small" type="button" data-resume>Resume from “${esc(stage || "where it stopped")}”</button>` : ""}
+              <button class="${canResume ? "btn sm" : "cta small"}" type="button" data-again>Start over</button>
               ${hasScenes ? `<span style="color:var(--muted);font-size:13px;align-self:center">or redo a single scene above</span>` : ""}
             </div>
+            ${canResume ? `<p style="color:var(--muted);font-size:12.5px;margin:8px 0 0">Resume keeps the finished script, voiceover, plan and scenes, and runs only what's left.</p>` : ""}
           </div>`;
+        $("[data-resume]", fin)?.addEventListener("click", async (e) => {
+          e.target.disabled = true; e.target.textContent = "Resuming…";
+          try { await postJSON(`/jobs/${this.id}/resume`); this.s.failed = null; this.s.autoRetry = null; this.connect(); }
+          catch (err) { e.target.disabled = false; e.target.textContent = `Couldn't resume: ${err.message}`; }
+        });
         $("[data-again]", fin).onclick = () => {
         if (this.demo) { input.value = this.topic; autosize(); updateSend(); input.focus(); form.scrollIntoView({ behavior: "smooth", block: "end" }); }
         else submit(this.topic);
       };
       } else fin.innerHTML = "";
     }
+    updateFlow();
+    if (!this.demo || this.s.running) follow();
+  }
+
+  flow() {
+    const s = this.s;
+    if (s.failed) return { step: s.done ? 4 : 3, warn: true, hint: `Something went wrong${s.failed.stage ? ` during <b>${esc(STAGE_LABEL[s.failed.stage] || s.failed.stage)}</b>` : ""}. ${s.failed.resumable ? "Press <b>Resume</b> to continue from there. Finished work is kept." : "Press <b>Start over</b> to try again."}` };
+    if (s.rebaking) return { step: 5, hint: "<b>Rebaking</b> the reel with your redone scenes…" };
+    if (s.redoing != null) return { step: 4, hint: `<b>Redoing scene ${s.redoing + 1}.</b> Only that scene is rebuilt; you'll compare before and after.` };
+    if (s.done && s.dirty.size) return { step: 5, hint: "<b>Rebake</b> to put your redone scenes into the reel, then download." };
+    if (s.done) return { step: 4, hint: "<b>Your reel is ready.</b> Review each scene and redo any you don't like, or download it now." };
+    return { step: 3, hint: "<b>Animating.</b> Voice, then the scene plan, then each scene renders below. Usually about 3 minutes." };
+  }
+
+  async rebake(btn) {
+    if (btn) { btn.disabled = true; btn.textContent = "Starting…"; }
+    if (this.demo) {
+      this.connect();
+      feedDemo(this, [[100, (q, t) => ({ type: "rebake", t, seq: this.s.lastSeq + 1, scenes: Object.keys(this.s.scenes).length })],
+                      [1400, (q, t) => ({ type: "done", t, seq: this.s.lastSeq + 2, duration: this.s.done?.duration || 12 })]]);
+      return;
+    }
+    try { await postJSON(`/jobs/${this.id}/rebake`); this.connect(); }
+    catch (e) { if (btn) { btn.disabled = false; btn.textContent = `Couldn't rebake: ${e.message}`; } }
+  }
+
+  // The explicit record of a redo: what was asked, what changed, how it went, and before/after clips.
+  changesHTML(i, sc, hist) {
+    if (!hist.length) return "";
+    const last = hist[hist.length - 1];
+    const when = new Date(last.at * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    const R = (k) => esc(RENDERER[k] || k);
+    const lines = [];
+    if (last.reverted_to) lines.push(`Reverted to <b>version ${last.reverted_to}</b>: previous engine and prompt restored`);
+    else {
+      lines.push(last.renderer_before !== last.renderer_after ? `<span class="k">Engine:</span> ${R(last.renderer_before)} → <b>${R(last.renderer_after)}</b>` : `<span class="k">Engine:</span> kept ${R(last.renderer_after)}`);
+      if (last.library_scene) lines.push(`<span class="k">Source:</span> reused library scene <b>${esc(last.library_scene)}</b> (no new code)`);
+      if (last.description_edited) lines.push(`<span class="k">Prompt:</span> you edited it (diff below)`);
+      if (last.note) lines.push(`<span class="k">Your note:</span> “${esc(last.note)}”, added to the prompt`);
+      if (!last.description_edited && !last.note && !last.library_scene && last.renderer_before === last.renderer_after) lines.push(`<span class="k">Prompt:</span> unchanged; fresh attempt from the same direction`);
+      lines.push(`<span class="k">Result:</span> ${last.fallback ? `<span class="err">all attempts failed; title card used</span>` : last.attempts ? `rendered in ${last.attempts} attempt${last.attempts > 1 ? "s" : ""}` : "ready"}${last.previous_fallback && !last.fallback ? " (replaces a title card)" : ""}`);
+      for (const er of last.errors || []) lines.push(`<span class="k">Hit and fixed along the way:</span> <code style="font-size:11px">${esc(er)}</code>`);
+    }
+    lines.push(`<span class="k">Reel:</span> ${this.s.dirty.has(i) ? "not updated yet; press <b>Rebake</b>" : "includes this version"}`);
+    const diff = last.description_before !== last.description_after
+      ? `<details${last.description_edited ? " open" : ""}><summary style="cursor:pointer;color:var(--muted);font-size:12px;margin-top:6px">Prompt diff (red removed, green added)</summary><div class="diff">${wordDiff(last.description_before, last.description_after)}</div></details>` : "";
+    const compare = "";
+    const older = hist.length > 1 ? `<details class="older"><summary>${hist.length - 1} earlier change${hist.length > 2 ? "s" : ""}</summary><ul>${hist.slice(0, -1).reverse().map((h) =>
+      `<li>v${h.version}: ${h.reverted_to ? `reverted to v${h.reverted_to}` : [h.renderer_before !== h.renderer_after ? `${R(h.renderer_before)} → ${R(h.renderer_after)}` : "", h.description_edited ? "prompt edited" : "", h.note ? `“${esc(h.note)}”` : "", h.library_scene ? "library scene" : ""].filter(Boolean).join(", ") || "fresh attempt"}</li>`).join("")}</ul></details>` : "";
+    return `
+      <div class="changes">
+        <div class="changes-head"><span>What changed in version ${last.version}</span><small>${esc(when)}</small></div>
+        <ul>${lines.map((x) => `<li>${x}</li>`).join("")}</ul>
+        ${diff}${compare}
+        <div class="row">
+          <button class="cta small" type="button" data-compare>▶ Compare before / after</button>
+          ${this.s.running ? "" : `<button class="btn sm" type="button" data-revert>↩ Revert to v${last.previous_version}</button>`}
+        </div>
+        ${older}
+      </div>`;
+  }
+
+  // Before/after in a viewport-sized dialog: both clips always fit on screen, side by side.
+  openCompare(i) {
+    const hist = this.s.history[i] || [];
+    const last = hist[hist.length - 1];
+    if (!last) return;
+    const sc = this.s.scenes[i];
+    const dlg = $("#compareDlg");
+    $("#compareTitle").textContent = `${this.sceneLabel(i)} · version ${last.previous_version} → ${last.version}`;
+    $("#compareBefore").src = this.versionClipURL(i, last.previous_version);
+    $("#compareAfter").src = this.sceneClipURL(i, sc.v);
+    $("#compareBeforeCap").textContent = `Before · v${last.previous_version} · ${RENDERER[last.renderer_before] || last.renderer_before}`;
+    $("#compareAfterCap").textContent = `After · v${last.version} · ${RENDERER[last.renderer_after] || last.renderer_after}`;
+    const revert = $("#compareRevert");
+    revert.hidden = this.s.running;
+    revert.textContent = `↩ Revert to v${last.previous_version}`;
+    revert.onclick = () => { dlg.close(); $(`.scene[data-i="${i}"] [data-revert]`, this.el)?.click(); };
+    const sync = $("#compareSync");
+    sync.onclick = () => { for (const v of [$("#compareBefore"), $("#compareAfter")]) { v.currentTime = 0; v.play().catch(() => {}); } };
+    dlg.showModal();
+    sync.onclick();
+  }
+
+  // Demo views have no server: simulate a redo so the UI can be previewed without a pipeline run.
+  demoRedone(i, body) {
+    const sc = this.s.scenes[i], p = this.s.plan?.find((x) => x.index === i) || {};
+    const hist = this.s.history[i] || [];
+    const prev = hist.length ? hist[hist.length - 1].version : 1;
+    const before = { renderer: sc.renderer, description: p.description || "" };
+    const after = body.revert && hist.length
+      ? { renderer: hist[hist.length - 1].renderer_before, description: hist[hist.length - 1].description_before }
+      : { renderer: body.renderer || sc.renderer, description: (body.description || before.description) + (body.note ? `\n\nViewer feedback for this new version (follow it): ${body.note}` : "") };
+    const t = Date.now() / 1000;
+    if (!body.revert) this.apply({ type: "retry", t, index: i, note: body.note || "", renderer: after.renderer, edited: !!body.description, library_scene: body.library_scene || null });
+    this.connect();
+    feedDemo(this, [[body.revert ? 200 : 1600, (q, tt) => ({
+      type: "scene_redone", t: tt, seq: 1000 + Math.floor(tt * 10) % 100000, index: i, version: prev + 1, previous_version: prev, at: tt,
+      reverted_to: body.revert ? hist[hist.length - 1].previous_version : undefined, note: body.note || "",
+      renderer_before: before.renderer, renderer_after: after.renderer, description_before: before.description, description_after: after.description,
+      description_edited: !!body.description, library_scene: body.library_scene || null, attempts: body.revert ? 0 : 2, fallback: false,
+      previous_fallback: sc.status === "fallback", errors: body.revert ? [] : ["TypeError: Cannot read properties of undefined (reading 'x')"],
+    })]]);
   }
 
   renderScene(box, i) {
@@ -612,7 +894,9 @@ class JobView {
     }
     const canRedo = !s.running && ["done", "fallback", "error", "failed", "queued"].includes(sc.status);
     const canInteract = sc.renderer === "three" && sc.player && ["done", "fallback"].includes(sc.status);
-    const sig = JSON.stringify([sc.status, sc.attempt, sc.errors.length, sc.renderer, sc.v, canRedo, sc.redo, sc.show3d, sc.player]);
+    const hist = s.history[i] || [];
+    const sig = JSON.stringify([sc.status, sc.attempt, sc.errors.length, sc.renderer, sc.v, canRedo, sc.redo, sc.show3d, sc.player,
+                                hist.length, sc.compare, s.dirty.has(i), sc.cached, !!sc.lib]);
     if (card.dataset.sig === sig) return;
     card.dataset.sig = sig;
 
@@ -645,19 +929,33 @@ class JobView {
         ${e.detail ? `<details><summary>Full error</summary><pre>${esc(e.detail)}</pre></details>` : ""}
       </div>`).join("");
 
+    const desc = p?.description || "";
+    const libList = sc.lib ? (sc.lib.length ? `
+          <label><input type="radio" name="lib" value="" checked><span></span><span>None: generate a new scene</span></label>
+          ${sc.lib.map((m) => `<label><input type="radio" name="lib" value="${esc(m.id)}"><video src="/library/scenes/${encodeURIComponent(m.id)}/clip" muted loop autoplay playsinline></video><span><b>${esc(RENDERER[m.renderer])}</b> · ${esc(m.topic)}<br>${esc(m.description.slice(0, 110))}…</span></label>`).join("")}`
+      : `<span style="font-size:12px;color:var(--muted)">No similar library scenes with a clip yet.</span>`) : "";
     const redo = canRedo ? (sc.redo ? `
       <form class="redo">
-        <textarea rows="2" name="note" placeholder="Direction for the animator — e.g. move the lock below the text, spread the counters apart, fewer elements"></textarea>
+        <label class="fl" for="p${this.id}${i}">Animator prompt <small>: exactly what the code-writer is told to draw. Edit it directly.</small></label>
+        <textarea class="prompt" id="p${this.id}${i}" name="description" rows="5">${esc(desc)}</textarea>
+        <label class="fl" for="n${this.id}${i}">Quick note <small>: optional, added to the prompt as viewer feedback</small></label>
+        <textarea rows="2" id="n${this.id}${i}" name="note" placeholder="e.g. move the lock below the text, spread the counters apart, fewer elements"></textarea>
         <div class="row">
           <select name="renderer" aria-label="Engine">
             <option value="">Keep ${esc(RENDERER[sc.renderer])}</option>
             ${Object.entries(RENDERER).filter(([k]) => k !== sc.renderer).map(([k, v]) => `<option value="${k}">Switch to ${v}</option>`).join("")}
           </select>
-          <button class="cta small" type="submit">Redo</button>
+          <button class="btn sm" type="button" data-lib>${sc.lib ? "Hide library" : "Reuse a library scene…"}</button>
         </div>
-        <button class="btn sm" type="button" data-cancel>Cancel</button>
+        ${sc.lib ? `<div class="libpick">${libList}</div>` : ""}
+        <div class="row">
+          <button class="cta small" type="submit">Redo this scene</button>
+          <button class="btn sm" type="button" data-cancel>Cancel</button>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin:6px 0 0">Only this scene is rebuilt. Your reel stays the same until you press <b>Rebake</b>.</p>
       </form>` : `<button class="btn sm" type="button" data-redo>↻ Redo scene</button>`)
       : (s.running && sc.errors.length ? `<span style="font-size:12px;color:var(--muted)">You can redo this scene once the run finishes.</span>` : "");
+    const changes = this.changesHTML(i, sc, hist);
 
     card.innerHTML = `
       <div class="preview">${preview}</div>
@@ -667,22 +965,46 @@ class JobView {
         ${p?.duration ? `<div style="font-size:12px;color:var(--muted)">Scene ${i + 1} · ${p.duration.toFixed(1)}s</div>` : ""}
         ${canInteract ? `<div style="margin-top:8px"><button class="btn sm" type="button" data-3d>${sc.show3d ? "Hide 3D" : "Explore in 3D"}</button></div>
         <div class="td" ${sc.show3d ? "" : "hidden"}><iframe title="Interactive 3D scene ${i + 1}" src="/jobs/${this.id}/scenes/${i}/player" loading="lazy" allow="autoplay; fullscreen"></iframe></div>` : ""}
+        ${sc.cached ? `<div class="tag reuse" style="margin-top:6px">♻ reused from cache</div>` : ""}
         ${errors ? `<div class="attempts">${errors}</div>` : ""}
+        ${changes}
         ${redo}
       </div>`;
 
     $("[data-3d]", card)?.addEventListener("click", () => { sc.show3d = !sc.show3d; this.renderScene(box, i); });
     $("[data-redo]", card)?.addEventListener("click", () => { sc.redo = true; this.renderScene(box, i); $("textarea", card)?.focus(); });
-    $("[data-cancel]", card)?.addEventListener("click", () => { sc.redo = false; this.renderScene(box, i); });
+    $("[data-cancel]", card)?.addEventListener("click", () => { sc.redo = false; sc.lib = null; this.renderScene(box, i); });
+    $("[data-lib]", card)?.addEventListener("click", async (e) => {
+      if (sc.lib) { sc.lib = null; this.renderScene(box, i); return; }
+      e.target.disabled = true; e.target.textContent = "Finding similar scenes…";
+      const keep = { d: $("textarea[name=description]", card)?.value, n: $("textarea[name=note]", card)?.value, r: $("select[name=renderer]", card)?.value };
+      try { sc.lib = this.demo ? [] : await getJSON(`/jobs/${this.id}/scenes/${i}/similar${keep.r ? `?renderer=${keep.r}` : ""}`); }
+      catch { sc.lib = []; }
+      this.renderScene(box, i);
+      if (keep.d != null) $("textarea[name=description]", card).value = keep.d;
+      if (keep.n != null) $("textarea[name=note]", card).value = keep.n;
+      if (keep.r != null) $("select[name=renderer]", card).value = keep.r;
+    });
+    $("[data-compare]", card)?.addEventListener("click", () => this.openCompare(i));
+    $("[data-revert]", card)?.addEventListener("click", async (e) => {
+      e.target.disabled = true; e.target.textContent = "Reverting…";
+      if (this.demo) { this.demoRedone(i, { revert: true }); return; }
+      try { await postJSON(`/jobs/${this.id}/scenes/${i}/revert`); this.connect(); }
+      catch (err) { e.target.disabled = false; e.target.textContent = `Couldn't revert: ${err.message}`; }
+    });
     $("form.redo", card)?.addEventListener("submit", async (e) => {
       e.preventDefault();
       const fd = new FormData(e.target);
       const body = { note: fd.get("note")?.trim() || "" };
       if (fd.get("renderer")) body.renderer = fd.get("renderer");
+      const edited = (fd.get("description") || "").trim();
+      if (edited && edited !== desc.trim()) body.description = edited;
+      if (fd.get("lib")) body.library_scene = fd.get("lib");
       e.target.querySelector("button[type=submit]").disabled = true;
+      if (this.demo) { sc.redo = false; sc.lib = null; this.demoRedone(i, body); return; }
       try {
-        await getJSON(`/jobs/${this.id}/scenes/${i}/retry`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-        sc.redo = false;
+        await postJSON(`/jobs/${this.id}/scenes/${i}/retry`, body);
+        sc.redo = false; sc.lib = null;
         this.connect();
       } catch (err) {
         e.target.insertAdjacentHTML("beforeend", `<div class="status bad">${esc(err.message)}</div>`);
@@ -753,10 +1075,10 @@ function feedDemo(view, steps) {
 const demoScript = {
   title: "Three knocks: the TCP handshake",
   segments: [
-    { role: "hook", narration: "The internet starts every chat with three knocks." },
-    { role: "setup", narration: "Two machines must agree on the rules before a single byte flows." },
-    { role: "mechanism", narration: "SYN, SYN-ACK, ACK — each knock answered in turn." },
-    { role: "payoff", narration: "Three packets, and strangers become a connection." },
+    { role: "hook", narration: "The internet starts every chat with three knocks.", visual_directive: "Two laptops on a dark grid; a door between them gets three glowing knocks." },
+    { role: "setup", narration: "Two machines must agree on the rules before a single byte flows.", visual_directive: "A rulebook card slides between the machines; data packets wait behind a gate." },
+    { role: "mechanism", narration: "SYN, SYN-ACK, ACK — each knock answered in turn.", visual_directive: "Three labelled packets travel left, right, left on a timeline, each lighting up on its word." },
+    { role: "payoff", narration: "Three packets, and strangers become a connection.", visual_directive: "The gate opens and a steady stream of packets flows; the link glows green." },
   ],
 };
 
@@ -795,7 +1117,6 @@ function mountDemoPitch(kind) {
   thread.append(el);
   const pid = `demo-pitch-${Date.now().toString(36)}`;
   const view = new PitchView(el, pid, topic, undefined);
-  clearInterval(view.timer);
   if (kind === "pitch-failed") {
     view.pitch = { id: pid, topic, status: "failed", error: "Demo error — the model didn't respond. Try again." };
   } else if (kind === "pitch-ready") {
@@ -894,24 +1215,53 @@ class PitchView {
     this.renderer = renderer;
     this.pitch = null;
     this.misses = 0;
-    this.timer = setInterval(() => this.refresh(), 2000);
-    this.refresh();
+    this.expired = false;
+    // Demo pitches exist only in the browser: never poll the server for them.
+    if (!String(pid).startsWith("demo-")) {
+      this.timer = setInterval(() => this.refresh(), 2000);
+      this.refresh();
+    }
   }
   close() { clearInterval(this.timer); }
   async refresh() {
     try {
       const p = await getJSON(`/pitches/${this.pid}`);
+      this.misses = 0;
+      const wasReady = this.pitch?.status === "ready";
       this.pitch = p;
-      this.render();
-      if (p.status === "ready" || p.status === "failed") clearInterval(this.timer);
-    } catch (e) {
-      // The pitch file lands a beat after POST returns; tolerate early 404s.
-      if (!String((e && e.message) || e).includes("404") || ++this.misses > 15) clearInterval(this.timer);
+      // Once the storyboard is on screen, never re-render it (that would wipe the user's edits): update the status line only.
+      if (wasReady && p.status === "ready") this.renderPrefetch();
       else this.render();
+      if (p.status === "failed" || (p.status === "ready" && p.prefetch !== "running")) clearInterval(this.timer);
+    } catch (e) {
+      // pitch.json is written before POST returns, so a 404 means it's really gone (e.g. outputs/ was cleared).
+      if (e.status === 404 || ++this.misses > 15) { clearInterval(this.timer); this.expired = true; }
+      this.render();
     }
   }
   segEdits() {
     return [...this.el.querySelectorAll("textarea[data-seg]")].map((t) => t.value);
+  }
+  prefetchNote() {
+    const p = this.pitch || {};
+    if (p.prefetch === "running") return `<span class="pf run"><i class="dot"></i>Recording the voice and planning the scenes in the background while you review, so animation can start sooner.</span>`;
+    if (p.prefetch === "ready") return `<span class="pf ok">✓ Voice and scene plan ready${p.prefetch_s ? ` (${Math.round(p.prefetch_s)}s, done while you read)` : ""}. Approve without changing the narration, visuals or note and both are reused.</span>`;
+    if (p.prefetch === "failed") return `<span class="pf">Background prep didn't finish; approving will record the voice as usual.</span>`;
+    return "";
+  }
+  renderPrefetch() {
+    const el = this.el.querySelector(".prefetch-note");
+    if (el) el.innerHTML = this.prefetchNote();
+  }
+  visEdits() {
+    return [...this.el.querySelectorAll("textarea[data-vis]")].map((t) => t.value);
+  }
+  flow() {
+    const p = this.pitch;
+    if (this.expired) return { step: 1, warn: true, hint: "That storyboard is no longer on the server. <b>Start again</b> or type a new question." };
+    if (!p || p.status === "writing") return { step: 2, hint: "<b>Writing your storyboard…</b> one quick script pass. Nothing is recorded or animated yet." };
+    if (p.status === "failed") return { step: 1, warn: true, hint: "The storyboard couldn't be written. Press <b>Try again</b> or change the question." };
+    return { step: 2, hint: "<b>Review the storyboard.</b> 🎙 <b>Narration</b> is read aloud word for word. 🎬 <b>Visual</b> is what gets drawn. The <b>director's note</b> steers every scene's animation. Edit anything, then <b>Approve &amp; animate</b>." };
   }
   async approve() {
     const p = this.pitch;
@@ -929,7 +1279,9 @@ class PitchView {
     const btn = this.el.querySelector("[data-approve]");
     if (btn) { btn.disabled = true; btn.textContent = "Starting…"; }
     try {
-      const segments = p.script.segments.map((s, i) => ({ ...s, narration: this.segEdits()[i] ?? s.narration }));
+      const said = this.segEdits(), seen = this.visEdits();
+      const segments = p.script.segments.map((s, i) => ({ ...s, narration: (said[i] ?? s.narration).trim() || s.narration,
+                                                           visual_directive: (seen[i] ?? s.visual_directive).trim() || s.visual_directive }));
       const noteEl = this.el.querySelector("textarea[data-note]");
       const job = await getJSON(`/pitches/${this.pid}/approve`, {
         method: "POST", headers: { "Content-Type": "application/json" },
@@ -952,42 +1304,56 @@ class PitchView {
     }
   }
   render() {
+    this.renderBody();
+    updateFlow();
+  }
+  renderBody() {
     const p = this.pitch;
-    if (!p) {
-      this.el.innerHTML = `<div class="bubble pitch"><div class="spinner" aria-hidden="true"></div><p style="color:var(--muted)">Writing the pitch…</p></div>`;
+    if (this.expired) {
+      this.el.innerHTML = `<div class="bubble pitch"><div class="failbox"><strong>This storyboard is no longer available</strong><p>It was removed from the server. You can write a fresh one for the same question.</p><button class="cta small" type="button" data-retry>Write it again</button></div></div>`;
+      this.el.querySelector("[data-retry]").onclick = () => submit(this.topic);
+      return;
+    }
+    if (!p || p.status === "writing") {
+      this.el.innerHTML = `<div class="bubble pitch"><div class="spinner" aria-hidden="true"></div><p style="color:var(--muted)">Writing the storyboard… Nothing is recorded or animated yet.</p></div>`;
       scrollDown();
       return;
     }
     if (p.status === "failed") {
-      this.el.innerHTML = `<div class="bubble pitch"><div class="failbox"><strong>Pitch failed</strong><p>${esc(p.error || "the model didn't respond")}</p><button class="cta small" type="button" data-retry>Try again</button></div></div>`;
-      this.el.querySelector("[data-retry]").onclick = () => { input.value = this.topic; autosize(); updateSend(); input.focus(); };
-      return;
-    }
-    if (p.status !== "ready") {
-      this.el.innerHTML = `<div class="bubble pitch"><div class="spinner" aria-hidden="true"></div><p style="color:var(--muted)">Writing the pitch… first iteration, nothing renders yet.</p></div>`;
+      this.el.innerHTML = `<div class="bubble pitch"><div class="failbox"><strong>The storyboard couldn't be written</strong><p>${esc(p.error || "the model didn't respond")}</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="cta small" type="button" data-retry>Try again</button><button class="btn sm" type="button" data-edit>Edit the question</button></div></div></div>`;
+      this.el.querySelector("[data-retry]").onclick = () => submit(this.topic);
+      this.el.querySelector("[data-edit]").onclick = () => { input.value = this.topic; autosize(); updateSend(); input.focus(); };
       return;
     }
     const s = p.script;
     const cards = s.segments.map((seg, i) => `
       <div class="sb">
         <div class="sb-head"><span class="sb-num">${i + 1}</span><span class="sb-role">${esc(seg.role)}</span>${this.renderer ? `<span class="tag" data-r="${esc(this.renderer)}">${esc(RENDERER[this.renderer] || this.renderer)}</span>` : `<span class="tag">auto engine</span>`}</div>
-        <textarea data-seg="${i}" rows="2">${esc(seg.narration)}</textarea>
-        <div class="sb-visual">Visual: ${esc(seg.visual_directive || "")}</div>
+        <label class="sb-label" for="seg${this.pid}${i}">🎙 Narration <small>: spoken word for word in the voiceover</small></label>
+        <textarea id="seg${this.pid}${i}" data-seg="${i}" rows="2">${esc(seg.narration)}</textarea>
+        <label class="sb-label" for="vis${this.pid}${i}">🎬 Visual <small>: what the animator draws on screen (not spoken)</small></label>
+        <textarea class="vis" id="vis${this.pid}${i}" data-vis="${i}" rows="2">${esc(seg.visual_directive || "")}</textarea>
       </div>`).join("");
     this.el.innerHTML = `<div class="bubble pitch">
       <div class="kicker">Storyboard — review before anything renders</div>
       <h3 style="margin:6px 0 2px">${esc(s.title)}</h3>
       <p style="color:var(--muted);font-size:13px;margin:0 0 4px">${esc(s.idea || "")}</p>
+      <div class="expl">
+        <span><b>🎙 Narration</b>: the exact words the voice reads. Change these to change what's said.</span>
+        <span><b>🎬 Visual</b>: the brief for that scene's animation. Never spoken.</span>
+        <span><b>🎬 Director's note</b>: one instruction applied to every scene's animation (style, layout). Never spoken.</span>
+      </div>
       <div class="sb note-box">
-        <div class="sb-head"><span class="sb-role">Director's note</span></div>
-        <textarea data-note rows="2" placeholder="Direction for the animator — e.g. use a timeline view in the mechanism">${esc(p.note || "")}</textarea>
+        <div class="sb-head"><span class="sb-role">🎬 Director's note</span><small style="color:var(--muted);font-size:12px">applies to the animation of every scene, not spoken</small></div>
+        <textarea data-note rows="2" placeholder="e.g. use a timeline view in the mechanism, keep the palette to blue and orange">${esc(p.note || "")}</textarea>
       </div>
       ${cards}
       <div class="row">
         <button class="cta small" type="button" data-approve>Approve &amp; animate</button>
         <button class="btn sm" type="button" data-repitch>New pitch</button>
       </div>
-      <p style="color:var(--muted);font-size:12px;margin:8px 0 0">Edit any narration above — your words go straight into the voiceover.</p>
+      <p class="prefetch-note">${this.prefetchNote()}</p>
+      <p style="color:var(--muted);font-size:12px;margin:8px 0 0">Approving records the voiceover from the narration above and animates each visual. You can still redo single scenes afterwards.</p>
     </div>`;
     this.el.querySelector("[data-approve]").onclick = () => this.approve();
     this.el.querySelector("[data-repitch]").onclick = () => submit(this.topic);
@@ -1035,16 +1401,34 @@ async function openChats() {
   list.innerHTML = `<p style="color:var(--muted)">Loading…</p>`;
   try {
     const threads = await getJSON("/chats");
-    const cur = (() => { try { return localStorage.getItem("reelgen.thread"); } catch { return null; } })();
+    const cur = (() => { try { return localStorage.getItem("elucera.thread"); } catch { return null; } })();
     list.innerHTML = threads.length ? "" : `<p style="color:var(--muted)">No chats yet — your first reel starts one.</p>`;
     for (const t of threads) {
+      const row = document.createElement("div");
+      row.style.cssText = "display:flex;gap:6px;align-items:stretch";
       const b = document.createElement("button");
       b.type = "button";
+      b.style.flex = "1";
       b.className = "thread" + (t.id === cur ? " active" : "");
       const when = t.updated ? new Date(t.updated * 1000).toLocaleString() : "";
-      b.innerHTML = `<span>${esc(t.title)}</span><small>${t.jobs} reel${t.jobs === 1 ? "" : "s"} · ${esc(when)}</small>`;
+      const n = t.items ?? t.jobs;
+      b.innerHTML = `<span>${esc(t.title)}</span><small>${n} item${n === 1 ? "" : "s"} · ${t.jobs} reel${t.jobs === 1 ? "" : "s"} · ${esc(when)}</small>`;
       b.addEventListener("click", () => loadThread(t.id));
-      list.append(b);
+      const del = document.createElement("button");
+      del.type = "button";
+      del.className = "btn sm";
+      del.title = del.ariaLabel = `Delete chat “${t.title}”`;
+      del.textContent = "✕";
+      del.addEventListener("click", async () => {
+        del.disabled = true;
+        try {
+          await getJSON(`/chats/${encodeURIComponent(t.id)}`, { method: "DELETE" });
+          if (t.id === cur) $("#newChat").click();
+          openChats();
+        } catch (e) { del.disabled = false; del.textContent = "!"; del.title = e.message; }
+      });
+      row.append(b, del);
+      list.append(row);
     }
   } catch (e) {
     list.innerHTML = `<p style="color:var(--accent2)">Couldn't load chats: ${esc(e.message)}</p>`;
@@ -1056,14 +1440,15 @@ async function loadThread(tid) {
   for (const v of views.values()) v.close();
   views.clear();
   chat = [];
-  try { localStorage.setItem("reelgen.thread", tid); } catch { /* private mode */ }
-  for (const s of t.summaries) {
-    chat.push({ jobId: s.id, topic: s.topic });
-    mountJob(s.id, s.topic, undefined);
-  }
+  try { localStorage.setItem("elucera.thread", tid); } catch { /* private mode */ }
+  thread.innerHTML = "";
+  chat = t.items.map(toChatItem);
+  if (!chat.length) thread.innerHTML = `<section class="studio-empty" id="studioEmpty"><h2>This chat is empty</h2><p>Type a question below to start a storyboard.</p></section>`;
+  for (const item of chat) mountItem(item);
   saveChat();
-  const first = t.summaries[0];
-  history.replaceState(null, "", first ? `#/job/${first.id}` : "#/create");
+  const firstJob = chat.find((c) => c.jobId);
+  history.replaceState(null, "", firstJob ? `#/job/${firstJob.jobId}` : "#/create");
+  updateFlow();
   input.focus();
 }
 $("#chatsBtn")?.addEventListener("click", openChats);
@@ -1103,5 +1488,108 @@ $("#statsBtn")?.addEventListener("click", openStats);
 $("#statsClose")?.addEventListener("click", () => { statsOverlay.hidden = true; });
 statsOverlay?.addEventListener("click", (e) => { if (e.target === statsOverlay) statsOverlay.hidden = true; });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") { statsOverlay.hidden = true; chatsDrawer.hidden = true; } });
+
+// =====================================================================
+// Analytics: time + cost per reel, and how that compares to other ways of making the video
+// =====================================================================
+const STAGE_SERIES = [["script", "Script"], ["voice", "Voice"], ["align", "Word sync"], ["plan", "Plan"], ["render", "Animate"], ["assemble", "Assemble"]];
+const COST_SERIES = [["muse", "Muse (script, plan, scene code)"], ["tts", "Voice (Gemini TTS)"], ["compute", "Compute (render box)"], ["remotion", "Remotion license"]];
+const money = (v, d = 3) => (v == null ? "—" : v < 0.01 && v > 0 ? `$${v.toFixed(4)}` : `$${v.toFixed(d)}`);
+const secs = (v) => (v == null ? "—" : v >= 60 ? `${Math.floor(v / 60)}m ${String(Math.round(v % 60)).padStart(2, "0")}s` : `${Math.round(v)}s`);
+
+let vizTip;
+function tip(e, rows) {
+  if (!vizTip) { vizTip = document.createElement("div"); vizTip.className = "viz-tip"; vizTip.setAttribute("role", "status"); document.body.append(vizTip); }
+  if (!rows) { vizTip.hidden = true; return; }
+  vizTip.replaceChildren(...rows.map(([v, l]) => { const d = document.createElement("div"); const b = document.createElement("b"); b.textContent = v; d.append(b, ` ${l}`); return d; }));
+  vizTip.hidden = false;
+  const x = Math.min(e.clientX + 14, innerWidth - vizTip.offsetWidth - 8), y = Math.max(8, e.clientY - vizTip.offsetHeight - 12);
+  vizTip.style.left = `${x}px`; vizTip.style.top = `${y}px`;
+}
+
+// Horizontal stacked bars, one row per item; widths share one scale so rows compare.
+function stackRows(rows, series, fmtv, label) {
+  const max = Math.max(...rows.map((r) => series.reduce((a, [k]) => a + (r.values[k] || 0), 0)), 1e-9);
+  const legend = `<div class="viz-legend">${series.map(([k, n], i) => `<span><i style="background:var(--s${i + 1})"></i>${esc(n)}</span>`).join("")}</div>`;
+  const body = rows.map((r, ri) => {
+    const total = series.reduce((a, [k]) => a + (r.values[k] || 0), 0);
+    const segs = series.map(([k, n], i) => {
+      const v = r.values[k] || 0;
+      if (!v) return "";
+      const w = (v / max) * 100;
+      return `<span class="seg" style="width:${w}%;background:var(--s${i + 1})" data-r="${ri}" data-k="${k}" tabindex="0" aria-label="${esc(n)}: ${esc(fmtv(v))}">${w > 9 ? `<em>${esc(fmtv(v))}</em>` : ""}</span>`;
+    }).join("");
+    return `<div class="viz-row${r.emph ? " emph" : ""}"><div class="viz-label" title="${esc(r.title || r.label)}">${esc(r.label)}</div><div class="viz-track">${segs}<span class="viz-total">${esc(fmtv(total))}</span></div></div>`;
+  }).join("");
+  const html = `${legend}<div class="viz-rows" aria-label="${esc(label)}">${body}</div>`;
+  const bind = (root) => {
+    const onMove = (e) => {
+      const seg = e.target.closest(".seg");
+      if (!seg) return tip(e, null);
+      const r = rows[+seg.dataset.r];
+      tip(e, [[r.label, ""], ...series.filter(([k]) => r.values[k]).map(([k, n]) => [fmtv(r.values[k]), n])]);
+    };
+    root.addEventListener("pointermove", onMove);
+    root.addEventListener("pointerleave", (e) => tip(e, null));
+    root.addEventListener("focusin", (e) => { const b = e.target.getBoundingClientRect(); onMove({ target: e.target, clientX: b.left + b.width / 2, clientY: b.top }); });
+    root.addEventListener("focusout", (e) => tip(e, null));
+  };
+  return { html, bind };
+}
+
+async function loadAnalytics() {
+  const root = $("#analyticsBody");
+  let d;
+  try { d = await getJSON("/analytics/dashboard"); }
+  catch (e) { root.innerHTML = `<p style="color:var(--bad);padding:40px 0">Couldn't load analytics: ${esc(e.message)}</p>`; return; }
+  const S = d.summary;
+  const done = d.reels.filter((r) => r.finished_first_run);
+  const short = (t) => (t.length > 34 ? t.slice(0, 33) + "…" : t);
+  const med = { label: "Median reel", emph: true, values: Object.fromEntries(STAGE_SERIES.map(([k]) => [k, S.stage_median_s[k] || 0])) };
+  const timeChart = stackRows([med, ...done.map((r) => ({ label: short(r.topic), title: r.topic, values: r.stages }))], STAGE_SERIES, secs, "Time to reel by stage");
+  const costChart = stackRows(done.map((r) => ({ label: short(r.topic), title: r.topic, values: r.cost })), COST_SERIES, (v) => money(v), "Cost per reel by component");
+  const stageTot = STAGE_SERIES.reduce((a, [k]) => a + (S.stage_median_s[k] || 0), 0) || 1;
+  const top = [...STAGE_SERIES].sort((a, b) => (S.stage_median_s[b[0]] || 0) - (S.stage_median_s[a[0]] || 0)).slice(0, 2);
+  const ours = S.median_cost_per_minute;
+  const lo = 0.1, hi = 100000, L = (v) => ((Math.log10(v) - Math.log10(lo)) / (Math.log10(hi) - Math.log10(lo))) * 100;
+  const comp = d.competitors.map((c) => {
+    const isUs = c.low == null;
+    const a = isUs ? ours : c.low, b = isUs ? (S.median_cost_list_price && S.median_reel_seconds ? S.median_cost_list_price / (S.median_reel_seconds / 60) : ours) : c.high;
+    const ratio = ours && !isUs ? `${Math.round(c.low / ours).toLocaleString()}×` : "";
+    return `<tr class="${isUs ? "us" : ""}"><td><b>${esc(c.name)}</b><br><small>${esc(c.kind)}</small></td>
+      <td class="num">${a == null ? "—" : `${money(a, 2)}${b && b !== a ? `–${money(b, 2)}` : ""}`}</td>
+      <td class="range-cell"><div class="range"><span style="left:${L(Math.max(a || lo, lo))}%;width:${Math.max(1.2, L(Math.max(b || a || lo, lo)) - L(Math.max(a || lo, lo)))}%" class="${isUs ? "us" : ""}"></span></div></td>
+      <td class="num">${ratio}</td>
+      <td><small>${esc(c.basis)}${c.source ? ` · <a href="${esc(c.source)}" target="_blank" rel="noopener">source</a>` : ""}</small></td></tr>`;
+  }).join("");
+  const tokensK = (r) => (r.tokens.output_tokens ? `${Math.round(r.tokens.input_tokens / 1000)}k / ${Math.round(r.tokens.output_tokens / 1000)}k` : "—");
+  root.innerHTML = `
+    <header class="viz-head"><h1>Analytics</h1><p>Time and cost for every reel, measured from each run's event log and usage ledger. Older reels made before the ledger existed are <b>estimated</b> from their saved code. Prices are public list prices; assumptions are at the bottom.</p></header>
+    <section class="tiles">
+      <div class="tile"><span>Median time to reel</span><b>${secs(S.median_time_s)}</b><small>${S.finished} finished reel${S.finished === 1 ? "" : "s"}</small></div>
+      <div class="tile"><span>Median cost per reel</span><b>${money(S.median_cost, 2)}</b><small>${money(S.median_cost_list_price, 2)} at Muse list price</small></div>
+      <div class="tile"><span>Cost per finished minute</span><b>${money(ours, 2)}</b><small>median reel ${secs(S.median_reel_seconds)} long</small></div>
+      <div class="tile"><span>Where time goes</span><b>${esc(top.map(([k, n]) => n).join(" + "))}</b><small>${Math.round(top.reduce((a, [k]) => a + (S.stage_median_s[k] || 0), 0) / stageTot * 100)}% of the median run</small></div>
+    </section>
+    <section class="viz-card"><h2>Where the time goes</h2><p class="sub">First run of each reel, from request to finished video. Redos and rebakes later are not counted here.</p><div id="vizTime">${timeChart.html}</div></section>
+    <section class="viz-card"><h2>Cost per reel</h2><p class="sub">Model calls + rendering. The Remotion line applies only once the company has more than 3 people (the Automators tier, $0.01 per render). Iteration spend from redos is in the table.</p><div id="vizCost">${costChart.html}</div></section>
+    <section class="viz-card"><h2>Every reel</h2>
+      <div class="table-wrap"><table class="viz-table">
+        <thead><tr><th>Reel</th><th>Data</th><th class="num">Time</th><th class="num">Length</th><th class="num">Cost</th><th class="num">$/min</th><th class="num">Redo spend</th><th class="num">Renders</th><th class="num">Tokens in/out</th>${STAGE_SERIES.map(([, n]) => `<th class="num">${esc(n)}</th>`).join("")}</tr></thead>
+        <tbody>${d.reels.map((r) => `<tr><td><a href="#/job/${esc(r.id)}">${esc(short(r.topic))}</a></td><td>${r.measured ? "measured" : "estimated"}</td><td class="num">${secs(r.time_to_reel_s)}</td><td class="num">${secs(r.reel_seconds)}</td><td class="num">${money(r.cost.total)}</td><td class="num">${money(r.cost_per_minute)}</td><td class="num">${money(r.cost.iteration)}</td><td class="num">${r.renders}</td><td class="num">${tokensK(r)}</td>${STAGE_SERIES.map(([k]) => `<td class="num">${secs(r.stages[k])}</td>`).join("")}</tr>`).join("")}</tbody>
+      </table></div>
+      ${S.pitch_spend ? `<p class="sub">Storyboards and review-time prefetch spent ${money(S.pitch_spend)} in total, including storyboards that were never approved.</p>` : ""}
+    </section>
+    <section class="viz-card"><h2>Compared with other ways to make it</h2><p class="sub">Dollars per finished minute, log scale (each gridline is 10×). Ranges come from each vendor's public pricing; human-production ranges come from agency price guides. Per-minute SaaS figures are derived from plan caps.</p>
+      <div class="table-wrap"><table class="viz-table comp"><thead><tr><th>Option</th><th class="num">$ / min</th><th class="range-head"><span>$0.1</span><span>$1</span><span>$10</span><span>$100</span><span>$1k</span><span>$10k</span><span>$100k</span></th><th class="num">vs us</th><th>Basis</th></tr></thead><tbody>${comp}</tbody></table></div>
+    </section>
+    <section class="viz-card"><h2>Assumptions</h2><ul class="assume">
+      <li>Muse model <code>${esc(d.prices.muse_model)}</code>: ${esc(d.prices.muse_contributor_note)}. Standard list price $${d.prices.price_muse_input_per_m}/M input, $${d.prices.price_muse_output_per_m}/M output (reasoning tokens bill as output).</li>
+      <li>Gemini TTS $${d.prices.price_tts_audio_output_per_m}/M audio tokens (25 per second of speech) + $${d.prices.price_tts_input_per_m}/M text. The free tier costs $0 but rate-limits hard: that's where the slow voice runs come from.</li>
+      <li>Compute ${money(d.prices.price_compute_per_hour, 2)}/hour for the render box, charged for the whole run's wall time. Remotion ${money(d.prices.price_remotion_per_render, 2)} per render.</li>
+      <li>Override any price in <code>.env</code> (e.g. <code>PRICE_MUSE_OUTPUT_PER_M=4.25</code>).</li>
+    </ul></section>`;
+  timeChart.bind($("#vizTime")); costChart.bind($("#vizCost"));
+}
 
 route();

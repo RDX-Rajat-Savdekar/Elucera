@@ -1,0 +1,169 @@
+[
+  {
+    "index": 0,
+    "renderer": "remotion",
+    "duration": 2.86,
+    "description": "Vertical 1080x1920 remotion 2D scene on black background. Frame 0 shows bold kinetic title 'A MILLION READS' in fg white centered at 25% height, and a large glowing database cylinder icon in fg white with accent cyan glow centered at 50% height. Around it hundreds of small fg white arrow triangles swarm inward from screen edges toward the cylinder. The cylinder shakes and flashes stress red with accent2 magenta glow and accent3 yellow warning ring, with vignette pulsing red.",
+    "beats": [
+      {
+        "t": 0.0,
+        "word": "A",
+        "action": "Title 'A MILLION READS' in fg white pops in large at mid-upper, database cylinder appears center glowing accent cyan"
+      },
+      {
+        "t": 0.3,
+        "word": "million",
+        "action": "'1,000,000' counter in accent3 yellow ticks up fast below title"
+      },
+      {
+        "t": 0.66,
+        "word": "reads",
+        "action": "hundreds of small fg white arrows spawn from edges and swarm toward the cylinder"
+      },
+      {
+        "t": 1.36,
+        "word": "kill",
+        "action": "cylinder shakes, flashes red with accent2 magenta glow and red cracks, OVERLOAD badge pulses"
+      },
+      {
+        "t": 2.1,
+        "word": "database",
+        "action": "cylinder locks solid red with harsh shake as arrows keep hammering, vignette pulses"
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "renderer": "remotion",
+    "duration": 8.3,
+    "description": "Vertical 1080x1920 remotion 2D scene, same cylinder style, black background. Middle band 20-70% height holds left-vs-right comparison: 99 small fg white eye/read icons in a grid labeled READS in accent cyan at center-left, 1 single accent3 yellow pencil icon labeled WRITE at center-right with 99:1 counter. Below at 55-68% height the main database cylinder in fg white labeled MAIN DATABASE in muted grey sits center taking hits, then smoking with muted grey smoke puffs. A thick accent cyan flow line reroutes away from it to the right.",
+    "beats": [
+      {
+        "t": 1.04,
+        "word": "read",
+        "action": "grid of 99 fg white read icons pops in center-left with READS label in accent cyan and counter climbing to 99"
+      },
+      {
+        "t": 2.28,
+        "word": "write.",
+        "action": "single accent3 yellow write icon pops in center-right with 99:1 ratio bar showing tiny yellow vs huge cyan"
+      },
+      {
+        "t": 3.54,
+        "word": "profile",
+        "action": "three profile cards in fg white slide in above database, arrows point from cards toward main database"
+      },
+      {
+        "t": 4.3,
+        "word": "hits",
+        "action": "all profile arrows slam into main database cylinder labeled MAIN DATABASE, cylinder thuds"
+      },
+      {
+        "t": 5.78,
+        "word": "melts.",
+        "action": "database turns red with accent2 magenta heat, shakes, muted grey smoke rises and melt drips"
+      },
+      {
+        "t": 7.02,
+        "word": "stop",
+        "action": "large fg white STOP bar slams across, read arrows U-turn away from smoking database"
+      },
+      {
+        "t": 7.28,
+        "word": "reading",
+        "action": "rerouted accent cyan flow line diverts to the right away from database, database dims to muted grey"
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "renderer": "three",
+    "duration": 27.84,
+    "description": "Vertical 1080x1920 remotion 2D top-down network diagram on black background, all action in 15-72% height. Top row: cloud of small fg white user dots at 20% height labeled '1000 users want user 42'. Middle: large rounded cache box at 40% height labeled REDIS CACHE in accent cyan, initially empty outline in muted grey. Lower: two cylinders side-by-side at 62% height - left read replica cylinder in accent cyan labeled READ REPLICA, right main database cylinder in muted grey labeled MAIN DB crossed out. Green good bounce-offs, accent3 yellow timer, single accent2 magenta update arrow.\n\nViewer feedback for this new version (follow it): Make sure there are no overlapping components",
+    "beats": [
+      {
+        "t": 2.04,
+        "word": "user",
+        "action": "profile card 'user 42' in fg white pops center-top surrounded by swarm of fg white user dots"
+      },
+      {
+        "t": 3.94,
+        "word": "First",
+        "action": "one highlighted dot travels down from swarm to REDIS cache box, cache box glows accent cyan"
+      },
+      {
+        "t": 5.02,
+        "word": "RED-iss",
+        "action": "cache box label REDIS CACHE zooms large in accent cyan, box shakes empty"
+      },
+      {
+        "t": 6.36,
+        "word": "empty,",
+        "action": "cache shows EMPTY in muted grey with red MISS badge, dot bounces off"
+      },
+      {
+        "t": 8.06,
+        "word": "read",
+        "action": "miss line drops down to read replica cylinder which lights accent cyan, main DB stays dim muted grey with X, profile packet travels up"
+      },
+      {
+        "t": 11.02,
+        "word": "saves",
+        "action": "profile card slides into cache box, box fills solid good green with FULL label and 60s timer in accent3 yellow starts counting"
+      },
+      {
+        "t": 15.96,
+        "word": "hit",
+        "action": "swarm of hundreds of fg white dots flood in and bounce off green cache with good green HIT flashes, replica line goes quiet"
+      },
+      {
+        "t": 21.14,
+        "word": "delete",
+        "action": "accent2 magenta update arrow strikes cache, one key block explodes and wipes to empty muted grey with DELETED puff"
+      },
+      {
+        "t": 23.74,
+        "word": "reloads",
+        "action": "next dot drops through cache to replica again and refills cache to good green FRESH"
+      },
+      {
+        "t": 25.26,
+        "word": "scale",
+        "action": "cache duplicates into three green boxes fanning out labeled SCALE OUT, writes icon locks safe in accent3 yellow"
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "renderer": "remotion",
+    "duration": 5.611,
+    "description": "Vertical 1080x1920 remotion 2D payoff scene on black background. Center at 45% height large main database cylinder in fg white with calm accent cyan pulse ring labeled MAIN DB in muted grey, with near-zero load bar in good green below it at 58% height. Left-middle speed gauge dial drops from red to good green, right-middle three phone icons in fg white light up with accent cyan screens and instant checkmarks in good green.",
+    "beats": [
+      {
+        "t": 0.68,
+        "word": "trick.",
+        "action": "'THE TRICK' title in fg white stamps in mid-upper with accent cyan underline"
+      },
+      {
+        "t": 1.6,
+        "word": "main",
+        "action": "main database cylinder scales up center pulsing calm accent cyan, muted grey MAIN DB label appears"
+      },
+      {
+        "t": 2.68,
+        "word": "no",
+        "action": "load bar below database drops to 2% in good green showing ~0% with Zzz icon, pulse turns slow calm"
+      },
+      {
+        "t": 4.02,
+        "word": "feels",
+        "action": "three fg white phone icons pop in lower-middle and light up with accent cyan screens"
+      },
+      {
+        "t": 4.4,
+        "word": "instant",
+        "action": "speed gauge needle slams to good green FAST and phones flash good green INSTANT checkmarks"
+      }
+    ]
+  }
+]

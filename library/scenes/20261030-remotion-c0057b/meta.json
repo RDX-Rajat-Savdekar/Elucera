@@ -1,0 +1,35 @@
+{
+  "id": "20261030-remotion-c0057b",
+  "renderer": "remotion",
+  "topic": "How does public-key encryption work?",
+  "role": "payoff",
+  "narration": "That's the trick. Everyone can lock, only one can unlock. That's how the whole internet stays secret.",
+  "description": "Same flat 2D vertical style, payoff. Center (540,800) large fg white wireframe globe with accent cyan continents rotating slowly. Around it 8 small locked boxes with silver locks orbit inward. Below globe at (540,1200) secure server tower in accent cyan with glowing accent3 yellow gold private key floating beside it. Background dark with faint dotted flows. All boxes open in sync at end with fg white 'secret' sparkles. Nothing in top 10% or bottom 25% caption zones.",
+  "beats": [
+    {
+      "t": 0.0,
+      "word": "That's",
+      "action": "Camera zooms out, globe scales up center with orbiting locked boxes appearing around it"
+    },
+    {
+      "t": 1.42,
+      "word": "Everyone",
+      "action": "Dozens of tiny silver locks rain from edges onto boxes, text 'Everyone can lock' pops upper-mid"
+    },
+    {
+      "t": 2.18,
+      "word": "only",
+      "action": "Flow lines redirect all boxes toward single server below, gold private key glows bright accent3 yellow beside server"
+    },
+    {
+      "t": 3.7,
+      "word": "That's",
+      "action": "All boxes fly into server and pop open at once releasing glow, text swaps to 'whole internet stays secret'"
+    }
+  ],
+  "duration": 5.631,
+  "attempts": 1,
+  "source": "b3dd4c224ef1",
+  "created": "2026-10-30T23:45:26+00:00",
+  "starred": false
+}

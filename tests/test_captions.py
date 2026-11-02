@@ -1,5 +1,5 @@
-from reelgen.assemble.captions import _ts, chunk, to_ass
-from reelgen.models import WordTiming
+from elucera.assemble.captions import _ts, chunk, to_ass
+from elucera.models import WordTiming
 
 
 def w(word, start, end):

@@ -1,19 +1,28 @@
 {
-  "name": "reelgen-remotion",
+  "name": "elucera-remotion",
   "private": true,
   "type": "module",
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "gallery": "node kit-gallery/stills.mjs",
+    "export-icons": "node kit-gallery/export_icons.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",
     "@react-three/fiber": "9.8.2",
     "@remotion/bundler": "4.0.539",
     "@remotion/cli": "4.0.539",
+    "@remotion/layout-utils": "4.0.539",
+    "@remotion/noise": "4.0.539",
+    "@remotion/paths": "4.0.539",
     "@remotion/player": "^4.0.539",
     "@remotion/renderer": "4.0.539",
+    "@remotion/rough-notation": "4.0.539",
+    "@remotion/shapes": "4.0.539",
     "@remotion/three": "4.0.539",
+    "@remotion/transitions": "4.0.539",
     "esbuild": "0.28.2",
+    "lucide-react": "1.66.0",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "remotion": "4.0.539",

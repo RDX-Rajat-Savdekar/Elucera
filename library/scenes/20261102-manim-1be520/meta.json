@@ -1,0 +1,65 @@
+{
+  "id": "20261102-manim-1be520",
+  "renderer": "manim",
+  "topic": "top view of binary tree leetcode style , solution video with intitution to optimal with and python code  explanation",
+  "role": "mechanism",
+  "narration": "Give the root distance zero. Left is minus one, right is plus one. Walk level by level, top down. That's breadth first. Say root ten has five left and fifteen right, and five has seven right. Seven lands on zero too. But zero was already claimed by ten. So you skip it. If it's the first time you see a distance, you keep it.",
+  "description": "Vertical 1080x1920 2D Manim diagram on dark background. Center 40-65% height: clean binary tree graph with white circles labeled 10 (root top), 5 left, 15 right, 7 right-child of 5, muted-grey edges. Below tree at 68%: horizontal HD number line with -1, 0, +1 in muted-grey, active HD turns accent3-yellow. Bottom-center 72%: horizontal BFS queue bar of rounded rectangles. First-seen HD slots lock accent-cyan, duplicates flash accent2-magenta then fade. Focal node each beat scales up accent-cyan.\n\nViewer feedback for this new version (follow it): there are a lot of overlapping components scale the video accordingly cahnge the components if needed make the animation simpler",
+  "beats": [
+    {
+      "t": 0.42,
+      "word": "Give",
+      "action": "Tree builds top-down in center, root 10 scales in accent-cyan with HD 0 label accent3-yellow below it"
+    },
+    {
+      "t": 3.02,
+      "word": "minus",
+      "action": "Left child 5 pops in, edge draws, HD -1 label lights accent3-yellow under it"
+    },
+    {
+      "t": 4.48,
+      "word": "plus",
+      "action": "Right child 15 pops in, edge draws, HD +1 label lights accent3-yellow"
+    },
+    {
+      "t": 5.88,
+      "word": "Walk",
+      "action": "BFS queue bar appears bottom-center with [10,5,15], 10 dequeues and turns accent-cyan"
+    },
+    {
+      "t": 8.32,
+      "word": "breadth",
+      "action": "Level 1 highlights: 5 and 15 lift and turn accent-cyan, queue advances level-by-level left-to-right"
+    },
+    {
+      "t": 10.22,
+      "word": "ten",
+      "action": "Map row of HD slots appears: -1:5 locks good-green, 0:10 locks good-green, +1:15 locks good-green"
+    },
+    {
+      "t": 13.74,
+      "word": "seven",
+      "action": "Node 7 pops as right-child of 5, queue shows 7 current in accent-cyan"
+    },
+    {
+      "t": 15.78,
+      "word": "zero",
+      "action": "Dashed accent2-magenta line drops from 7 to HD 0 slot showing collision on zero"
+    },
+    {
+      "t": 19.34,
+      "word": "skip",
+      "action": "Node 7 flashes accent2-magenta, shrinks and fades to muted-grey with X, HD 0 stays 10"
+    },
+    {
+      "t": 22.5,
+      "word": "keep",
+      "action": "Rule banner flashes: first-seen HD boxes glow accent-cyan, final kept set 5,10,15 pulses together"
+    }
+  ],
+  "duration": 23.21,
+  "attempts": 1,
+  "source": "fbf0d20a61ac",
+  "created": "2026-11-02T22:58:05+00:00",
+  "starred": false
+}

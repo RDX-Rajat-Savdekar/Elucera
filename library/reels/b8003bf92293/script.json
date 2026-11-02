@@ -1,0 +1,26 @@
+{
+  "title": "Never Read From the Main Database",
+  "idea": "Read-heavy systems survive by serving almost all reads from cache and replicas, keeping the primary database untouched.",
+  "segments": [
+    {
+      "role": "hook",
+      "narration": "A million reads can kill one database.",
+      "visual_directive": "A single glowing database cylinder is swarmed by hundreds of small white arrows and flashes red under stress."
+    },
+    {
+      "role": "setup",
+      "narration": "Most apps read way more than they write. If every profile view hits your main database, it melts. So you stop reading from it.",
+      "visual_directive": "A counter shows ninety-nine read icons versus one write icon. All reads are rerouted away from the smoking main database."
+    },
+    {
+      "role": "mechanism",
+      "narration": "Say a thousand people want user four two. First request checks a RED-iss cache. It's empty, so it reads from a read replica, not the main database. Then it saves that profile in cache for sixty seconds. The next nine hundred ninety nine requests hit that cache and never touch any database. When someone updates the profile, you delete that cache key. Next read reloads it fresh. Reads scale out. Writes stay safe.",
+      "visual_directive": "Top-down flow shows user dots hitting a labeled cache box, with one miss line dropping to a replica cylinder and filling the cache. Hundreds of follow-up dots bounce off the full cache in green while an update wipes one key clean."
+    },
+    {
+      "role": "payoff",
+      "narration": "That's the trick. Your main database does almost no work, but everyone feels instant loads.",
+      "visual_directive": "The main database pulses calm blue at near zero load while a speed gauge drops and multiple phones light up instantly."
+    }
+  ]
+}
