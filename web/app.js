@@ -60,6 +60,25 @@ async function getJSON(url, opts = {}) {
 }
 const postJSON = (url, body = {}) => getJSON(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
 
+// ---------- product telemetry (best-effort, local-first, never blocks UI) ----------
+const _trackedOnce = new Set();
+function track(event, props = {}, opts = {}) {
+  try {
+    if (opts.once) {
+      const k = `${event}:${opts.once}`;
+      if (_trackedOnce.has(k)) return;
+      _trackedOnce.add(k);
+    }
+    const body = JSON.stringify({ event, props: { ...props, route: location.hash || "#/" } });
+    if (navigator.sendBeacon) {
+      const blob = new Blob([body], { type: "application/json" });
+      // sendBeacon doesn't send custom headers; UID travels in the payload for beacon path.
+      if (navigator.sendBeacon("/telemetry/event?uid=" + encodeURIComponent(UID), blob)) return;
+    }
+    fetch("/telemetry/event", { method: "POST", headers: { "Content-Type": "application/json", "X-Elucera-User": UID }, body, keepalive: true }).catch(() => {});
+  } catch { /* telemetry never breaks the UI */ }
+}
+
 // ---------- theme: system → light → dark ----------
 const THEMES = ["system", "light", "dark"];
 const THEME_ICON = {
@@ -150,6 +169,7 @@ function route() {
   if (studio) openStudio(job?.[1]);
   else if (analytics) { loadAnalytics(); window.scrollTo(0, 0); }
   else { loadHome(); window.scrollTo(0, 0); }
+  track("page_view", { view: analytics ? "analytics" : studio ? "studio" : "home" });
 }
 addEventListener("hashchange", route);
 document.addEventListener("click", (e) => {
@@ -231,20 +251,204 @@ async function loadHome() {
   };
 
   watch($("#home"));
+  initLiveDemo();
 }
 
 function openPlayer(r) {
   if (!r) return;
   if (!r.has_video) { goCreate(r.topic); return; }
+  track(r.kit ? "kit_play" : "reel_play", { title: (r.title || "").slice(0, 120) });
   const dlg = $("#player");
   $("#playerVideo").src = r.src || `/library/reels/${encodeURIComponent(r.name)}/video`;
   $("#playerTitle").textContent = r.title;
   $("#playerMake").hidden = !!r.kit;
-  $("#playerMake").onclick = () => { dlg.close(); goCreate(r.topic); };
+  $("#playerMake").onclick = () => { track("cta_make_like_this", { title: (r.title || "").slice(0, 120) }); dlg.close(); goCreate(r.topic); };
   dlg.showModal();
   $("#playerVideo").play().catch(() => {});
 }
 $("#player").addEventListener("close", () => $("#playerVideo").pause());
+
+// =====================================================================
+// Home: live build demo (typed prompt + pipeline canvas, loops like n8n)
+// =====================================================================
+const DEMO_SCENARIOS = [
+  {
+    prompt: "Explain how GPS knows where you are in 45 seconds",
+    built: "Built — script → voice → 3 scenes → captioned reel",
+    caption: "GPS reel · script, voice and scenes build below",
+    nodes: [
+      { icon: "❓", cls: "", title: "New question", sub: "How does GPS work?" },
+      { icon: "✎", cls: "amber", title: "Script", sub: "hook · mechanism · payoff" },
+      { icon: "♪", cls: "lime", title: "Voice", sub: "45s · word timings" },
+      { icon: "▦", cls: "", title: "Plan", sub: "3 scenes picked" },
+      { icon: "▶", cls: "green", title: "Animate", sub: "2D + 3D rendering" },
+    ],
+    ends: [
+      { icon: "✓", cls: "green", title: "Reel ready", sub: "1080×1920 + captions" },
+      { icon: "↻", cls: "pink", title: "Redo a scene", sub: "note → rebake" },
+    ],
+  },
+  {
+    prompt: "Why is quicksort fast? Show the partitions",
+    built: "Done — storyboard approved → scenes rendering live",
+    caption: "Quicksort reel · same pipeline, different scenes",
+    nodes: [
+      { icon: "❓", cls: "", title: "New question", sub: "Why is quicksort fast?" },
+      { icon: "✎", cls: "amber", title: "Script", sub: "pivot · partition · recurse" },
+      { icon: "♪", cls: "lime", title: "Voice", sub: "52s · Puck voice" },
+      { icon: "▦", cls: "", title: "Plan", sub: "Manim for partitions" },
+      { icon: "▶", cls: "green", title: "Animate", sub: "bars swap live" },
+    ],
+    ends: [
+      { icon: "✓", cls: "green", title: "Reel ready", sub: "captions burned in" },
+      { icon: "↻", cls: "pink", title: "Redo a scene", sub: "compare → rebake" },
+    ],
+  },
+];
+let _demoInit = false, _demoTimers = [], _demoIdx = 0, _demoVisible = false, _demoReduced = false;
+function demoClearTimers() { for (const t of _demoTimers) clearTimeout(t); _demoTimers = []; }
+const _demoLater = (ms, fn) => _demoTimers.push(setTimeout(fn, ms));
+function demoDrawEdges() {
+  const svg = $("#demoEdges"), canvas = $("#demoCanvas"), box = $("#demoNodes");
+  if (!svg || !canvas || !box) return;
+  if (innerWidth < 900) { svg.innerHTML = ""; return; }
+  const cr = canvas.getBoundingClientRect();
+  const center = (el) => {
+    const r = el.getBoundingClientRect();
+    return { x: r.left - cr.left + r.width / 2, y: r.top - cr.top + r.height / 2, w: r.width, h: r.height };
+  };
+  const link = (a, b) => {
+    const x1 = a.x + a.w / 2, x2 = b.x - b.w / 2;
+    const mx = (x1 + x2) / 2;
+    return `<path d="M ${x1} ${a.y} C ${mx} ${a.y}, ${mx} ${b.y}, ${x2} ${b.y}"/>`;
+  };
+  const mains = [...box.querySelectorAll(".demo-col.main .demo-node.show")].map(center);
+  const ends = [...box.querySelectorAll(".demo-col.ends .demo-card.show")].map(center);
+  if (!mains.length) { svg.innerHTML = ""; return; }
+  svg.setAttribute("viewBox", `0 0 ${cr.width} ${cr.height}`);
+  let html = "";
+  for (let i = 0; i + 1 < mains.length; i++) html += link(mains[i], mains[i + 1]);
+  if (mains.length && ends.length) {
+    const tail = mains[mains.length - 1];
+    for (const e of ends) html += link(tail, e);
+  }
+  svg.innerHTML = html;
+}
+function demoRenderDots() {
+  const d = $("#demoDots");
+  if (d) d.innerHTML = DEMO_SCENARIOS.map((_, i) => `<i class="${i === _demoIdx ? "on" : ""}"></i>`).join("");
+}
+function demoPlayScenario(idx) {
+  const sc = DEMO_SCENARIOS[idx % DEMO_SCENARIOS.length];
+  _demoIdx = idx % DEMO_SCENARIOS.length;
+  const typed = $("#demoTyped"), built = $("#demoBuilt"), builtText = $("#demoBuiltText");
+  const nodes = $("#demoNodes"), caption = $("#demoCaption"), live = $("#demoLive"), caret = $("#demoCaret");
+  const send = document.querySelector(".demo-send");
+  if (!typed || !nodes) return;
+  demoClearTimers();
+  demoRenderDots();
+  // reset
+  typed.textContent = "";
+  if (built) built.hidden = true;
+  if (caret) caret.classList.remove("off");
+  if (live) live.classList.add("on");
+  if (send) send.classList.remove("ready");
+  nodes.innerHTML = "";
+  const svg = $("#demoEdges");
+  if (svg) svg.innerHTML = "";
+  if (caption) caption.textContent = "Typing…";
+  track("demo_scenario", { index: _demoIdx });
+  if (_demoReduced) {
+    typed.textContent = sc.prompt;
+    if (built && builtText) { builtText.textContent = sc.built; built.hidden = false; }
+    if (caret) caret.classList.add("off");
+    if (send) send.classList.add("ready");
+    if (caption) caption.textContent = sc.caption;
+    // show everything at once
+    sc.nodes.forEach((n) => nodes.append(demoNodeEl(n)));
+    nodes.append(demoEndsEl(sc.ends));
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      nodes.querySelectorAll(".demo-node, .demo-card").forEach((el) => el.classList.add("show"));
+      demoDrawEdges();
+    }));
+    if (live) live.classList.remove("on");
+    return;
+  }
+  // type the prompt
+  let ci = 0;
+  const typeStep = () => {
+    if (!_demoVisible) return;
+    typed.textContent = sc.prompt.slice(0, ++ci);
+    if (ci < sc.prompt.length) _demoLater(34 + Math.random() * 46, typeStep);
+    else {
+      if (caret) caret.classList.add("off");
+      if (send) send.classList.add("ready");
+      _demoLater(550, () => {
+        if (!_demoVisible) return;
+        if (built && builtText) { builtText.textContent = sc.built; built.hidden = false; }
+        if (caption) caption.textContent = "Building the pipeline…";
+        // reveal the chain one node at a time, then the two end cards together
+        sc.nodes.forEach((n, i) => _demoLater(600 * (i + 1), () => {
+          if (!_demoVisible) return;
+          nodes.append(demoNodeEl(n));
+          demoDrawEdges();
+          _demoLater(450, demoDrawEdges); // settle after the pop-in transition
+        }));
+        const forkAt = 600 * (sc.nodes.length + 1);
+        _demoLater(forkAt, () => {
+          if (!_demoVisible) return;
+          nodes.append(demoEndsEl(sc.ends));
+          demoDrawEdges();
+          _demoLater(500, demoDrawEdges);
+          if (caption) caption.textContent = sc.caption;
+        });
+        _demoLater(forkAt + 4200, () => { if (_demoVisible) demoPlayScenario(idx + 1); });
+        _demoLater(600 * 2, () => { if (live) live.classList.remove("on"); });
+      });
+    }
+  };
+  typeStep();
+}
+function demoNodeEl(n) {
+  const col = document.createElement("div");
+  col.className = "demo-col main";
+  col.innerHTML = `<div class="demo-node"><span class="demo-ico ${esc(n.cls || "")}">${esc(n.icon || "•")}</span><span class="demo-txt">${esc(n.title)}<small>${esc(n.sub || "")}</small></span></div>`;
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    col.firstElementChild?.classList.add("show");
+    demoDrawEdges();
+  }));
+  return col;
+}
+function demoEndsEl(ends) {
+  const col = document.createElement("div");
+  col.className = "demo-col ends";
+  col.innerHTML = (ends || []).map((n) => `<div class="demo-card mini"><strong><span class="demo-ico ${esc(n.cls || "")}">${esc(n.icon || "•")}</span>${esc(n.title)}</strong><p>${esc(n.sub || "")}</p></div>`).join("");
+  const cards = [...col.children];
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    cards.forEach((c, i) => setTimeout(() => { c.classList.add("show"); demoDrawEdges(); }, i * 160));
+  }));
+  return col;
+}
+function initLiveDemo() {
+  if (_demoInit) return;
+  const root = $("#liveDemo");
+  if (!root) return;
+  _demoInit = true;
+  _demoReduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $("#demoReplay")?.addEventListener("click", () => { track("demo_replay", { index: _demoIdx }); demoPlayScenario(0); });
+  new IntersectionObserver((entries) => {
+    const vis = entries.some((e) => e.isIntersecting);
+    if (vis && !_demoVisible) {
+      _demoVisible = true;
+      track("demo_view", {}, { once: "demo" });
+      demoPlayScenario(_demoIdx);
+    } else if (!vis && _demoVisible) {
+      _demoVisible = false;
+      demoClearTimers();
+    }
+  }, { threshold: 0.25 }).observe(root);
+  addEventListener("resize", () => { if (_demoVisible) demoDrawEdges(); });
+}
 
 // =====================================================================
 // Studio
@@ -409,6 +613,7 @@ async function submit(topic) {
   if (topic.length < 3) return;
   const renderer = engineValue || undefined;
   const target_length = directLength();
+  track("pitch_submit", { len: topic.length, engine: renderer || "auto", target_length });
   input.value = ""; autosize(); updateSend();
   try {
     const body = { topic, thread_id: getThreadId(), target_length };
@@ -791,6 +996,7 @@ class JobView {
   }
 
   async rebake(btn) {
+    track("rebake_click", { job: this.id, dirty: [...(this.s.dirty || [])].length });
     if (btn) { btn.disabled = true; btn.textContent = "Starting…"; }
     if (this.demo) {
       this.connect();
@@ -972,7 +1178,7 @@ class JobView {
       </div>`;
 
     $("[data-3d]", card)?.addEventListener("click", () => { sc.show3d = !sc.show3d; this.renderScene(box, i); });
-    $("[data-redo]", card)?.addEventListener("click", () => { sc.redo = true; this.renderScene(box, i); $("textarea", card)?.focus(); });
+    $("[data-redo]", card)?.addEventListener("click", () => { track("scene_redo_open", { job: this.id, scene: i }); sc.redo = true; this.renderScene(box, i); $("textarea", card)?.focus(); });
     $("[data-cancel]", card)?.addEventListener("click", () => { sc.redo = false; sc.lib = null; this.renderScene(box, i); });
     $("[data-lib]", card)?.addEventListener("click", async (e) => {
       if (sc.lib) { sc.lib = null; this.renderScene(box, i); return; }
@@ -1000,6 +1206,7 @@ class JobView {
       const edited = (fd.get("description") || "").trim();
       if (edited && edited !== desc.trim()) body.description = edited;
       if (fd.get("lib")) body.library_scene = fd.get("lib");
+      track("scene_redo_submit", { job: this.id, scene: i, engine: body.renderer || sc.renderer || "auto", edited: !!body.description, note: !!body.note, library: !!body.library_scene });
       e.target.querySelector("button[type=submit]").disabled = true;
       if (this.demo) { sc.redo = false; sc.lib = null; this.demoRedone(i, body); return; }
       try {
@@ -1278,6 +1485,7 @@ class PitchView {
     }
     const btn = this.el.querySelector("[data-approve]");
     if (btn) { btn.disabled = true; btn.textContent = "Starting…"; }
+    track("pitch_approve", { pitch: this.pid, engine: this.renderer || "auto" });
     try {
       const said = this.segEdits(), seen = this.visEdits();
       const segments = p.script.segments.map((s, i) => ({ ...s, narration: (said[i] ?? s.narration).trim() || s.narration,
@@ -1539,9 +1747,10 @@ function stackRows(rows, series, fmtv, label) {
 
 async function loadAnalytics() {
   const root = $("#analyticsBody");
-  let d;
+  let d, t = null;
   try { d = await getJSON("/analytics/dashboard"); }
   catch (e) { root.innerHTML = `<p style="color:var(--bad);padding:40px 0">Couldn't load analytics: ${esc(e.message)}</p>`; return; }
+  try { t = await getJSON("/analytics/telemetry?days=14"); } catch { t = null; }
   const S = d.summary;
   const done = d.reels.filter((r) => r.finished_first_run);
   const short = (t) => (t.length > 34 ? t.slice(0, 33) + "…" : t);
@@ -1580,6 +1789,13 @@ async function loadAnalytics() {
       </table></div>
       ${S.pitch_spend ? `<p class="sub">Storyboards and review-time prefetch spent ${money(S.pitch_spend)} in total, including storyboards that were never approved.</p>` : ""}
     </section>
+    ${t ? `<section class="viz-card"><h2>Product funnel · last ${t.days} days</h2><p class="sub">${t.recent} events from ${t.unique_browsers} browser${t.unique_browsers === 1 ? "" : "s"}. Local-first beacons; prompts are never stored (lengths only).</p>
+      <section class="tiles">
+        ${Object.entries(t.funnel || {}).map(([k, v]) => `<div class="tile"><span>${esc(k.replace(/_/g, " "))}</span><b>${v}</b></div>`).join("")}
+      </section>
+      ${Object.keys(t.by_day || {}).length ? `<p class="sub">Daily volume: ${Object.entries(t.by_day).map(([day, n]) => `${esc(day)} · ${n}`).join(" — ")}</p>` : `<p class="sub">No product events yet — visit home and the studio to generate some.</p>`}
+      ${Object.keys(t.by_event || {}).length ? `<div class="table-wrap"><table class="viz-table"><thead><tr><th>Event</th><th class="num">Count</th></tr></thead><tbody>${Object.entries(t.by_event).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="num">${v}</td></tr>`).join("")}</tbody></table></div>` : ""}
+    </section>` : ""}
     <section class="viz-card"><h2>Compared with other ways to make it</h2><p class="sub">Dollars per finished minute, log scale (each gridline is 10×). Ranges come from each vendor's public pricing; human-production ranges come from agency price guides. Per-minute SaaS figures are derived from plan caps.</p>
       <div class="table-wrap"><table class="viz-table comp"><thead><tr><th>Option</th><th class="num">$ / min</th><th class="range-head"><span>$0.1</span><span>$1</span><span>$10</span><span>$100</span><span>$1k</span><span>$10k</span><span>$100k</span></th><th class="num">vs us</th><th>Basis</th></tr></thead><tbody>${comp}</tbody></table></div>
     </section>

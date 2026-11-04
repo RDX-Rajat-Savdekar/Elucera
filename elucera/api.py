@@ -38,6 +38,11 @@ class RetryRequest(BaseModel):
     library_scene: str | None = Field(default=None, max_length=64, description="Reuse this library scene's clip instead")
 
 
+class TelemetryEvent(BaseModel):
+    event: str = Field(min_length=1, max_length=80)
+    props: dict = Field(default_factory=dict)
+
+
 def _owner(request: Request) -> str | None:
     """Anonymous per-browser id from the UI; scopes chat history without a login."""
     v = (request.headers.get("x-elucera-user") or "").strip()
@@ -180,8 +185,12 @@ app = FastAPI(title="elucera", lifespan=_lifespan)
 
 @app.post("/jobs", status_code=202)
 def create_job(req: JobRequest, background: BackgroundTasks, request: Request) -> JobState:
+    from elucera import telemetry
     from elucera.graph import resume, run
 
+    telemetry.record("job_create", {"topic_len": len(req.topic.strip()),
+                                    "engine": req.renderer.value if req.renderer else "auto"},
+                     owner=_owner(request))
     job = JobState(id=uuid.uuid4().hex[:12], topic=req.topic.strip(), preferred_renderer=req.renderer,
                    thread_id=(req.thread_id or None), created=time.time())
     JOBS[job.id] = job
@@ -253,10 +262,13 @@ def get_job_details(job_id: str) -> dict:
 
 
 @app.get("/jobs/{job_id}/video")
-def get_video(job_id: str) -> FileResponse:
+def get_video(job_id: str, request: Request) -> FileResponse:
+    from elucera import telemetry
+
     job = _load(job_id)
     if not job or not job.video or not Path(job.video).exists():
         raise HTTPException(404, "video not ready")
+    telemetry.record("video_serve", {"job": job_id}, owner=_owner(request))
     return FileResponse(job.video, media_type="video/mp4", filename=f"reel-{job_id}.mp4",
                         headers={"Cache-Control": "no-store"})
 
@@ -302,7 +314,7 @@ def _idle_job(job_id: str) -> JobState:
 
 
 @app.post("/jobs/{job_id}/scenes/{index}/retry", status_code=202)
-def retry_scene(job_id: str, index: int, req: RetryRequest, background: BackgroundTasks) -> JobState:
+def retry_scene(job_id: str, index: int, req: RetryRequest, background: BackgroundTasks, request: Request) -> JobState:
     """Regenerate one scene (with a note, an edited prompt, another engine, or a library clip).
 
     Only that scene is rebuilt; the reel is NOT reassembled until POST /jobs/{id}/rebake, so several scenes can be
@@ -319,6 +331,16 @@ def retry_scene(job_id: str, index: int, req: RetryRequest, background: Backgrou
         raise HTTPException(404, "no such scene")
     JOBS[job.id] = job
     renderer = req.renderer.value if req.renderer else None
+    try:
+        from elucera import telemetry
+        telemetry.record("scene_retry", {"job": job_id, "scene": index,
+                                        "engine": renderer or plan[index]["renderer"],
+                                        "edited": bool(req.description),
+                                        "note": bool(req.note),
+                                        "library": bool(req.library_scene)},
+                         owner=_owner(request))
+    except Exception:
+        pass
     _emitter(job)("retry", index=index, note=req.note, renderer=renderer or plan[index]["renderer"],
                   edited=bool(req.description), library_scene=req.library_scene)
     background.add_task(_execute, job, lambda emit: do_retry(d, index, req.note, renderer, emit,
@@ -370,10 +392,12 @@ def similar_scenes(job_id: str, index: int, renderer: Renderer | None = None) ->
 
 
 @app.post("/jobs/{job_id}/rebake", status_code=202)
-def rebake_job(job_id: str, background: BackgroundTasks) -> JobState:
+def rebake_job(job_id: str, background: BackgroundTasks, request: Request) -> JobState:
     """Reassemble the reel from the current scene clips (after redos)."""
+    from elucera import telemetry
     from elucera.graph import load_job, rebake
 
+    telemetry.record("rebake", {"job": job_id}, owner=_owner(request))
     job = _idle_job(job_id)
     d = _job_dir(job_id)
     try:
@@ -390,10 +414,12 @@ def rebake_job(job_id: str, background: BackgroundTasks) -> JobState:
 
 
 @app.post("/jobs/{job_id}/resume", status_code=202)
-def resume_job(job_id: str, background: BackgroundTasks) -> JobState:
+def resume_job(job_id: str, background: BackgroundTasks, request: Request) -> JobState:
     """Continue a failed or interrupted job from the first missing step, reusing what's already done."""
+    from elucera import telemetry
     from elucera.graph import resume
 
+    telemetry.record("resume", {"job": job_id}, owner=_owner(request))
     job = _idle_job(job_id)
     if job.status == JobStatus.done:
         raise HTTPException(409, "job already finished")
@@ -495,6 +521,12 @@ def _prefetch(pid: str, script: Script, note: str, preferred: str | None) -> Non
 
 @app.post("/pitches", status_code=202)
 def create_pitch(req: PitchRequest, background: BackgroundTasks, request: Request) -> dict:
+    from elucera import telemetry
+
+    telemetry.record("pitch_submit", {"topic_len": len(req.topic.strip()),
+                                     "engine": req.renderer.value if req.renderer else "auto",
+                                     "target_length": req.target_length},
+                     owner=_owner(request))
     pid = uuid.uuid4().hex[:12]
     d = _pitch_dir(pid)
     d.mkdir(parents=True, exist_ok=True)
@@ -526,7 +558,12 @@ def get_pitch(pid: str) -> dict:
 
 @app.post("/pitches/{pid}/approve", status_code=202)
 def approve_pitch(pid: str, req: PitchApprove, background: BackgroundTasks, request: Request) -> JobState:
+    from elucera import telemetry
     from elucera.graph import resume, run_approved
+
+    telemetry.record("pitch_approve", {"pitch": pid,
+                                      "engine": req.renderer.value if req.renderer else "auto"},
+                     owner=_owner(request))
 
     if not pid.isalnum():
         raise HTTPException(404, "unknown pitch")
@@ -630,6 +667,31 @@ def analytics_dashboard() -> dict:
 def analytics_summary() -> dict:
     from elucera import analytics
     return analytics.summary()
+
+
+@app.post("/telemetry/event", status_code=204)
+async def telemetry_event(request: Request):
+    """Frontend product beacon. Best-effort: always 204, never leaks prompts."""
+    from elucera import telemetry
+
+    owner = _owner(request) or (request.query_params.get("uid") or "")[:64]
+    try:
+        body = await request.json()
+    except Exception:
+        return None
+    if isinstance(body, dict):
+        # Beacon path can't set headers, so allow the UID inside the payload too.
+        uid = (body.get("uid") or body.get("props", {}).get("uid") or "") if isinstance(body.get("props"), dict) else (body.get("uid") or "")
+        telemetry.record(body.get("event", ""), body.get("props") if isinstance(body.get("props"), dict) else {},
+                         owner=owner or str(uid)[:64])
+    return None
+
+
+@app.get("/analytics/telemetry")
+def analytics_telemetry(days: int = 14) -> dict:
+    """Product-funnel aggregates: page views, demo, gallery, submits, approvals, redos."""
+    from elucera import telemetry
+    return telemetry.summary(max(1, min(days, 90)))
 
 
 @app.get("/library/reels")

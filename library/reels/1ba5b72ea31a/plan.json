@@ -1,0 +1,164 @@
+[
+  {
+    "index": 0,
+    "renderer": "manim",
+    "duration": 4.95,
+    "description": "Vertical 1080x1920, dark navy background. Bold close-up hook in middle 65% of frame (clear of captions). Upper-middle left: large white chat bubble with fg text \"What's free Friday?\" and small Bot icon (accent=cyan) labeled CHATBOT below it. Mid-right: large Calendar icon (muted=grey) with red Lock overlay. Between them center: vertical red gap bar that pulses. Kinetic typography: huge fg words \"CAN'T\" then accent3 yellow \"Until now.\" at bottom-middle. Camera slow push-in. Ends with red gap cracking into cyan glow tease to lead to next shot.\n\nViewer feedback for this new version (follow it): make this in mainm",
+    "beats": [
+      {
+        "t": 0.0,
+        "word": "Your",
+        "action": "White chat bubble pops in upper-middle left with text What's free Friday? typing in"
+      },
+      {
+        "t": 0.42,
+        "word": "chatbot",
+        "action": "Bot icon in accent cyan drops below bubble with label CHATBOT"
+      },
+      {
+        "t": 1.02,
+        "word": "can't",
+        "action": "Thick red gap bar slams between bubble and right side, pulsing, big fg word CAN'T flashes"
+      },
+      {
+        "t": 2.2,
+        "word": "calendar.",
+        "action": "Muted grey Calendar icon with red Lock badge pops in mid-right, shakes as gap blocks it"
+      },
+      {
+        "t": 2.68,
+        "word": "Until",
+        "action": "Camera pushes in, red gap flickers, yellow Until text wipes in bottom-middle"
+      },
+      {
+        "t": 3.58,
+        "word": "now.",
+        "action": "Gap edge turns cyan and glows, words now. pop in accent3 yellow, calendar lock rattles"
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "renderer": "remotion",
+    "duration": 11.33,
+    "description": "New wide shot, pattern interrupt from close-up to zoomed-out island. Middle zone: centered white chat island box labeled LANGUAGE MODEL TRAPPED IN CHAT with MessageCircle icon, enclosed by dashed muted box walls. Lower-middle: three icons in row - Calendar (accent3 yellow), Plane for flights (accent2 magenta), Database cylinder for Postgres (accent cyan) labeled calendar / flights / postgres. Messy tangled red and muted cables draw between every pair, crossing and flashing. Top-middle empty for incoming MCP reveal. Colors: trapped box muted, cables red for custom mess.",
+    "beats": [
+      {
+        "t": 0.41,
+        "word": "A",
+        "action": "Center chat island box scales in with LANGUAGE MODEL label"
+      },
+      {
+        "t": 1.87,
+        "word": "trapped",
+        "action": "Dashed muted walls snap around island, model icon dims inside"
+      },
+      {
+        "t": 4.13,
+        "word": "calendar",
+        "action": "Yellow Calendar icon pops bottom-left, messy red cable shoots from island and tangles, X flashes"
+      },
+      {
+        "t": 5.25,
+        "word": "post-gres,",
+        "action": "Database cylinder and Plane icons pop bottom-center/right, two more tangled cables cross over first in magenta and cyan"
+      },
+      {
+        "t": 7.87,
+        "word": "code.",
+        "action": "All cables shake, small CodePanel snippets pop on cables showing custom code, red warning badges pulse"
+      },
+      {
+        "t": 9.53,
+        "word": "M",
+        "action": "Tangled mess freezes, glowing cyan-magenta-yellow MCP plug badge drops top-middle with text ONE STANDARD PLUG, cables orient toward it"
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "renderer": "remotion",
+    "duration": 26.36,
+    "description": "New split-view shot, left-right layout. Top-center: small chat bubble \"what's free Friday?\" persists. Mid-left: laptop icon labeled APP + MCP CLIENT (accent cyan card). Mid-right: server rack icon labeled CALENDAR SERVER (accent3 yellow card). Center: single thick glowing cyan cable connecting them with plug icons on ends. Server side holds two tool cards stacked: List events and create event. Bottom-middle: three-step timeline badges Discover - Call - Answer dimmed. Later three busy time blocks (9-11, 11-12:30, 1-3 red blocks) and final answer bubble \"You're free after 3pm\" with good green check. All motion is packet dots traveling along the single cable.",
+    "beats": [
+      {
+        "t": 0.56,
+        "word": "Say",
+        "action": "Top chat bubble slides in with what's free Friday? text"
+      },
+      {
+        "t": 3.52,
+        "word": "opens",
+        "action": "Split view wipes in: laptop client left and calendar server right, single cyan cable plugs with glow pop"
+      },
+      {
+        "t": 7.94,
+        "word": "what",
+        "action": "Cyan packet dot labeled tools/list travels client to server along cable"
+      },
+      {
+        "t": 9.98,
+        "word": "says,",
+        "action": "Two tool cards pop on server: List events and create event in white on dark"
+      },
+      {
+        "t": 14.8,
+        "word": "list",
+        "action": "List events card turns accent3 yellow and lifts, create event dims to muted, Friday arg chip attaches"
+      },
+      {
+        "t": 17.48,
+        "word": "runs",
+        "action": "Server shows cyan spinner, List card glows as it executes"
+      },
+      {
+        "t": 18.62,
+        "word": "three",
+        "action": "Three red busy blocks fly as packet server to client along cable into client card"
+      },
+      {
+        "t": 22.12,
+        "word": "you're",
+        "action": "White answer bubble types You're free after 3pm with good green checkmark"
+      },
+      {
+        "t": 23.8,
+        "word": "Discover,",
+        "action": "Bottom timeline Discover Call Answer badges light cyan-yellow-green in sequence"
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "renderer": "remotion",
+    "duration": 9.931,
+    "description": "New centered radial payoff that rhymes with hook. Middle: one large glowing cyan universal plug icon. Around it lower-middle: Calendar, Plane, Database icons in clean row connected by straight cyan lines (tangled red mess dissolves outward as particles). Mid-shot shield moment: Lock icon with good green shield labeled password stays on server side, model icon stays left with slash showing no touch. Final frame mirrors hook: left chat bubble What's free Friday? + right Calendar icon now linked by solid cyan cable with green checkmark badge and answer You're free after 3pm. Background same dark navy for clean loop back to scene 0.",
+    "beats": [
+      {
+        "t": 0.66,
+        "word": "One",
+        "action": "Mini tangled cables cluster centers and dissolves into particles"
+      },
+      {
+        "t": 1.48,
+        "word": "replaces",
+        "action": "Single large cyan universal plug scales in center with glow, clean straight lines shoot to calendar plane database icons"
+      },
+      {
+        "t": 4.92,
+        "word": "never",
+        "action": "Lock + shield in good green pops on server side, model icon left gets red slash over password text"
+      },
+      {
+        "t": 7.64,
+        "word": "chatbot",
+        "action": "Scene resets to hook composition but fixed: chat bubble left calendar right now joined by cyan cable, no red gap"
+      },
+      {
+        "t": 9.32,
+        "word": "calendar.",
+        "action": "Green checkmark lights on calendar, answer You're free after 3pm pulses to hold for loop"
+      }
+    ]
+  }
+]

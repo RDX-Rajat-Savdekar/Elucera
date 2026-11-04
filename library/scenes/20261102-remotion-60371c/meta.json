@@ -1,0 +1,35 @@
+{
+  "id": "20261102-remotion-60371c",
+  "renderer": "remotion",
+  "topic": "how does an mcp work",
+  "role": "hook",
+  "narration": "How does A I actually book your flight?",
+  "description": "Vertical 1080x1920 dark background. Frame 0 bold immediate: huge kinetic headline 'How does AI' (fg white, 'AI' in accent=cyan) top-middle, plus large white chat bubble centered with text 'book a flight' and Plane Lucide icon. Center focal ticket morph zone. At morph, bubble stretches and reshapes into boarding-pass ticket card (fg white card, accent cyan border, magenta accent2 stripe, Plane icon left, 'PARIS / Seat 14A' text, barcode). Ticket pulses with cyan outer glow and scale bounce. No important elements in top 10% or bottom 25% caption zones.",
+  "beats": [
+    {
+      "t": 0.0,
+      "word": "How",
+      "action": "Big headline 'How does AI' pops in with scale-up and chat bubble 'book a flight' pops center with Plane icon"
+    },
+    {
+      "t": 1.12,
+      "word": "actually",
+      "action": "Bubble wobbles and stretches, headline word 'actually' turns accent3=yellow and glows"
+    },
+    {
+      "t": 2.24,
+      "word": "book",
+      "action": "Bubble morphs into boarding-pass ticket card, Plane icon stamps on, accent border draws around"
+    },
+    {
+      "t": 2.82,
+      "word": "flight?",
+      "action": "Ticket pulses larger with cyan glow and green checkmark badge pops top-right of ticket"
+    }
+  ],
+  "duration": 3.56,
+  "attempts": 3,
+  "source": "2e597d9ed87b",
+  "created": "2026-11-03T07:46:40+00:00",
+  "starred": false
+}

@@ -1,0 +1,60 @@
+{
+  "id": "20261102-remotion-4f4e69",
+  "renderer": "remotion",
+  "topic": "how does an mcp work",
+  "role": "mechanism",
+  "narration": "Say you ask, what's free Friday. Your app opens an M C P client to your calendar server. First it asks, what tools do you have. The server says, just two. List events and create event. The model picks list events for Friday. The server runs it and returns three busy blocks. Then the model answers, you're free after three. Discover, call, answer.",
+  "description": "New split-view shot, left-right layout. Top-center: small chat bubble \"what's free Friday?\" persists. Mid-left: laptop icon labeled APP + MCP CLIENT (accent cyan card). Mid-right: server rack icon labeled CALENDAR SERVER (accent3 yellow card). Center: single thick glowing cyan cable connecting them with plug icons on ends. Server side holds two tool cards stacked: List events and create event. Bottom-middle: three-step timeline badges Discover - Call - Answer dimmed. Later three busy time blocks (9-11, 11-12:30, 1-3 red blocks) and final answer bubble \"You're free after 3pm\" with good green check. All motion is packet dots traveling along the single cable.",
+  "beats": [
+    {
+      "t": 0.56,
+      "word": "Say",
+      "action": "Top chat bubble slides in with what's free Friday? text"
+    },
+    {
+      "t": 3.52,
+      "word": "opens",
+      "action": "Split view wipes in: laptop client left and calendar server right, single cyan cable plugs with glow pop"
+    },
+    {
+      "t": 7.94,
+      "word": "what",
+      "action": "Cyan packet dot labeled tools/list travels client to server along cable"
+    },
+    {
+      "t": 9.98,
+      "word": "says,",
+      "action": "Two tool cards pop on server: List events and create event in white on dark"
+    },
+    {
+      "t": 14.8,
+      "word": "list",
+      "action": "List events card turns accent3 yellow and lifts, create event dims to muted, Friday arg chip attaches"
+    },
+    {
+      "t": 17.48,
+      "word": "runs",
+      "action": "Server shows cyan spinner, List card glows as it executes"
+    },
+    {
+      "t": 18.62,
+      "word": "three",
+      "action": "Three red busy blocks fly as packet server to client along cable into client card"
+    },
+    {
+      "t": 22.12,
+      "word": "you're",
+      "action": "White answer bubble types You're free after 3pm with good green checkmark"
+    },
+    {
+      "t": 23.8,
+      "word": "Discover,",
+      "action": "Bottom timeline Discover Call Answer badges light cyan-yellow-green in sequence"
+    }
+  ],
+  "duration": 26.36,
+  "attempts": 2,
+  "source": "1ba5b72ea31a",
+  "created": "2026-11-03T07:49:10+00:00",
+  "starred": false
+}

@@ -10,7 +10,7 @@
     // Apply the saved theme before first paint (system | light | dark).
     try { const t = localStorage.getItem("elucera.theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}
   </script>
-  <link rel="stylesheet" href="style.css?v=8" />
+  <link rel="stylesheet" href="style.css?v=9" />
 </head>
 <body>
   <canvas id="bg" aria-hidden="true"></canvas>
@@ -21,6 +21,7 @@
       <div class="wrap">
         <a class="brand" href="#/"><span class="logo" aria-hidden="true"></span>Elucera</a>
         <div class="nav-links">
+          <a href="#demo" data-scroll>Live demo</a>
           <a href="#gallery" data-scroll>Gallery</a>
           <a href="#kits" data-scroll>Component kits</a>
           <a href="#how" data-scroll>How it works</a>
@@ -47,6 +48,35 @@
         <div class="phones" id="heroPhones" aria-label="Example reels"></div>
       </div>
     </header>
+
+    <section class="block demo-block" id="demo">
+      <div class="wrap">
+        <div class="block-head">
+          <div>
+            <h2>Type a sentence. Watch it build.</h2>
+            <p>Describe what you want explained. Elucera drafts the script, records the voice and draws each scene as code — live, below. This is a looping mock of the real studio, not a video.</p>
+          </div>
+          <div class="demo-controls">
+            <button class="btn sm" type="button" id="demoReplay">Replay</button>
+          </div>
+        </div>
+        <div class="live-demo" id="liveDemo" aria-label="Animated demo: a prompt being typed and a reel pipeline being built">
+          <div class="demo-assistant" role="status" aria-live="polite">
+            <div class="demo-assistant-head"><span class="demo-spark" aria-hidden="true"></span><span>AI Assistant</span><span class="demo-live" id="demoLive">Live mock</span></div>
+            <div class="demo-thread">
+              <div class="demo-user"><span id="demoTyped"></span><span class="demo-caret" id="demoCaret" aria-hidden="true"></span></div>
+              <div class="demo-built" id="demoBuilt" hidden><span class="demo-tick" aria-hidden="true"></span><span id="demoBuiltText"></span></div>
+            </div>
+            <div class="demo-input" aria-hidden="true"><span id="demoHint">Describe what to explain…</span><span class="demo-send">↑</span></div>
+          </div>
+          <div class="demo-canvas" id="demoCanvas">
+            <svg class="demo-edges" id="demoEdges" aria-hidden="true"></svg>
+            <div class="demo-nodes" id="demoNodes"></div>
+          </div>
+          <div class="demo-foot"><span id="demoCaption"></span><span class="demo-dots" id="demoDots" aria-hidden="true"></span></div>
+        </div>
+      </div>
+    </section>
 
     <section class="block" id="gallery">
       <div class="wrap">
@@ -242,6 +272,6 @@
   </dialog>
 
   <script type="module" src="bg3d.js"></script>
-  <script type="module" src="app.js?v=7"></script>
+  <script type="module" src="app.js?v=8"></script>
 </body>
 </html>

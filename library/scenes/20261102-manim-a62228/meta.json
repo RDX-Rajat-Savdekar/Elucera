@@ -1,0 +1,45 @@
+{
+  "id": "20261102-manim-a62228",
+  "renderer": "manim",
+  "topic": "how does an mcp work",
+  "role": "hook",
+  "narration": "Your chatbot can't check your calendar. Until now.",
+  "description": "Vertical 1080x1920, dark navy background. Bold close-up hook in middle 65% of frame (clear of captions). Upper-middle left: large white chat bubble with fg text \"What's free Friday?\" and small Bot icon (accent=cyan) labeled CHATBOT below it. Mid-right: large Calendar icon (muted=grey) with red Lock overlay. Between them center: vertical red gap bar that pulses. Kinetic typography: huge fg words \"CAN'T\" then accent3 yellow \"Until now.\" at bottom-middle. Camera slow push-in. Ends with red gap cracking into cyan glow tease to lead to next shot.\n\nViewer feedback for this new version (follow it): make this in mainm",
+  "beats": [
+    {
+      "t": 0.0,
+      "word": "Your",
+      "action": "White chat bubble pops in upper-middle left with text What's free Friday? typing in"
+    },
+    {
+      "t": 0.42,
+      "word": "chatbot",
+      "action": "Bot icon in accent cyan drops below bubble with label CHATBOT"
+    },
+    {
+      "t": 1.02,
+      "word": "can't",
+      "action": "Thick red gap bar slams between bubble and right side, pulsing, big fg word CAN'T flashes"
+    },
+    {
+      "t": 2.2,
+      "word": "calendar.",
+      "action": "Muted grey Calendar icon with red Lock badge pops in mid-right, shakes as gap blocks it"
+    },
+    {
+      "t": 2.68,
+      "word": "Until",
+      "action": "Camera pushes in, red gap flickers, yellow Until text wipes in bottom-middle"
+    },
+    {
+      "t": 3.58,
+      "word": "now.",
+      "action": "Gap edge turns cyan and glows, words now. pop in accent3 yellow, calendar lock rattles"
+    }
+  ],
+  "duration": 4.95,
+  "attempts": 2,
+  "source": "1ba5b72ea31a",
+  "created": "2026-11-03T07:51:55+00:00",
+  "starred": false
+}

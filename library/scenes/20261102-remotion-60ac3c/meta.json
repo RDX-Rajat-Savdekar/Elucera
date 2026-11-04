@@ -1,0 +1,40 @@
+{
+  "id": "20261102-remotion-60ac3c",
+  "renderer": "remotion",
+  "topic": "how does an mcp work",
+  "role": "payoff",
+  "narration": "One standard plug replaces a hundred custom integrations. The model never touches your password. And that's how your chatbot finally checks your calendar.",
+  "description": "New centered radial payoff that rhymes with hook. Middle: one large glowing cyan universal plug icon. Around it lower-middle: Calendar, Plane, Database icons in clean row connected by straight cyan lines (tangled red mess dissolves outward as particles). Mid-shot shield moment: Lock icon with good green shield labeled password stays on server side, model icon stays left with slash showing no touch. Final frame mirrors hook: left chat bubble What's free Friday? + right Calendar icon now linked by solid cyan cable with green checkmark badge and answer You're free after 3pm. Background same dark navy for clean loop back to scene 0.",
+  "beats": [
+    {
+      "t": 0.66,
+      "word": "One",
+      "action": "Mini tangled cables cluster centers and dissolves into particles"
+    },
+    {
+      "t": 1.48,
+      "word": "replaces",
+      "action": "Single large cyan universal plug scales in center with glow, clean straight lines shoot to calendar plane database icons"
+    },
+    {
+      "t": 4.92,
+      "word": "never",
+      "action": "Lock + shield in good green pops on server side, model icon left gets red slash over password text"
+    },
+    {
+      "t": 7.64,
+      "word": "chatbot",
+      "action": "Scene resets to hook composition but fixed: chat bubble left calendar right now joined by cyan cable, no red gap"
+    },
+    {
+      "t": 9.32,
+      "word": "calendar.",
+      "action": "Green checkmark lights on calendar, answer You're free after 3pm pulses to hold for loop"
+    }
+  ],
+  "duration": 9.931,
+  "attempts": 2,
+  "source": "1ba5b72ea31a",
+  "created": "2026-11-03T07:49:03+00:00",
+  "starred": false
+}

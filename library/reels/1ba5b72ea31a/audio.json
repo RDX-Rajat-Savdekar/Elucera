@@ -1,0 +1,625 @@
+[
+  {
+    "index": 0,
+    "wav": "/Users/rajatsavdekar/Documents/GitHub/meta-hackathon-project/outputs/1ba5b72ea31a/seg0.wav",
+    "duration": 4.95,
+    "words": [
+      {
+        "word": "Your",
+        "start": 0.0,
+        "end": 0.42
+      },
+      {
+        "word": "chatbot",
+        "start": 0.42,
+        "end": 1.02
+      },
+      {
+        "word": "can't",
+        "start": 1.02,
+        "end": 1.72
+      },
+      {
+        "word": "check",
+        "start": 1.72,
+        "end": 1.9
+      },
+      {
+        "word": "your",
+        "start": 1.9,
+        "end": 2.2
+      },
+      {
+        "word": "calendar.",
+        "start": 2.2,
+        "end": 2.68
+      },
+      {
+        "word": "Until",
+        "start": 2.68,
+        "end": 3.58
+      },
+      {
+        "word": "now.",
+        "start": 3.58,
+        "end": 4.54
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "wav": "/Users/rajatsavdekar/Documents/GitHub/meta-hackathon-project/outputs/1ba5b72ea31a/seg1.wav",
+    "duration": 11.33,
+    "words": [
+      {
+        "word": "A",
+        "start": 0.41,
+        "end": 0.71
+      },
+      {
+        "word": "language",
+        "start": 0.71,
+        "end": 0.99
+      },
+      {
+        "word": "model",
+        "start": 0.99,
+        "end": 1.55
+      },
+      {
+        "word": "is",
+        "start": 1.55,
+        "end": 1.87
+      },
+      {
+        "word": "trapped",
+        "start": 1.87,
+        "end": 2.43
+      },
+      {
+        "word": "in",
+        "start": 2.43,
+        "end": 2.99
+      },
+      {
+        "word": "chat.",
+        "start": 2.99,
+        "end": 3.55
+      },
+      {
+        "word": "To",
+        "start": 3.55,
+        "end": 3.75
+      },
+      {
+        "word": "check",
+        "start": 3.75,
+        "end": 3.91
+      },
+      {
+        "word": "your",
+        "start": 3.91,
+        "end": 4.13
+      },
+      {
+        "word": "calendar",
+        "start": 4.13,
+        "end": 4.57
+      },
+      {
+        "word": "or",
+        "start": 4.57,
+        "end": 4.95
+      },
+      {
+        "word": "query",
+        "start": 4.95,
+        "end": 5.25
+      },
+      {
+        "word": "post-gres,",
+        "start": 5.25,
+        "end": 5.97
+      },
+      {
+        "word": "every",
+        "start": 6.63,
+        "end": 6.87
+      },
+      {
+        "word": "app",
+        "start": 6.87,
+        "end": 7.19
+      },
+      {
+        "word": "needed",
+        "start": 7.19,
+        "end": 7.49
+      },
+      {
+        "word": "custom",
+        "start": 7.49,
+        "end": 7.87
+      },
+      {
+        "word": "code.",
+        "start": 7.87,
+        "end": 8.27
+      },
+      {
+        "word": "That's",
+        "start": 9.19,
+        "end": 9.41
+      },
+      {
+        "word": "what",
+        "start": 9.41,
+        "end": 9.53
+      },
+      {
+        "word": "M",
+        "start": 9.53,
+        "end": 9.683
+      },
+      {
+        "word": "C",
+        "start": 9.683,
+        "end": 9.837
+      },
+      {
+        "word": "P",
+        "start": 9.837,
+        "end": 9.99
+      },
+      {
+        "word": "fixes.",
+        "start": 9.99,
+        "end": 10.77
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "wav": "/Users/rajatsavdekar/Documents/GitHub/meta-hackathon-project/outputs/1ba5b72ea31a/seg2.wav",
+    "duration": 26.36,
+    "words": [
+      {
+        "word": "Say",
+        "start": 0.56,
+        "end": 0.78
+      },
+      {
+        "word": "you",
+        "start": 0.78,
+        "end": 0.96
+      },
+      {
+        "word": "ask,",
+        "start": 0.96,
+        "end": 1.16
+      },
+      {
+        "word": "what's",
+        "start": 1.46,
+        "end": 1.88
+      },
+      {
+        "word": "free",
+        "start": 1.88,
+        "end": 2.04
+      },
+      {
+        "word": "Friday.",
+        "start": 2.04,
+        "end": 2.42
+      },
+      {
+        "word": "Your",
+        "start": 3.26,
+        "end": 3.3
+      },
+      {
+        "word": "app",
+        "start": 3.3,
+        "end": 3.52
+      },
+      {
+        "word": "opens",
+        "start": 3.52,
+        "end": 3.92
+      },
+      {
+        "word": "an",
+        "start": 3.92,
+        "end": 4.1
+      },
+      {
+        "word": "M",
+        "start": 4.1,
+        "end": 4.24
+      },
+      {
+        "word": "C",
+        "start": 4.24,
+        "end": 4.38
+      },
+      {
+        "word": "P",
+        "start": 4.38,
+        "end": 4.52
+      },
+      {
+        "word": "client",
+        "start": 4.52,
+        "end": 5.06
+      },
+      {
+        "word": "to",
+        "start": 5.06,
+        "end": 5.32
+      },
+      {
+        "word": "your",
+        "start": 5.32,
+        "end": 5.4
+      },
+      {
+        "word": "calendar",
+        "start": 5.4,
+        "end": 5.78
+      },
+      {
+        "word": "server.",
+        "start": 5.78,
+        "end": 6.04
+      },
+      {
+        "word": "First",
+        "start": 6.9,
+        "end": 7.12
+      },
+      {
+        "word": "it",
+        "start": 7.12,
+        "end": 7.34
+      },
+      {
+        "word": "asks,",
+        "start": 7.34,
+        "end": 7.6
+      },
+      {
+        "word": "what",
+        "start": 7.94,
+        "end": 8.2
+      },
+      {
+        "word": "tools",
+        "start": 8.2,
+        "end": 8.46
+      },
+      {
+        "word": "do",
+        "start": 8.46,
+        "end": 8.68
+      },
+      {
+        "word": "you",
+        "start": 8.68,
+        "end": 8.78
+      },
+      {
+        "word": "have.",
+        "start": 8.78,
+        "end": 9.04
+      },
+      {
+        "word": "The",
+        "start": 9.04,
+        "end": 9.78
+      },
+      {
+        "word": "server",
+        "start": 9.78,
+        "end": 9.98
+      },
+      {
+        "word": "says,",
+        "start": 9.98,
+        "end": 10.36
+      },
+      {
+        "word": "just",
+        "start": 10.62,
+        "end": 10.8
+      },
+      {
+        "word": "two.",
+        "start": 10.8,
+        "end": 11.1
+      },
+      {
+        "word": "List",
+        "start": 11.92,
+        "end": 11.92
+      },
+      {
+        "word": "events",
+        "start": 11.92,
+        "end": 12.2
+      },
+      {
+        "word": "and",
+        "start": 12.2,
+        "end": 12.66
+      },
+      {
+        "word": "create",
+        "start": 12.66,
+        "end": 13.0
+      },
+      {
+        "word": "event.",
+        "start": 13.0,
+        "end": 13.26
+      },
+      {
+        "word": "The",
+        "start": 14.18,
+        "end": 14.24
+      },
+      {
+        "word": "model",
+        "start": 14.24,
+        "end": 14.48
+      },
+      {
+        "word": "picks",
+        "start": 14.48,
+        "end": 14.8
+      },
+      {
+        "word": "list",
+        "start": 14.8,
+        "end": 15.26
+      },
+      {
+        "word": "events",
+        "start": 15.26,
+        "end": 15.64
+      },
+      {
+        "word": "for",
+        "start": 15.64,
+        "end": 16.04
+      },
+      {
+        "word": "Friday.",
+        "start": 16.04,
+        "end": 16.36
+      },
+      {
+        "word": "The",
+        "start": 17.22,
+        "end": 17.26
+      },
+      {
+        "word": "server",
+        "start": 17.26,
+        "end": 17.48
+      },
+      {
+        "word": "runs",
+        "start": 17.48,
+        "end": 17.82
+      },
+      {
+        "word": "it",
+        "start": 17.82,
+        "end": 18.04
+      },
+      {
+        "word": "and",
+        "start": 18.04,
+        "end": 18.3
+      },
+      {
+        "word": "returns",
+        "start": 18.3,
+        "end": 18.62
+      },
+      {
+        "word": "three",
+        "start": 18.62,
+        "end": 19.2
+      },
+      {
+        "word": "busy",
+        "start": 19.2,
+        "end": 19.52
+      },
+      {
+        "word": "blocks.",
+        "start": 19.52,
+        "end": 19.86
+      },
+      {
+        "word": "Then",
+        "start": 20.72,
+        "end": 20.8
+      },
+      {
+        "word": "the",
+        "start": 20.8,
+        "end": 20.92
+      },
+      {
+        "word": "model",
+        "start": 20.92,
+        "end": 21.08
+      },
+      {
+        "word": "answers,",
+        "start": 21.08,
+        "end": 21.5
+      },
+      {
+        "word": "you're",
+        "start": 22.12,
+        "end": 22.22
+      },
+      {
+        "word": "free",
+        "start": 22.22,
+        "end": 22.4
+      },
+      {
+        "word": "after",
+        "start": 22.4,
+        "end": 22.72
+      },
+      {
+        "word": "three.",
+        "start": 22.72,
+        "end": 23.02
+      },
+      {
+        "word": "Discover,",
+        "start": 23.8,
+        "end": 24.06
+      },
+      {
+        "word": "call,",
+        "start": 24.56,
+        "end": 24.8
+      },
+      {
+        "word": "answer.",
+        "start": 25.3,
+        "end": 25.7
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "wav": "/Users/rajatsavdekar/Documents/GitHub/meta-hackathon-project/outputs/1ba5b72ea31a/seg3.wav",
+    "duration": 9.931,
+    "words": [
+      {
+        "word": "One",
+        "start": 0.66,
+        "end": 0.66
+      },
+      {
+        "word": "standard",
+        "start": 0.66,
+        "end": 1.16
+      },
+      {
+        "word": "plug",
+        "start": 1.16,
+        "end": 1.48
+      },
+      {
+        "word": "replaces",
+        "start": 1.48,
+        "end": 2.06
+      },
+      {
+        "word": "a",
+        "start": 2.06,
+        "end": 2.36
+      },
+      {
+        "word": "hundred",
+        "start": 2.36,
+        "end": 2.78
+      },
+      {
+        "word": "custom",
+        "start": 2.78,
+        "end": 3.08
+      },
+      {
+        "word": "integrations.",
+        "start": 3.08,
+        "end": 3.82
+      },
+      {
+        "word": "The",
+        "start": 4.58,
+        "end": 4.7
+      },
+      {
+        "word": "model",
+        "start": 4.7,
+        "end": 4.92
+      },
+      {
+        "word": "never",
+        "start": 4.92,
+        "end": 5.2
+      },
+      {
+        "word": "touches",
+        "start": 5.2,
+        "end": 5.62
+      },
+      {
+        "word": "your",
+        "start": 5.62,
+        "end": 5.88
+      },
+      {
+        "word": "password.",
+        "start": 5.88,
+        "end": 6.1
+      },
+      {
+        "word": "And",
+        "start": 6.84,
+        "end": 6.98
+      },
+      {
+        "word": "that's",
+        "start": 6.98,
+        "end": 7.36
+      },
+      {
+        "word": "how",
+        "start": 7.36,
+        "end": 7.48
+      },
+      {
+        "word": "your",
+        "start": 7.48,
+        "end": 7.64
+      },
+      {
+        "word": "chatbot",
+        "start": 7.64,
+        "end": 8.12
+      },
+      {
+        "word": "finally",
+        "start": 8.12,
+        "end": 8.66
+      },
+      {
+        "word": "checks",
+        "start": 8.66,
+        "end": 9.02
+      },
+      {
+        "word": "your",
+        "start": 9.02,
+        "end": 9.32
+      },
+      {
+        "word": "calendar.",
+        "start": 9.32,
+        "end": 9.6
+      }
+    ]
+  }
+]

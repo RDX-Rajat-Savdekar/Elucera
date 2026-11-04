@@ -1,0 +1,45 @@
+{
+  "id": "20261102-remotion-711605",
+  "renderer": "remotion",
+  "topic": "how does an mcp work",
+  "role": "setup",
+  "narration": "A language model is trapped in chat. To check your calendar or query post-gres, every app needed custom code. That's what M C P fixes.",
+  "description": "New wide shot, pattern interrupt from close-up to zoomed-out island. Middle zone: centered white chat island box labeled LANGUAGE MODEL TRAPPED IN CHAT with MessageCircle icon, enclosed by dashed muted box walls. Lower-middle: three icons in row - Calendar (accent3 yellow), Plane for flights (accent2 magenta), Database cylinder for Postgres (accent cyan) labeled calendar / flights / postgres. Messy tangled red and muted cables draw between every pair, crossing and flashing. Top-middle empty for incoming MCP reveal. Colors: trapped box muted, cables red for custom mess.",
+  "beats": [
+    {
+      "t": 0.41,
+      "word": "A",
+      "action": "Center chat island box scales in with LANGUAGE MODEL label"
+    },
+    {
+      "t": 1.87,
+      "word": "trapped",
+      "action": "Dashed muted walls snap around island, model icon dims inside"
+    },
+    {
+      "t": 4.13,
+      "word": "calendar",
+      "action": "Yellow Calendar icon pops bottom-left, messy red cable shoots from island and tangles, X flashes"
+    },
+    {
+      "t": 5.25,
+      "word": "post-gres,",
+      "action": "Database cylinder and Plane icons pop bottom-center/right, two more tangled cables cross over first in magenta and cyan"
+    },
+    {
+      "t": 7.87,
+      "word": "code.",
+      "action": "All cables shake, small CodePanel snippets pop on cables showing custom code, red warning badges pulse"
+    },
+    {
+      "t": 9.53,
+      "word": "M",
+      "action": "Tangled mess freezes, glowing cyan-magenta-yellow MCP plug badge drops top-middle with text ONE STANDARD PLUG, cables orient toward it"
+    }
+  ],
+  "duration": 11.33,
+  "attempts": 2,
+  "source": "1ba5b72ea31a",
+  "created": "2026-11-03T07:48:56+00:00",
+  "starred": false
+}

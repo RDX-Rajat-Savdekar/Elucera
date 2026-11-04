@@ -1,0 +1,60 @@
+{
+  "id": "20261102-remotion-e96f30",
+  "renderer": "remotion",
+  "topic": "how does an mcp work",
+  "role": "mechanism",
+  "narration": "You say, book a flight to Paris. Your assistant, the host, asks its M C P client what's available. It connects to one airline server and asks for tools. The server replies, search flights and book flight. The model picks book flight with destination Paris and date Friday. The server runs it, books seat fourteen A, and returns confirmation. The assistant then tells you, you're booked.",
+  "description": "Vertical top-to-bottom flow diagram in middle 65% of frame, new shot with closer zoom. Top-center: user chat bubble 'book a flight to Paris' (fg white). Arrow down to Host card (Sparkles icon, fg white card labeled 'host - assistant', accent border). Attached small Client dot (Plug icon, accent2=magenta labeled 'MCP client'). Thick vertical pipe down to Server card bottom-center (Server icon, accent3=yellow card labeled 'airline server'). Animated packet dots travel along arrows. Right-side popover ToolList card with two rows: 'search flights' and 'book flight'. Param chips 'destination: Paris' and 'date: Friday' appear under highlighted row. Red stamp 'Seat 14A' and good=green checkmark overlay for confirmation, final 'You're booked!' bubble returns to top.",
+  "beats": [
+    {
+      "t": 0.53,
+      "word": "You",
+      "action": "User bubble 'book a flight to Paris' slides in top-center with pop"
+    },
+    {
+      "t": 4.21,
+      "word": "host,",
+      "action": "Host assistant card with Sparkles icon slides in mid-upper, arrow from user bubble lights up"
+    },
+    {
+      "t": 5.95,
+      "word": "client",
+      "action": "Magenta MCP client dot with Plug icon pops attached to host, question pulse 'what's available?' emits"
+    },
+    {
+      "t": 9.07,
+      "word": "server",
+      "action": "Airline server card pops bottom, cyan pipe connects, packet dot travels client to server asking for tools"
+    },
+    {
+      "t": 12.75,
+      "word": "search",
+      "action": "ToolList card pops beside server showing 'search flights' and 'book flight' rows dim"
+    },
+    {
+      "t": 15.71,
+      "word": "book",
+      "action": "'book flight' row turns accent3=yellow, lifts and glows as selected"
+    },
+    {
+      "t": 18.31,
+      "word": "Friday.",
+      "action": "Param chips 'destination: Paris' and 'date: Friday' fill in under selected row"
+    },
+    {
+      "t": 21.09,
+      "word": "fourteen",
+      "action": "Server runs animation, 'Seat 14A' stamp slams onto ticket mini-card with green checkmark"
+    },
+    {
+      "t": 25.71,
+      "word": "booked.",
+      "action": "Confirmation packet travels back up pipe to host to user, final 'You're booked Seat 14A' bubble pops top"
+    }
+  ],
+  "duration": 26.48,
+  "attempts": 3,
+  "source": "2e597d9ed87b",
+  "created": "2026-11-03T07:46:55+00:00",
+  "starred": false
+}

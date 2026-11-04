@@ -1,0 +1,26 @@
+{
+  "title": "How M C P Works",
+  "idea": "M C P is one standard plug that lets an A I discover and call tools through a simple client-server exchange.",
+  "segments": [
+    {
+      "role": "hook",
+      "narration": "Your chatbot can't check your calendar. Until now.",
+      "visual_directive": "A chat bubble asking about Friday floats next to a locked calendar icon. A red gap pulses between them."
+    },
+    {
+      "role": "setup",
+      "narration": "A language model is trapped in chat. To check your calendar or query post-gres, every app needed custom code. That's what M C P fixes.",
+      "visual_directive": "Zoom out to a chatbot island cut off from calendar, flight and database icons, with messy tangled cables between every pair."
+    },
+    {
+      "role": "mechanism",
+      "narration": "Say you ask, what's free Friday. Your app opens an M C P client to your calendar server. First it asks, what tools do you have. The server says, just two. List events and create event. The model picks list events for Friday. The server runs it and returns three busy blocks. Then the model answers, you're free after three. Discover, call, answer.",
+      "visual_directive": "Split view shows a laptop client on the left plugging with one glowing cable into a calendar server on the right. Two tool cards pop up, one highlights, then three time blocks fly back to the chat."
+    },
+    {
+      "role": "payoff",
+      "narration": "One standard plug replaces a hundred custom integrations. The model never touches your password. And that's how your chatbot finally checks your calendar.",
+      "visual_directive": "The tangled cables dissolve into one glowing universal plug that duplicates to every app. A calendar checkmark lights up as the chat answers."
+    }
+  ]
+}
