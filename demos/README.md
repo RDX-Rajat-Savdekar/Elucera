@@ -1,5 +1,7 @@
 # Elucera final videos
 
+**▶ Hackathon demo on YouTube: https://youtu.be/Rhlk5lkfOVk** (same video as `elucera-hackathon-demo.mp4`)
+
 Watch these right here on GitHub (click any file to play it).
 
 | Video | What it is | How it was made |
