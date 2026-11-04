@@ -1,4 +1,74 @@
-# Elucera — automated science explainer Reels
+<div align="center">
+
+# Elucera
+
+### Explainer reels built from **code**, not slop.
+
+Type a question. Get a captioned, narrated 1080×1920 reel where every frame is rendered from code the AI wrote:
+legible text, correct diagrams, and every scene editable.
+
+[![CI](https://github.com/RDX-Rajat-Savdekar/Elucera/actions/workflows/ci.yml/badge.svg)](https://github.com/RDX-Rajat-Savdekar/Elucera/actions/workflows/ci.yml)
+![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python&logoColor=white)
+![Engines](https://img.shields.io/badge/engines-Manim%20%C2%B7%20Remotion%20%C2%B7%20Three.js%20%C2%B7%20Canvas-4CC9F0)
+![Cost](https://img.shields.io/badge/cost-~%240.21%20per%20reel-06D6A0)
+
+<a href="https://youtu.be/Rhlk5lkfOVk"><img src="docs/media/youtube-thumb.jpg" width="720" alt="Watch the 2-minute Elucera demo on YouTube"></a>
+
+**▶ [Watch the 2-minute demo on YouTube](https://youtu.be/Rhlk5lkfOVk)**
+
+</div>
+
+---
+
+## Watch it build
+
+<div align="center">
+<img src="docs/media/hero-build.gif" width="720" alt="Typing a question, reviewing the storyboard, four scenes writing their own code and rendering, reel ready">
+
+<sub>A real run, sped up: <i>“How does public-key encryption work?”</i> → storyboard → 4 scenes code and render themselves → reel ready in about 3 minutes.</sub>
+</div>
+
+## Why code-first?
+
+Most AI video tools generate pixels. Elucera generates **programs**, then renders them.
+
+| | Generative video (Sora, Veo) | Stock-footage tools | Human animator | **Elucera** |
+|---|---|---|---|---|
+| Correct diagrams and labels | ✕ hallucinated | ✕ generic | ✓ | **✓ rendered from code** |
+| Fix one scene | ✕ regenerate everything | partly | ✓ slow | **✓ redo just that scene** |
+| Cost per finished minute | $6–42 | $0.12–0.15 | $1,000–10,000 | **≈ $0.26** |
+
+<sub>Competitor prices and sources: <code>elucera/costs.py</code>. Elucera cost measured on a real 49 s reel at Muse list price, including TTS, render compute and the Remotion license.</sub>
+
+## Four engines, one director
+
+The director model picks the right engine for each scene and writes its code. Each scene renders sandboxed and fixes itself from its own errors.
+
+<div align="center">
+<img src="docs/media/engines.gif" width="900" alt="Manim, Remotion, Three.js and canvas doodle scenes">
+
+<sub><b>Manim</b> (3Blue1Brown-style math) · <b>Remotion</b> (kinetic type and diagrams) · <b>Three.js</b> (3D) · <b>Canvas doodle</b> (p5 + GSAP)</sub>
+</div>
+
+## What it makes
+
+<div align="center">
+<img src="docs/media/reels.gif" width="520" alt="Two generated reels: public-key encryption and why the sky is blue">
+
+<sub>Straight out of the pipeline: voiceover, word-synced captions and animation, with no hand editing. Full videos are in <a href="demos/"><code>demos/</code></a>.</sub>
+</div>
+
+## Fix one scene, not the whole video
+
+<div align="center">
+<img src="docs/media/redo.gif" width="720" alt="Opening the Redo panel on one scene: edit its prompt, add a note, switch engine">
+
+<sub>Every scene is code, so you can edit its prompt, leave a note, switch engines or reuse a library clip, then rebake. The rest of the reel stays as it is.</sub>
+</div>
+
+---
+
+## How it works
 
 Topic in, 1080x1920 captioned explainer Reel out. See `GEMINI.md` for the project brief.
 
