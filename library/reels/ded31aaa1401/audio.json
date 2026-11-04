@@ -1,0 +1,650 @@
+[
+  {
+    "index": 0,
+    "wav": "/Users/aditya/Elucera/outputs/ded31aaa1401/seg0.wav",
+    "duration": 3.85,
+    "words": [
+      {
+        "word": "Sunlight",
+        "start": 0.0,
+        "end": 0.78
+      },
+      {
+        "word": "is",
+        "start": 0.78,
+        "end": 1.06
+      },
+      {
+        "word": "white,",
+        "start": 1.06,
+        "end": 1.36
+      },
+      {
+        "word": "so",
+        "start": 1.48,
+        "end": 2.06
+      },
+      {
+        "word": "why",
+        "start": 2.06,
+        "end": 2.44
+      },
+      {
+        "word": "is",
+        "start": 2.44,
+        "end": 2.66
+      },
+      {
+        "word": "the",
+        "start": 2.66,
+        "end": 2.78
+      },
+      {
+        "word": "sky",
+        "start": 2.78,
+        "end": 2.98
+      },
+      {
+        "word": "blue?",
+        "start": 2.98,
+        "end": 3.4
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "wav": "/Users/aditya/Elucera/outputs/ded31aaa1401/seg1.wav",
+    "duration": 11.69,
+    "words": [
+      {
+        "word": "Sunlight",
+        "start": 0.45,
+        "end": 1.03
+      },
+      {
+        "word": "looks",
+        "start": 1.03,
+        "end": 1.35
+      },
+      {
+        "word": "white,",
+        "start": 1.35,
+        "end": 1.75
+      },
+      {
+        "word": "but",
+        "start": 1.99,
+        "end": 2.21
+      },
+      {
+        "word": "it's",
+        "start": 2.21,
+        "end": 2.49
+      },
+      {
+        "word": "really",
+        "start": 2.49,
+        "end": 2.77
+      },
+      {
+        "word": "every",
+        "start": 2.77,
+        "end": 3.13
+      },
+      {
+        "word": "color",
+        "start": 3.13,
+        "end": 3.69
+      },
+      {
+        "word": "mixed",
+        "start": 3.69,
+        "end": 3.95
+      },
+      {
+        "word": "together.",
+        "start": 3.95,
+        "end": 4.39
+      },
+      {
+        "word": "When",
+        "start": 5.49,
+        "end": 5.51
+      },
+      {
+        "word": "that",
+        "start": 5.51,
+        "end": 5.69
+      },
+      {
+        "word": "light",
+        "start": 5.69,
+        "end": 5.93
+      },
+      {
+        "word": "hits",
+        "start": 5.93,
+        "end": 6.25
+      },
+      {
+        "word": "our",
+        "start": 6.25,
+        "end": 6.49
+      },
+      {
+        "word": "air,",
+        "start": 6.49,
+        "end": 6.79
+      },
+      {
+        "word": "the",
+        "start": 7.23,
+        "end": 7.29
+      },
+      {
+        "word": "colors",
+        "start": 7.29,
+        "end": 7.57
+      },
+      {
+        "word": "split.",
+        "start": 7.57,
+        "end": 7.95
+      },
+      {
+        "word": "Blue",
+        "start": 8.91,
+        "end": 8.95
+      },
+      {
+        "word": "goes",
+        "start": 8.95,
+        "end": 9.27
+      },
+      {
+        "word": "everywhere,",
+        "start": 9.27,
+        "end": 9.73
+      },
+      {
+        "word": "red",
+        "start": 10.65,
+        "end": 10.65
+      },
+      {
+        "word": "doesn't.",
+        "start": 10.65,
+        "end": 11.21
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "wav": "/Users/aditya/Elucera/outputs/ded31aaa1401/seg2.wav",
+    "duration": 30.75,
+    "words": [
+      {
+        "word": "Picture",
+        "start": 0.48,
+        "end": 0.84
+      },
+      {
+        "word": "one",
+        "start": 0.84,
+        "end": 1.2
+      },
+      {
+        "word": "sunbeam",
+        "start": 1.2,
+        "end": 1.88
+      },
+      {
+        "word": "hitting",
+        "start": 1.88,
+        "end": 2.28
+      },
+      {
+        "word": "tiny",
+        "start": 2.28,
+        "end": 2.7
+      },
+      {
+        "word": "air",
+        "start": 2.7,
+        "end": 3.18
+      },
+      {
+        "word": "molecules.",
+        "start": 3.18,
+        "end": 3.48
+      },
+      {
+        "word": "They're",
+        "start": 4.56,
+        "end": 4.8
+      },
+      {
+        "word": "way",
+        "start": 4.8,
+        "end": 5.04
+      },
+      {
+        "word": "smaller",
+        "start": 5.04,
+        "end": 5.5
+      },
+      {
+        "word": "than",
+        "start": 5.5,
+        "end": 5.9
+      },
+      {
+        "word": "light",
+        "start": 5.9,
+        "end": 6.08
+      },
+      {
+        "word": "waves,",
+        "start": 6.08,
+        "end": 6.3
+      },
+      {
+        "word": "so",
+        "start": 6.72,
+        "end": 7.04
+      },
+      {
+        "word": "they",
+        "start": 7.04,
+        "end": 7.24
+      },
+      {
+        "word": "scatter",
+        "start": 7.24,
+        "end": 7.54
+      },
+      {
+        "word": "short",
+        "start": 7.54,
+        "end": 7.9
+      },
+      {
+        "word": "waves",
+        "start": 7.9,
+        "end": 8.26
+      },
+      {
+        "word": "best.",
+        "start": 8.26,
+        "end": 8.66
+      },
+      {
+        "word": "Blue",
+        "start": 8.66,
+        "end": 9.8
+      },
+      {
+        "word": "light",
+        "start": 9.8,
+        "end": 10.14
+      },
+      {
+        "word": "has",
+        "start": 10.14,
+        "end": 10.4
+      },
+      {
+        "word": "a",
+        "start": 10.4,
+        "end": 10.56
+      },
+      {
+        "word": "tiny,",
+        "start": 10.56,
+        "end": 10.86
+      },
+      {
+        "word": "choppy",
+        "start": 10.86,
+        "end": 11.46
+      },
+      {
+        "word": "wave.",
+        "start": 11.46,
+        "end": 11.74
+      },
+      {
+        "word": "It",
+        "start": 12.4,
+        "end": 12.4
+      },
+      {
+        "word": "slams",
+        "start": 12.4,
+        "end": 12.72
+      },
+      {
+        "word": "into",
+        "start": 12.72,
+        "end": 13.26
+      },
+      {
+        "word": "a",
+        "start": 13.26,
+        "end": 13.38
+      },
+      {
+        "word": "molecule",
+        "start": 13.38,
+        "end": 13.68
+      },
+      {
+        "word": "and",
+        "start": 13.68,
+        "end": 14.1
+      },
+      {
+        "word": "bounces",
+        "start": 14.1,
+        "end": 14.48
+      },
+      {
+        "word": "everywhere.",
+        "start": 14.48,
+        "end": 14.88
+      },
+      {
+        "word": "Up,",
+        "start": 15.52,
+        "end": 15.76
+      },
+      {
+        "word": "down,",
+        "start": 15.94,
+        "end": 16.1
+      },
+      {
+        "word": "sideways.",
+        "start": 16.58,
+        "end": 16.62
+      },
+      {
+        "word": "Red",
+        "start": 17.72,
+        "end": 17.96
+      },
+      {
+        "word": "light",
+        "start": 17.96,
+        "end": 18.28
+      },
+      {
+        "word": "has",
+        "start": 18.28,
+        "end": 18.58
+      },
+      {
+        "word": "a",
+        "start": 18.58,
+        "end": 18.72
+      },
+      {
+        "word": "long,",
+        "start": 18.72,
+        "end": 18.98
+      },
+      {
+        "word": "smooth",
+        "start": 18.98,
+        "end": 19.56
+      },
+      {
+        "word": "wave.",
+        "start": 19.56,
+        "end": 19.9
+      },
+      {
+        "word": "It",
+        "start": 20.4,
+        "end": 20.5
+      },
+      {
+        "word": "mostly",
+        "start": 20.5,
+        "end": 20.7
+      },
+      {
+        "word": "slips",
+        "start": 20.7,
+        "end": 21.22
+      },
+      {
+        "word": "straight",
+        "start": 21.22,
+        "end": 21.6
+      },
+      {
+        "word": "past.",
+        "start": 21.6,
+        "end": 21.92
+      },
+      {
+        "word": "So",
+        "start": 22.78,
+        "end": 23.04
+      },
+      {
+        "word": "blue",
+        "start": 23.04,
+        "end": 23.32
+      },
+      {
+        "word": "gets",
+        "start": 23.32,
+        "end": 23.66
+      },
+      {
+        "word": "scattered",
+        "start": 23.66,
+        "end": 24.1
+      },
+      {
+        "word": "from",
+        "start": 24.1,
+        "end": 24.42
+      },
+      {
+        "word": "every",
+        "start": 24.42,
+        "end": 24.84
+      },
+      {
+        "word": "patch",
+        "start": 24.84,
+        "end": 25.12
+      },
+      {
+        "word": "of",
+        "start": 25.12,
+        "end": 25.32
+      },
+      {
+        "word": "sky",
+        "start": 25.32,
+        "end": 25.56
+      },
+      {
+        "word": "into",
+        "start": 25.56,
+        "end": 25.96
+      },
+      {
+        "word": "your",
+        "start": 25.96,
+        "end": 26.18
+      },
+      {
+        "word": "eyes.",
+        "start": 26.18,
+        "end": 26.46
+      },
+      {
+        "word": "You're",
+        "start": 27.18,
+        "end": 27.46
+      },
+      {
+        "word": "seeing",
+        "start": 27.46,
+        "end": 27.74
+      },
+      {
+        "word": "scattered",
+        "start": 27.74,
+        "end": 28.22
+      },
+      {
+        "word": "blue",
+        "start": 28.22,
+        "end": 28.52
+      },
+      {
+        "word": "from",
+        "start": 28.52,
+        "end": 28.86
+      },
+      {
+        "word": "all",
+        "start": 28.86,
+        "end": 29.12
+      },
+      {
+        "word": "directions",
+        "start": 29.12,
+        "end": 29.56
+      },
+      {
+        "word": "at",
+        "start": 29.56,
+        "end": 29.96
+      },
+      {
+        "word": "once.",
+        "start": 29.96,
+        "end": 30.2
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "wav": "/Users/aditya/Elucera/outputs/ded31aaa1401/seg3.wav",
+    "duration": 9.881,
+    "words": [
+      {
+        "word": "Sunsets",
+        "start": 0.55,
+        "end": 1.05
+      },
+      {
+        "word": "turn",
+        "start": 1.05,
+        "end": 1.43
+      },
+      {
+        "word": "red",
+        "start": 1.43,
+        "end": 1.73
+      },
+      {
+        "word": "because",
+        "start": 1.73,
+        "end": 2.17
+      },
+      {
+        "word": "blue's",
+        "start": 2.17,
+        "end": 2.71
+      },
+      {
+        "word": "already",
+        "start": 2.71,
+        "end": 3.07
+      },
+      {
+        "word": "scattered",
+        "start": 3.07,
+        "end": 3.45
+      },
+      {
+        "word": "away.",
+        "start": 3.45,
+        "end": 3.81
+      },
+      {
+        "word": "Only",
+        "start": 3.81,
+        "end": 4.59
+      },
+      {
+        "word": "straight",
+        "start": 4.59,
+        "end": 5.05
+      },
+      {
+        "word": "red",
+        "start": 5.05,
+        "end": 5.39
+      },
+      {
+        "word": "survives.",
+        "start": 5.39,
+        "end": 5.85
+      },
+      {
+        "word": "That",
+        "start": 6.87,
+        "end": 7.05
+      },
+      {
+        "word": "white",
+        "start": 7.05,
+        "end": 7.33
+      },
+      {
+        "word": "sunlight",
+        "start": 7.33,
+        "end": 7.79
+      },
+      {
+        "word": "is",
+        "start": 7.79,
+        "end": 8.27
+      },
+      {
+        "word": "what",
+        "start": 8.27,
+        "end": 8.41
+      },
+      {
+        "word": "makes",
+        "start": 8.41,
+        "end": 8.63
+      },
+      {
+        "word": "the",
+        "start": 8.63,
+        "end": 8.95
+      },
+      {
+        "word": "sky",
+        "start": 8.95,
+        "end": 9.13
+      },
+      {
+        "word": "blue.",
+        "start": 9.13,
+        "end": 9.47
+      }
+    ]
+  }
+]

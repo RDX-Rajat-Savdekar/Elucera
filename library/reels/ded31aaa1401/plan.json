@@ -1,0 +1,159 @@
+[
+  {
+    "index": 0,
+    "renderer": "remotion",
+    "duration": 3.85,
+    "description": "Vertical 1080x1920, 30fps. Near-black background. Frame 0 is bold and immediate: thick horizontal white beam (fg=white with glow) spans full width at mid-frame 45-55% height, already sweeping left-to-right with motion blur, plus huge bold kinetic text SUNLIGHT (fg=white) centered at ~30% height. No important elements in top 10% or bottom 25%. Second shot after hard cut: full-bleed bright blue sky dome gradient (accent=cyan to light blue) filling 10-75% height, white sun glow disc at 22% center, soft white horizon glow. Text stays centered in safe middle band.",
+    "beats": [
+      {
+        "t": 0.0,
+        "word": "Sunlight",
+        "action": "Thick white beam sweeps left-to-right across dark background at mid-frame, huge SUNLIGHT text pops in center above beam"
+      },
+      {
+        "t": 1.06,
+        "word": "white,",
+        "action": "Beam brightens to pure white glow and thickens, small label white = all colors fades in below beam in muted=grey"
+      },
+      {
+        "t": 2.06,
+        "word": "why",
+        "action": "Beam freezes, large kinetic text why is sky BLUE? slams in center, WHY scales up, BLUE in accent=cyan"
+      },
+      {
+        "t": 2.98,
+        "word": "blue?",
+        "action": "Hard cut to bright blue dome sky filling frame with sun glow, white BLUE? text centered, pattern interrupt to new shot"
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "renderer": "remotion",
+    "duration": 11.69,
+    "description": "Vertical 1080x1920. Continuous remotion 2D motion graphics. Shot A: dark background, horizontal white light bar (fg=white) at 40% height left side firing rightward. It fans into 6-color spectrum ribbons (red-orange-accent3=yellow-green-accent=cyan-blue) spreading to right edge at 40-55% height with labels. Shot B pullback: small Earth circle (blue oceans, green land, fg=white cloud hints) centered at 50% height, thin glowing atmosphere shell (accent=cyan glow) around it, sun rays from left. Blue scattered arrows spray outward around atmosphere, single straight red arrow pierces through. Background tints from black to deep blue.",
+    "beats": [
+      {
+        "t": 0.45,
+        "word": "Sunlight",
+        "action": "White horizontal bar enters from left at mid-frame firing right, label WHITE SUNLIGHT above it"
+      },
+      {
+        "t": 2.77,
+        "word": "every",
+        "action": "White bar fans into 6 separate color ribbons forming rainbow spectrum, each ribbon labeled, spreading rightward"
+      },
+      {
+        "t": 5.93,
+        "word": "hits",
+        "action": "Camera pulls back, Earth circle with thin glowing cyan atmosphere ring appears center-right, spectrum aims at it"
+      },
+      {
+        "t": 7.57,
+        "word": "split.",
+        "action": "Spectrum hits atmosphere layer, splits: blue ribbon breaks into scattered short arrows, red stays straight"
+      },
+      {
+        "t": 8.91,
+        "word": "Blue",
+        "action": "Blue scattered arrows spray everywhere around atmosphere in all directions, background starts tinting accent=cyan blue"
+      },
+      {
+        "t": 10.65,
+        "word": "red",
+        "action": "Single long red arrow glides straight through atmosphere past Earth without scattering, labeled RED STRAIGHT"
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "renderer": "remotion",
+    "duration": 30.75,
+    "description": "Vertical 1080x1920. Macro close-up 2D field: dark blue-black void that gradually tints blue. Diagonal sunbeam from top-left to center (45% height) containing two overlaid waves: short choppy blue zigzag (accent=cyan) and long smooth red sine (red). Five glowing air molecule dots (fg=white with accent=cyan glow) scattered center 40-60% height, one hero molecule circled center. Size-comparison brackets show dot << wavelength. Eye icon (fg=white) at 65% center representing viewer. Scattered blue arrows emanate omnidirectionally, red line continues straight to right edge. Final wide: many sky patches with blue arrows converging into eye.",
+    "beats": [
+      {
+        "t": 0.48,
+        "word": "Picture",
+        "action": "Diagonal sunbeam enters top-left to center, five glowing molecule dots fade in mid-frame, hero molecule highlighted"
+      },
+      {
+        "t": 3.18,
+        "word": "molecules.",
+        "action": "Camera pushes into hero molecule, label TINY AIR MOLECULE callout appears, dots pulse"
+      },
+      {
+        "t": 6.08,
+        "word": "waves,",
+        "action": "Size brackets appear: tiny dot vs long wave, text WAY SMALLER THAN WAVE pops below molecule"
+      },
+      {
+        "t": 8.66,
+        "word": "Blue",
+        "action": "Blue choppy zigzag isolates and enlarges in beam, red dims, label SHORT CHOPPY BLUE WAVE"
+      },
+      {
+        "t": 11.46,
+        "word": "wave.",
+        "action": "Blue zigzag slams into hero molecule, impact flash, molecule glows bright cyan"
+      },
+      {
+        "t": 14.48,
+        "word": "everywhere.",
+        "action": "Blue impact bursts into 8 blue arrows Up down sideways from molecule, labels UP DOWN SIDEWAYS pop sequentially"
+      },
+      {
+        "t": 17.72,
+        "word": "Red",
+        "action": "Red long smooth sine isolates and enlarges, blue dims, label LONG SMOOTH RED WAVE"
+      },
+      {
+        "t": 20.7,
+        "word": "slips",
+        "action": "Red sine glides straight past molecules without deflecting, straight motion line extends to right edge"
+      },
+      {
+        "t": 24.42,
+        "word": "every",
+        "action": "Zoom out to many sky patches, blue scattered arrows from every patch converge into eye icon center-bottom"
+      },
+      {
+        "t": 28.22,
+        "word": "blue",
+        "action": "Whole background washes bright blue, arrows from all directions pour into eye, text ALL DIRECTIONS AT ONCE centers"
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "renderer": "remotion",
+    "duration": 9.881,
+    "description": "Vertical 1080x1920. Shot A horizon view: bright blue sky dome (accent=cyan) 10-60% height with sun high, eye icon at 65% center. Sun drops to horizon at 55% height, sky shifts to orange-magenta gradient (orange to accent2=magenta), long low red rays (red) travel horizontally to eye. Blue side-scatter arrows peel away upward and fade. Shot B loop rhyme: cuts back to near-black background with same thick horizontal white beam (fg=white) at 45-55% spanning width as hook frame 0, small BLUE SKY text in accent=cyan centered, visually rhyming hook for clean loop.",
+    "beats": [
+      {
+        "t": 0.55,
+        "word": "Sunsets",
+        "action": "Blue sky darkens, sun drops to horizon line at mid-frame, sky gradient shifts toward orange"
+      },
+      {
+        "t": 2.17,
+        "word": "blue's",
+        "action": "Blue arrows veer sideways and fade away above horizon, label BLUE SCATTERED AWAY peels off"
+      },
+      {
+        "t": 4.59,
+        "word": "straight",
+        "action": "Single thick straight red ray survives low across horizon into eye icon, eye glows red, label ONLY RED SURVIVES"
+      },
+      {
+        "t": 7.05,
+        "word": "white",
+        "action": "Hard reset: cut to dark background, original thick white beam sweeps back across mid-frame matching hook frame 0"
+      },
+      {
+        "t": 9.13,
+        "word": "blue.",
+        "action": "White beam holds center on black with small blue SKY BLUE text below, exact rhyme of opening beam for loop replay"
+      }
+    ]
+  }
+]

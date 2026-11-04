@@ -1,0 +1,40 @@
+{
+  "id": "20261103-remotion-141697",
+  "renderer": "remotion",
+  "topic": "How does public-key encryption work?",
+  "role": "payoff",
+  "narration": "That's why the internet works. Your bank and messages stay safe in public. Anyone can lock it, only you can open it.",
+  "description": "Wide payoff shot: large muted-blue globe outline center (50% x, 40% y) wrapped with flowing accent=cyan locked message bubbles traveling along curved network arrows in public. Icons for bank (Banknote) and messages (MessageCircle) in locked bubbles flow safely toward YOU laptop. Final beat rhymes with hook: single large glowing cyan padlock locked center with small gold key glowing beneath it at 60% y, kinetic text 'Anyone can lock it, only you can open it.' mid-frame white/yellow. Dark navy bg, no critical elements in top 10% or bottom 25%.",
+  "beats": [
+    {
+      "t": 0.63,
+      "word": "That's",
+      "action": "Camera zooms out, globe outline scales up center with network grid dots, text 'That's why the internet works' pops."
+    },
+    {
+      "t": 2.51,
+      "word": "bank",
+      "action": "Locked bubbles with bank and message icons spawn left and orbit globe, flowing along cyan arrow paths."
+    },
+    {
+      "t": 4.09,
+      "word": "in",
+      "action": "Bubbles pass through magenta 'PUBLIC' danger zone label but stay locked, shield checkmarks flash green 'safe in public'."
+    },
+    {
+      "t": 5.63,
+      "word": "Anyone",
+      "action": "All bubbles converge into one large cyan locked padlock center like hook, text 'Anyone can lock it,' appears."
+    },
+    {
+      "t": 7.07,
+      "word": "only",
+      "action": "Gold key rises glowing beneath padlock, unlocks one showcase box to reveal message, text completes 'only you can open it.' mirroring hook frame for loop."
+    }
+  ],
+  "duration": 8.641,
+  "attempts": 1,
+  "source": "5e7fc8e8dd88",
+  "created": "2026-11-04T07:10:28+00:00",
+  "starred": false
+}

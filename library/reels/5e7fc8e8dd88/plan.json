@@ -1,0 +1,164 @@
+[
+  {
+    "index": 0,
+    "renderer": "remotion",
+    "duration": 4.14,
+    "description": "Vertical 1080x1920 dark navy background. Frame 0: giant glowing accent=cyan padlock icon unlocked center (45% vertical), kinetic typography above it at 20% height reading 'Anyone can lock it.' in fg=white bold. Below padlock at 68% height (above caption zone) a small accent3=yellow/gold key icon dim. Action: padlock snaps shut with flash and scale pop, then duplicates into 20 small padlocks flying outward to edges, gold key rises and glows bright with outer glow. Final holds padlock locked center + glowing gold key beneath.",
+    "beats": [
+      {
+        "t": 0.0,
+        "word": "Anyone",
+        "action": "Frame opens on large cyan unlocked padlock center with text 'Anyone' popping in bold white above it."
+      },
+      {
+        "t": 0.98,
+        "word": "lock",
+        "action": "Padlock shackle slams down to locked state with cyan flash ring and click scale pop, text completes to 'can lock it.'"
+      },
+      {
+        "t": 1.98,
+        "word": "Only",
+        "action": "Locked padlock duplicates into 24 tiny cyan padlocks exploding outward to frame edges while dim gold key fades in below center."
+      },
+      {
+        "t": 2.36,
+        "word": "you",
+        "action": "Kinetic text swaps to 'Only YOU' with YOU in yellow, gold key brightens and lifts toward padlock."
+      },
+      {
+        "t": 3.02,
+        "word": "open",
+        "action": "Gold key glows with pulsing yellow halo, padlock rim turns gold, text completes 'can open it.' holding hook image."
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "renderer": "remotion",
+    "duration": 9.29,
+    "description": "Same dark theme, new shot: split layout. Left laptop icon labeled YOU at mid-left (30% x, 40% y) in fg=white, right laptop icon labeled FRIEND at mid-right (70% x, 40% y). Center at 50% x 30% y coffee-shop Wi-Fi icon with expanding accent=cyan waves labeled 'OPEN WI-FI' in muted=grey. Red envelope with 'password123' CodePanel chip flies left-to-right along dotted arrow. Mid-air hacker eye/hand icon in accent2=magenta intercepts. Ends with ProblemCard center-bottom (55% y): 'How to share secret in public?' Nothing in top 10% or bottom 25% captions zone.",
+    "beats": [
+      {
+        "t": 0.64,
+        "word": "If",
+        "action": "YOU laptop left and FRIEND laptop right slide in from sides with name callouts beneath each."
+      },
+      {
+        "t": 2.5,
+        "word": "how",
+        "action": "Cyan Wi-Fi waves pulse center between laptops, 'OPEN WI-FI - coffee shop' label appears above waves."
+      },
+      {
+        "t": 2.88,
+        "word": "share",
+        "action": "White message box with 'password: 1234 secret' pops above YOU laptop, seals into red envelope."
+      },
+      {
+        "t": 5.72,
+        "word": "Any",
+        "action": "Red envelope launches along dotted arrow path from YOU toward FRIEND, wobbling in transit."
+      },
+      {
+        "t": 7.46,
+        "word": "stolen",
+        "action": "Magenta hacker icon grabs envelope mid-air center, envelope cracks open red, 'STOLEN!' callout flashes with shake."
+      },
+      {
+        "t": 8.28,
+        "word": "That's",
+        "action": "Dim everything, ProblemCard slides up to center: 'How to share secret in public?' with red alert icon."
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "renderer": "remotion",
+    "duration": 26.62,
+    "description": "Continued remotion, same laptops reused for continuity but new camera: YOU laptop large left-center (30% x, 35% y), FRIEND laptop right-center (70% x, 35% y). YOU owns linked pair: accent=cyan padlock + accent3=yellow gold key joined by chain above laptop. Public copies fly to FRIEND. Center stage (50% x, 60% y) white message box that morphs: 'seven / 7' -> locked box -> 'forty two / 42' -> unlocked 'seven / 7'. Transit arrows with packet dots between laptops. End split comparison badges at 65% y: 'Locking = EASY' good=green vs 'Unlocking w/o key = NEARLY IMPOSSIBLE' red with brick wall. All key text/graphs kept between 15%-70% vertical.",
+    "beats": [
+      {
+        "t": 0.43,
+        "word": "You",
+        "action": "YOU laptop appears left with two linked icons above it: cyan padlock and gold key connected by chain link, label '2 linked keys'."
+      },
+      {
+        "t": 2.69,
+        "word": "public",
+        "action": "Cyan padlock highlights and pulses, label callout 'PUBLIC LOCK - share with everyone' appears, three tiny padlock copies peel off."
+      },
+      {
+        "t": 5.17,
+        "word": "private",
+        "action": "Padlock dims, gold key enlarges with yellow glow, lock icon + 'PRIVATE KEY - NEVER share' callout pins above YOU laptop."
+      },
+      {
+        "t": 7.83,
+        "word": "friend",
+        "action": "FRIEND laptop slides in right, one tiny cyan padlock copy flies along arrow YOU->FRIEND and docks above FRIEND."
+      },
+      {
+        "t": 10.49,
+        "word": "public",
+        "action": "White box labeled 'seven / 7' drops onto FRIEND side, FRIEND's cyan padlock snaps shut onto the box."
+      },
+      {
+        "t": 12.61,
+        "word": "forty",
+        "action": "Locked box shakes, numbers scramble-roller from 7 to 42, label flips to 'forty two / 42' in cyan."
+      },
+      {
+        "t": 14.93,
+        "word": "forty",
+        "action": "42 locked box lifts to center public zone, multiple eye icons pop around it, callout 'Everyone sees 42' in muted grey."
+      },
+      {
+        "t": 17.41,
+        "word": "key",
+        "action": "42 box flies back YOU->YOU side, gold private key animates plugging into box lock with twist."
+      },
+      {
+        "t": 20.27,
+        "word": "seven",
+        "action": "Box unlocks with green flash, lid opens to reveal 'seven / 7' back, green check badge pops."
+      },
+      {
+        "t": 23.39,
+        "word": "Unlocking",
+        "action": "Split comparison appears below: left 'Locking = EASY' green badge with one-click padlock, right red brick wall builds behind 42 box labeled 'Unlocking without secret = NEARLY IMPOSSIBLE' growing through end."
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "renderer": "remotion",
+    "duration": 8.641,
+    "description": "Wide payoff shot: large muted-blue globe outline center (50% x, 40% y) wrapped with flowing accent=cyan locked message bubbles traveling along curved network arrows in public. Icons for bank (Banknote) and messages (MessageCircle) in locked bubbles flow safely toward YOU laptop. Final beat rhymes with hook: single large glowing cyan padlock locked center with small gold key glowing beneath it at 60% y, kinetic text 'Anyone can lock it, only you can open it.' mid-frame white/yellow. Dark navy bg, no critical elements in top 10% or bottom 25%.",
+    "beats": [
+      {
+        "t": 0.63,
+        "word": "That's",
+        "action": "Camera zooms out, globe outline scales up center with network grid dots, text 'That's why the internet works' pops."
+      },
+      {
+        "t": 2.51,
+        "word": "bank",
+        "action": "Locked bubbles with bank and message icons spawn left and orbit globe, flowing along cyan arrow paths."
+      },
+      {
+        "t": 4.09,
+        "word": "in",
+        "action": "Bubbles pass through magenta 'PUBLIC' danger zone label but stay locked, shield checkmarks flash green 'safe in public'."
+      },
+      {
+        "t": 5.63,
+        "word": "Anyone",
+        "action": "All bubbles converge into one large cyan locked padlock center like hook, text 'Anyone can lock it,' appears."
+      },
+      {
+        "t": 7.07,
+        "word": "only",
+        "action": "Gold key rises glowing beneath padlock, unlocks one showcase box to reveal message, text completes 'only you can open it.' mirroring hook frame for loop."
+      }
+    ]
+  }
+]

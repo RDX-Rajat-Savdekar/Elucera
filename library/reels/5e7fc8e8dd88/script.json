@@ -1,0 +1,26 @@
+{
+  "title": "The Open Lock Trick",
+  "idea": "Anyone can encrypt with a shared public lock, but only the secret private key can decrypt it",
+  "segments": [
+    {
+      "role": "hook",
+      "narration": "Anyone can lock it. Only you can open it.",
+      "visual_directive": "A glowing blue padlock snaps shut in the center on a dark background, dozens of copies fly outward. A single gold key glows beneath it."
+    },
+    {
+      "role": "setup",
+      "narration": "If you and a friend never met, how do you share a secret over open Wi-Fi? Any password you send can be stolen. That's the problem.",
+      "visual_directive": "Two simple laptop icons connect over a coffee-shop Wi-Fi wave. A red envelope with a password flies between them and gets intercepted mid-air."
+    },
+    {
+      "role": "mechanism",
+      "narration": "You make two linked keys. A public lock you share with everyone. And a private key you never share. Your friend wants to send seven. She uses your public lock to scramble seven into forty two. Everyone can see forty two. But only your private key reverses it. You plug it in, and get seven back. Locking is easy. Unlocking without the secret is nearly impossible.",
+      "visual_directive": "Left laptop keeps a gold key while blue padlocks duplicate to the right laptop. The word seven drops in a box, locks shut, scrambles to forty two in transit, then the gold key unlocks it back to seven."
+    },
+    {
+      "role": "payoff",
+      "narration": "That's why the internet works. Your bank and messages stay safe in public. Anyone can lock it, only you can open it.",
+      "visual_directive": "Zoom out to a globe wrapped in locked message bubbles flowing safely through a public network to one glowing unlocked box."
+    }
+  ]
+}
