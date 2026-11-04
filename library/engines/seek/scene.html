@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080, initial-scale=1">
+<style>
+  html, body { margin: 0; padding: 0; width: 1080px; height: 1920px; background: #0a0d14; overflow: hidden; }
+  canvas { display: block; }
+  #head { position: absolute; left: 0; top: 150px; width: 1080px; text-align: center; pointer-events: none; }
+  #head h1 { margin: 0; font: 900 110px system-ui, sans-serif; color: #f5f7fa; }
+  #head p { margin: 12px 0 0; font: 600 44px system-ui, sans-serif; color: #8a93a6; }
+</style>
+</head>
+<body>
+<div id="head"><h1 id="title">P5 + BRUSH</h1><p id="sub">painted live, in code</p></div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/p5.brush@1.1/dist/p5.brush.js"></script>
+<script>
+// Elucera seek demo: p5.brush charcoal boxes + GSAP headline, 4s, deterministic.
+var headState = { y: 120, o: 0 };
+var headTween = gsap.to(headState, {
+  y: 0, o: 1, duration: 0.6, ease: "power3.out", paused: true,
+  onUpdate: function () {
+    document.getElementById("head").style.transform = "translateY(" + headState.y + "px)";
+    document.getElementById("head").style.opacity = headState.o;
+  }
+});
+
+function setup() {
+  createCanvas(1080, 1920, WEBGL);
+}
+
+var boxes = [
+  { x: -350, y: -180, w: 700, h: 220, label: "ASK", at: 0.3, seed: 11 },
+  { x: -350, y: 140, w: 700, h: 220, label: "ANIMATE", at: 1.5, seed: 22 },
+  { x: -350, y: 460, w: 700, h: 220, label: "REEL", at: 2.7, seed: 33 }
+];
+
+function ease(t) { t = Math.max(0, Math.min(1, t)); return 1 - Math.pow(1 - t, 3); }
+
+function drawBox(b, t) {
+  var p = ease((t - b.at) / 0.7);
+  if (p <= 0) return;
+  randomSeed(b.seed);
+  brush.set("charcoal", "#d4ff3a", 5);
+  brush.rect(b.x, b.y, Math.max(b.w * p, 4), b.h);
+  if (p > 0.6) {
+    fill(245, 247, 250, 255 * ease((p - 0.6) / 0.4));
+    textAlign(CENTER, CENTER);
+    textSize(84);
+    textStyle(BOLD);
+    text(b.label, 0, b.y + b.h / 2);
+  }
+}
+
+window.__seek = function (t) {
+  headTween.progress(Math.min(t / 0.6, 1));
+  randomSeed(7);
+  noiseSeed(7);
+  background(10, 13, 20);
+  brush.field("waves");
+  brush.set("HB", "#06d6a0", 2);
+  var ap = ease((t - 1.0) / 0.4);
+  if (ap > 0) brush.line(-320 + (320 + 320) * 0, -40, -320 + 640 * ap, -40);
+  var ap2 = ease((t - 2.2) / 0.4);
+  if (ap2 > 0) brush.line(-320, 280, -320 + 640 * ap2, 280);
+  for (var i = 0; i < boxes.length; i++) drawBox(boxes[i], t);
+  if (t > 3.4) {
+    var cp = ease((t - 3.4) / 0.5);
+    randomSeed(55);
+    brush.set("marker", "#d4ff3a", 8);
+    brush.line(-70, 660, 10, 740);
+    if (cp > 0.5) brush.line(10, 740, 160, 580);
+  }
+};
+</script>
+</body>
+</html>

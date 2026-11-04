@@ -1,0 +1,40 @@
+{
+  "id": "20261103-remotion-b3a252",
+  "renderer": "remotion",
+  "topic": "What is Elucera? Turn any question into a captioned 60-second animated explainer reel",
+  "role": "hook",
+  "narration": "Got a question? Get a sixty second cartoon back.",
+  "description": "Vertical 1080x1920 dark background. Center-frame rounded phone frame (white border, dark fill) occupying middle 35-75% height, glowing Lucide CircleHelp question mark in accent cyan centered inside. Bold kinetic captions in fg white middle-band pop with scale punch: 'Got a question?' then '60 SECOND CARTOON' in accent2 magenta and accent3 yellow. Play triangle icon morphs in over question mark. Camera zoom pulse 105% on beat. No elements in top 10% or bottom 25%.",
+  "beats": [
+    {
+      "t": 0.0,
+      "word": "Got",
+      "action": "Phone frame snaps in center with glowing cyan question mark; word Got pops large white center-middle."
+    },
+    {
+      "t": 0.44,
+      "word": "question?",
+      "action": "Word question? pops accent cyan beside Got; question mark icon pulses glow and shakes."
+    },
+    {
+      "t": 1.58,
+      "word": "sixty",
+      "action": "Question mark morphs to white play button in magenta circle; words sixty second slam in accent2 below."
+    },
+    {
+      "t": 2.44,
+      "word": "cartoon",
+      "action": "Word cartoon pops accent3 yellow large; cartoon sun doodle bursts behind play button; camera zoom pulses in."
+    },
+    {
+      "t": 2.96,
+      "word": "back.",
+      "action": "Word back. pops white; phone frame bounces and glows, holding hero pose."
+    }
+  ],
+  "duration": 3.68,
+  "attempts": 1,
+  "source": "demo-reel",
+  "created": "2026-11-04T04:55:49+00:00",
+  "starred": false
+}

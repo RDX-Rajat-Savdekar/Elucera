@@ -761,6 +761,35 @@ def showcase_poster(sid: str) -> FileResponse:
     return _showcase_file(sid, "poster.jpg")
 
 
+@app.get("/library/engines")
+def list_engines() -> list[dict]:
+    """One signature clip per renderer for the home page (library/engines/<id>/{meta.json, poster.jpg, clip.mp4})."""
+    out = []
+    for d in sorted((get_settings().library_dir / "engines").glob("*/")):
+        f = d / "meta.json"
+        if f.exists():
+            out.append({"id": d.name, **json.loads(f.read_text()), "has_video": (d / "clip.mp4").exists()})
+    return sorted(out, key=lambda m: m.get("order", 99))
+
+
+def _engine_file(eid: str, name: str) -> FileResponse:
+    root = (get_settings().library_dir / "engines").resolve()
+    f = (root / eid / name).resolve()
+    if f.parent.parent != root or not f.exists():
+        raise HTTPException(404, "not found")
+    return FileResponse(f)
+
+
+@app.get("/library/engines/{eid}/video")
+def engine_video(eid: str) -> FileResponse:
+    return _engine_file(eid, "clip.mp4")
+
+
+@app.get("/library/engines/{eid}/poster")
+def engine_poster(eid: str) -> FileResponse:
+    return _engine_file(eid, "poster.jpg")
+
+
 @app.get("/library/scenes")
 def list_scenes() -> list[dict]:
     from elucera import library

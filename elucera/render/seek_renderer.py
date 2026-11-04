@@ -147,8 +147,10 @@ class SeekRenderer:
             frame_html.write_text(wrapper)
             shot = frames_dir / f"f{i:04d}.png"
             try:
+                # NOTE: no --disable-gpu. Software WebGL (needed by p5.brush and any
+                # WebGL canvas) requires SwiftShader: --enable-unsafe-swiftshader.
                 proc = subprocess.run(
-                    [chrome, "--headless=new", "--disable-gpu", "--no-sandbox",
+                    [chrome, "--headless=new", "--no-sandbox", "--enable-unsafe-swiftshader",
                      f"--window-size={WIDTH},{HEIGHT}", "--virtual-time-budget=3000",
                      f"--screenshot={shot}", str(frame_html.resolve())],
                     capture_output=True, text=True, timeout=s.render_timeout_s,
@@ -183,4 +185,21 @@ def _find_chromium() -> str | None:
 
     if os.environ.get("CHROME_PATH"):
         return os.environ["CHROME_PATH"]
-    return next((c for c in ("chromium", "chromium-browser", "google-chrome", "google-chrome-stable") if shutil.which(c)), None)
+    # Full browser builds first: bare chrome-headless-shell hangs where no
+    # display link exists (seen on macOS sandboxes); Google Chrome works.
+    candidates = [
+        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        os.path.expanduser("~/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"),
+        "/usr/bin/google-chrome",
+        "chromium",
+        "chromium-browser",
+        "google-chrome",
+        "google-chrome-stable",
+    ]
+    for c in candidates:
+        if os.path.sep in c:
+            if os.path.exists(c):
+                return c
+        elif shutil.which(c):
+            return c
+    return None

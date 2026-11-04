@@ -1,0 +1,45 @@
+{
+  "id": "20261103-remotion-c00847",
+  "renderer": "remotion",
+  "topic": "What is Elucera? Turn any question into a captioned 60-second animated explainer reel",
+  "role": "payoff",
+  "narration": "No filming. No editing. Just pure understanding, on repeat. Got a question? You get a sixty second cartoon back.",
+  "description": "Center phone frame (same size/position as hook, x centered y 30-75%) playing finished cartoon: inside mini sun + blue bouncing dots + red straight dots looping, big word-by-word captions white/yellow center of phone. Cyan looping progress bar at bottom of phone, timer '0:60' and Lucide Share2 + Heart icons right side. Background dark with soft cyan glow. Final beat phone content crossfades to large glowing cyan question mark, rhyming hook frame 0 for seamless loop.",
+  "beats": [
+    {
+      "t": 0.43,
+      "word": "filming.",
+      "action": "Phone snaps center with reel playing; red prohibition badge 'NO FILMING' with Lucide CameraOff slams and vanishes."
+    },
+    {
+      "t": 1.43,
+      "word": "editing.",
+      "action": "Second badge 'NO EDITING' with Lucide Scissors slams over timeline that cuts away; timeline disappears."
+    },
+    {
+      "t": 2.19,
+      "word": "Just",
+      "action": "Words PURE UNDERSTANDING pop good green inside phone; glow brightens."
+    },
+    {
+      "t": 4.35,
+      "word": "repeat.",
+      "action": "Progress bar loops 0-100% twice with repeat arrow icon; dots animation loops seamlessly."
+    },
+    {
+      "t": 5.75,
+      "word": "question?",
+      "action": "Kinetic caption 'Got a question?' pops above phone; question bubble icon appears."
+    },
+    {
+      "t": 7.63,
+      "word": "cartoon",
+      "action": "Caption '60 SECOND CARTOON BACK' pops; phone content morphs to glowing cyan question mark matching hook, holding for loop."
+    }
+  ],
+  "duration": 8.761,
+  "attempts": 1,
+  "source": "demo-reel",
+  "created": "2026-11-04T04:55:59+00:00",
+  "starred": false
+}

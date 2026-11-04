@@ -1,0 +1,65 @@
+{
+  "id": "20261103-remotion-3ca546",
+  "renderer": "remotion",
+  "topic": "What is Elucera? Turn any question into a captioned 60-second animated explainer reel",
+  "role": "mechanism",
+  "narration": "Say you ask, why is the sky blue? Elucera writes you a tight script in four beats. Hook, setup, mechanism, payoff. Then a calm narrator reads it aloud. At the same time, it builds clean motion graphics. Sunbeams scattering. Blue light bouncing everywhere. Red light flying straight through. Big captions pop word by word. All timed to the voice. Sixty seconds, vertical, ready to watch and share.",
+  "description": "Three-phase vertical layout in dark scene. Top-center (y 15-25%): white chat query box typing 'why is the sky blue?'. Middle (y 28-48%): 2x2 grid of script blocks labeled Hook accent cyan, Setup accent2, Mechanism accent3, Payoff good green. Lower canvas (y 50-70%): side-view sky demo with yellow sun left, cyan rays, atmosphere band; small blue dots and red dots as particles. Center-middle big caption words white with yellow highlight. Bottom-middle (y 72%): mini vertical phone badge with share icons.",
+  "beats": [
+    {
+      "t": 0.86,
+      "word": "ask,",
+      "action": "Query box types 'why is the sky blue?' character by character with cursor blink top-center."
+    },
+    {
+      "t": 3.52,
+      "word": "writes",
+      "action": "Query box shrinks up; pen icon writes; four empty script blocks fly in to 2x2 grid."
+    },
+    {
+      "t": 5.4,
+      "word": "beats.",
+      "action": "Four blocks label in: Hook, Setup, Mechanism, Payoff with numbers 1-4; '4 BEATS' counter pops."
+    },
+    {
+      "t": 8.7,
+      "word": "payoff.",
+      "action": "Blocks light cascade cyan to green ending on Payoff; all four pulse done state with checkmarks."
+    },
+    {
+      "t": 10.38,
+      "word": "narrator",
+      "action": "Calm narrator waveform bar + Lucide AudioLines icon appears above blocks; blocks dim, voice line sweeps."
+    },
+    {
+      "t": 13.5,
+      "word": "builds",
+      "action": "Lower canvas wipes in: yellow sun left with cyan sunbeams scattering rays animating outward."
+    },
+    {
+      "t": 16.86,
+      "word": "Blue",
+      "action": "Dozens of blue dots spawn and bounce zigzag everywhere inside atmosphere band, trails cyan."
+    },
+    {
+      "t": 18.78,
+      "word": "Red",
+      "action": "Red dots fly straight through left-to-right with motion streaks, passing through while blue keeps bouncing."
+    },
+    {
+      "t": 21.1,
+      "word": "captions",
+      "action": "Big captions 'BLUE BOUNCES / RED PASSES' pop word-by-word center with yellow highlight box."
+    },
+    {
+      "t": 24.64,
+      "word": "Sixty",
+      "action": "Mini vertical phone badge + '60s VERTICAL' pill and share icons pop bottom-middle; progress bar loops."
+    }
+  ],
+  "duration": 28.93,
+  "attempts": 1,
+  "source": "demo-reel",
+  "created": "2026-11-04T04:55:56+00:00",
+  "starred": false
+}

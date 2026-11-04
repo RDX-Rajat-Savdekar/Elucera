@@ -1,0 +1,26 @@
+{
+  "title": "What is Elucera?",
+  "idea": "Elucera turns any question into a captioned 60-second animated explainer reel",
+  "segments": [
+    {
+      "role": "hook",
+      "narration": "Got a question? Get a sixty second cartoon back.",
+      "visual_directive": "Vertical phone frame with a glowing question mark morphing into a play button as bold captions pop in. Quick zoom pulse on the cartoon."
+    },
+    {
+      "role": "setup",
+      "narration": "You ask something tricky, like black holes or blockchains. Reading takes forever. And most explainers are too long or too vague. You just want the clear answer, fast.",
+      "visual_directive": "Left side shows a long dense article scrolling endlessly. Right side shows a clean sixty second vertical player with a progress bar filling fast."
+    },
+    {
+      "role": "mechanism",
+      "narration": "Say you ask, why is the sky blue? Elucera writes you a tight script in four beats. Hook, setup, mechanism, payoff. Then a calm narrator reads it aloud. At the same time, it builds clean motion graphics. Sunbeams scattering. Blue light bouncing everywhere. Red light flying straight through. Big captions pop word by word. All timed to the voice. Sixty seconds, vertical, ready to watch and share.",
+      "visual_directive": "A text box types why is the sky blue, then splits into four labeled script blocks. Simple 3D sun rays scatter while blue dots bounce and red dots fly straight, with big captions highlighting in sync."
+    },
+    {
+      "role": "payoff",
+      "narration": "No filming. No editing. Just pure understanding, on repeat. Got a question? You get a sixty second cartoon back.",
+      "visual_directive": "Finished reel plays inside a phone frame with word by word captions and looping progress bar. It morphs back into the opening question mark for a seamless loop."
+    }
+  ]
+}

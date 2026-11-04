@@ -98,6 +98,9 @@ def test_render_without_driver_fails_gracefully(tmp_path, monkeypatch):
     monkeypatch.setattr(builtins, "__import__", fake_import)
     monkeypatch.setattr(m.shutil, "which", lambda *a, **k: None)
     monkeypatch.delenv("CHROME_PATH", raising=False)
+    # _find_chromium also probes well-known install paths (e.g. macOS Chrome.app);
+    # stub the whole probe so "no driver" holds on machines that have a browser.
+    monkeypatch.setattr(m, "_find_chromium", lambda: None)
     out = tmp_path / "seg.mp4"
     check = SeekRenderer().render(GOOD, 1.0, out)
     assert not check.ok

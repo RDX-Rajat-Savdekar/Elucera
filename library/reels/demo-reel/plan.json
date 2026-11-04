@@ -1,0 +1,169 @@
+[
+  {
+    "index": 0,
+    "renderer": "remotion",
+    "duration": 3.68,
+    "description": "Vertical 1080x1920 dark background. Center-frame rounded phone frame (white border, dark fill) occupying middle 35-75% height, glowing Lucide CircleHelp question mark in accent cyan centered inside. Bold kinetic captions in fg white middle-band pop with scale punch: 'Got a question?' then '60 SECOND CARTOON' in accent2 magenta and accent3 yellow. Play triangle icon morphs in over question mark. Camera zoom pulse 105% on beat. No elements in top 10% or bottom 25%.",
+    "beats": [
+      {
+        "t": 0.0,
+        "word": "Got",
+        "action": "Phone frame snaps in center with glowing cyan question mark; word Got pops large white center-middle."
+      },
+      {
+        "t": 0.44,
+        "word": "question?",
+        "action": "Word question? pops accent cyan beside Got; question mark icon pulses glow and shakes."
+      },
+      {
+        "t": 1.58,
+        "word": "sixty",
+        "action": "Question mark morphs to white play button in magenta circle; words sixty second slam in accent2 below."
+      },
+      {
+        "t": 2.44,
+        "word": "cartoon",
+        "action": "Word cartoon pops accent3 yellow large; cartoon sun doodle bursts behind play button; camera zoom pulses in."
+      },
+      {
+        "t": 2.96,
+        "word": "back.",
+        "action": "Word back. pops white; phone frame bounces and glows, holding hero pose."
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "renderer": "remotion",
+    "duration": 11.64,
+    "description": "Split comparison shot. Left panel (x 8-46%, y 18-72%): dim grey article card with dense muted text lines, title 'Black Holes Explained' + author row, scrolling upward continuously. Right panel (x 54-92%, y 18-72%): clean vertical player card with cyan border, play icon, progress bar accent cyan at bottom of card, timer counter '0:60'. Center VS badge. Background dark. Accent red X stamps for too long/vague. Good green check for clear answer.",
+    "beats": [
+      {
+        "t": 0.54,
+        "word": "ask",
+        "action": "Split layout slides in; left article card fades in with question bubble 'black holes or blockchains?' above it."
+      },
+      {
+        "t": 2.04,
+        "word": "black",
+        "action": "Article title highlights to 'BLACK HOLES'; second chip 'blockchains' pops accent2 on left card."
+      },
+      {
+        "t": 4.24,
+        "word": "Reading",
+        "action": "Left article scrolls fast upward endlessly; clock icon spins; word FOREVER stamps red."
+      },
+      {
+        "t": 6.16,
+        "word": "explainers",
+        "action": "Two red badges slam on left: 'TOO LONG' and 'TOO VAGUE'; left card dims to muted grey."
+      },
+      {
+        "t": 9.66,
+        "word": "clear",
+        "action": "Right player brightens with green check; words CLEAR ANSWER pop white inside player; progress bar starts filling."
+      },
+      {
+        "t": 10.92,
+        "word": "fast.",
+        "action": "Right progress bar races 0-100% in cyan with speed lines and '60s' counter ticking fast; left stays stalled."
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "renderer": "remotion",
+    "duration": 28.93,
+    "description": "Three-phase vertical layout in dark scene. Top-center (y 15-25%): white chat query box typing 'why is the sky blue?'. Middle (y 28-48%): 2x2 grid of script blocks labeled Hook accent cyan, Setup accent2, Mechanism accent3, Payoff good green. Lower canvas (y 50-70%): side-view sky demo with yellow sun left, cyan rays, atmosphere band; small blue dots and red dots as particles. Center-middle big caption words white with yellow highlight. Bottom-middle (y 72%): mini vertical phone badge with share icons.",
+    "beats": [
+      {
+        "t": 0.86,
+        "word": "ask,",
+        "action": "Query box types 'why is the sky blue?' character by character with cursor blink top-center."
+      },
+      {
+        "t": 3.52,
+        "word": "writes",
+        "action": "Query box shrinks up; pen icon writes; four empty script blocks fly in to 2x2 grid."
+      },
+      {
+        "t": 5.4,
+        "word": "beats.",
+        "action": "Four blocks label in: Hook, Setup, Mechanism, Payoff with numbers 1-4; '4 BEATS' counter pops."
+      },
+      {
+        "t": 8.7,
+        "word": "payoff.",
+        "action": "Blocks light cascade cyan to green ending on Payoff; all four pulse done state with checkmarks."
+      },
+      {
+        "t": 10.38,
+        "word": "narrator",
+        "action": "Calm narrator waveform bar + Lucide AudioLines icon appears above blocks; blocks dim, voice line sweeps."
+      },
+      {
+        "t": 13.5,
+        "word": "builds",
+        "action": "Lower canvas wipes in: yellow sun left with cyan sunbeams scattering rays animating outward."
+      },
+      {
+        "t": 16.86,
+        "word": "Blue",
+        "action": "Dozens of blue dots spawn and bounce zigzag everywhere inside atmosphere band, trails cyan."
+      },
+      {
+        "t": 18.78,
+        "word": "Red",
+        "action": "Red dots fly straight through left-to-right with motion streaks, passing through while blue keeps bouncing."
+      },
+      {
+        "t": 21.1,
+        "word": "captions",
+        "action": "Big captions 'BLUE BOUNCES / RED PASSES' pop word-by-word center with yellow highlight box."
+      },
+      {
+        "t": 24.64,
+        "word": "Sixty",
+        "action": "Mini vertical phone badge + '60s VERTICAL' pill and share icons pop bottom-middle; progress bar loops."
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "renderer": "remotion",
+    "duration": 8.761,
+    "description": "Center phone frame (same size/position as hook, x centered y 30-75%) playing finished cartoon: inside mini sun + blue bouncing dots + red straight dots looping, big word-by-word captions white/yellow center of phone. Cyan looping progress bar at bottom of phone, timer '0:60' and Lucide Share2 + Heart icons right side. Background dark with soft cyan glow. Final beat phone content crossfades to large glowing cyan question mark, rhyming hook frame 0 for seamless loop.",
+    "beats": [
+      {
+        "t": 0.43,
+        "word": "filming.",
+        "action": "Phone snaps center with reel playing; red prohibition badge 'NO FILMING' with Lucide CameraOff slams and vanishes."
+      },
+      {
+        "t": 1.43,
+        "word": "editing.",
+        "action": "Second badge 'NO EDITING' with Lucide Scissors slams over timeline that cuts away; timeline disappears."
+      },
+      {
+        "t": 2.19,
+        "word": "Just",
+        "action": "Words PURE UNDERSTANDING pop good green inside phone; glow brightens."
+      },
+      {
+        "t": 4.35,
+        "word": "repeat.",
+        "action": "Progress bar loops 0-100% twice with repeat arrow icon; dots animation loops seamlessly."
+      },
+      {
+        "t": 5.75,
+        "word": "question?",
+        "action": "Kinetic caption 'Got a question?' pops above phone; question bubble icon appears."
+      },
+      {
+        "t": 7.63,
+        "word": "cartoon",
+        "action": "Caption '60 SECOND CARTOON BACK' pops; phone content morphs to glowing cyan question mark matching hook, holding for loop."
+      }
+    ]
+  }
+]

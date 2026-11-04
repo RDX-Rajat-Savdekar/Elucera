@@ -201,9 +201,10 @@ let reels = [];
 async function loadHome() {
   if (homeLoaded) return;
   homeLoaded = true;
-  const [reelsRes, kitsRes] = await Promise.allSettled([getJSON("/library/reels"), getJSON("/library/showcase")]);
+  const [reelsRes, kitsRes, enginesRes] = await Promise.allSettled([getJSON("/library/reels"), getJSON("/library/showcase"), getJSON("/library/engines")]);
   reels = reelsRes.status === "fulfilled" ? reelsRes.value : [];
   const kits = kitsRes.status === "fulfilled" ? kitsRes.value : [];
+  const engines = enginesRes.status === "fulfilled" ? enginesRes.value : [];
 
   // hero: three phones from the best reels
   const playable = reels.filter((r) => r.has_video).slice(0, 3);
@@ -248,6 +249,26 @@ async function loadHome() {
     if (!b) return;
     const k = kits.find((x) => x.id === b.dataset.kit);
     if (k) openPlayer({ title: k.title, has_video: true, src: `/library/showcase/${encodeURIComponent(k.id)}/video`, kit: true });
+  };
+
+  // engines: one signature clip per renderer (seek slot fills in once its clip renders)
+  $("#engineGrid").innerHTML = engines.filter((k) => k.has_video).map((k) => `
+    <article class="kit">
+      <button class="kit-video" type="button" data-engine="${esc(k.id)}" aria-label="Watch: ${esc(k.title)}">
+        <video data-auto data-src="/library/engines/${encodeURIComponent(k.id)}/video" poster="/library/engines/${encodeURIComponent(k.id)}/poster" muted loop playsinline preload="none"></video>
+        <span class="play" aria-hidden="true"></span>
+      </button>
+      <div class="kit-body">
+        <span class="kit-engine">${esc(k.title)}</span>
+        <h3>${esc(k.title)}</h3>
+        <p>${esc(k.summary)}</p>
+      </div>
+    </article>`).join("") || `<p class="muted">Engine clips appear here once they're rendered.</p>`;
+  $("#engineGrid").onclick = (e) => {
+    const b = e.target.closest("[data-engine]");
+    if (!b) return;
+    const k = engines.find((x) => x.id === b.dataset.engine);
+    if (k) { track("engine_play", { engine: k.id }); openPlayer({ title: k.title, has_video: true, src: `/library/engines/${encodeURIComponent(k.id)}/video`, kit: true }); }
   };
 
   watch($("#home"));

@@ -86,7 +86,7 @@ def summary(days: int = 14) -> dict:
             e = r.get("event", "?")
             by_event[e] = by_event.get(e, 0) + 1
         # funnel: the product decisions we care about
-        funnel_order = ["page_view", "demo_view", "demo_replay", "reel_play", "kit_play",
+        funnel_order = ["page_view", "demo_view", "demo_replay", "reel_play", "kit_play", "engine_play",
                         "pitch_submit", "pitch_approve", "scene_redo_submit",
                         "rebake_click", "video_serve"]
         funnel = {k: by_event.get(k, 0) for k in funnel_order}

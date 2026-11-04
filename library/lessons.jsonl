@@ -13,3 +13,4 @@
 {"renderer": "three", "error": "Scene.tsx: error TS2322: Type '{ children: Element[]; position: [number, number, number]; opacity: number; }' is not assignable to type 'Mutable<Overwrite<Partial<Overwrite<Group<Object3DEventMap>, MathProps<Group<Object3DEventMap>> & ReactProps<Group<Object3DEventMap>> & Partial<...>>>, Omit<...>>>", "note": "", "at": 1793657721}
 {"renderer": "remotion", "error": "src/kit/index.ts(43,25): error TS2307: Cannot find module '@remotion/noise' or its corresponding type declarations.", "note": "", "at": 1793692000}
 {"renderer": "manim", "error": "ValueError: Seg.wait() has a duration of 0 <= 0 seconds which Manim cannot", "note": "", "at": 1793692315}
+{"renderer": "remotion", "error": "Scene.tsx: error TS2769: No overload matches this call.", "note": "", "at": 1793768168}

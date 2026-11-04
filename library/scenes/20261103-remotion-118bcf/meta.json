@@ -1,0 +1,45 @@
+{
+  "id": "20261103-remotion-118bcf",
+  "renderer": "remotion",
+  "topic": "What is Elucera? Turn any question into a captioned 60-second animated explainer reel",
+  "role": "setup",
+  "narration": "You ask something tricky, like black holes or blockchains. Reading takes forever. And most explainers are too long or too vague. You just want the clear answer, fast.",
+  "description": "Split comparison shot. Left panel (x 8-46%, y 18-72%): dim grey article card with dense muted text lines, title 'Black Holes Explained' + author row, scrolling upward continuously. Right panel (x 54-92%, y 18-72%): clean vertical player card with cyan border, play icon, progress bar accent cyan at bottom of card, timer counter '0:60'. Center VS badge. Background dark. Accent red X stamps for too long/vague. Good green check for clear answer.",
+  "beats": [
+    {
+      "t": 0.54,
+      "word": "ask",
+      "action": "Split layout slides in; left article card fades in with question bubble 'black holes or blockchains?' above it."
+    },
+    {
+      "t": 2.04,
+      "word": "black",
+      "action": "Article title highlights to 'BLACK HOLES'; second chip 'blockchains' pops accent2 on left card."
+    },
+    {
+      "t": 4.24,
+      "word": "Reading",
+      "action": "Left article scrolls fast upward endlessly; clock icon spins; word FOREVER stamps red."
+    },
+    {
+      "t": 6.16,
+      "word": "explainers",
+      "action": "Two red badges slam on left: 'TOO LONG' and 'TOO VAGUE'; left card dims to muted grey."
+    },
+    {
+      "t": 9.66,
+      "word": "clear",
+      "action": "Right player brightens with green check; words CLEAR ANSWER pop white inside player; progress bar starts filling."
+    },
+    {
+      "t": 10.92,
+      "word": "fast.",
+      "action": "Right progress bar races 0-100% in cyan with speed lines and '60s' counter ticking fast; left stays stalled."
+    }
+  ],
+  "duration": 11.64,
+  "attempts": 2,
+  "source": "demo-reel",
+  "created": "2026-11-04T04:56:08+00:00",
+  "starred": false
+}
