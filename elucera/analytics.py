@@ -11,6 +11,7 @@ import time
 from pathlib import Path
 
 from elucera.config import get_settings
+from elucera.models import JobState
 
 
 def _dir() -> Path:
@@ -21,8 +22,6 @@ def _dir() -> Path:
 
 def rollup_job(job_id: str) -> dict | None:
     """Fold one finished job dir into a metrics row. None when unreadable."""
-    from elucera.models import JobState
-
     d = get_settings().outputs_dir / job_id
     try:
         job = JobState.model_validate_json((d / "state.json").read_text())

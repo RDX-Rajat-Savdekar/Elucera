@@ -8,7 +8,6 @@ Runs the real renderer path (Docker, no network, no models). Not part of pytest:
 import shutil
 import subprocess
 import sys
-from pathlib import Path
 
 from elucera.config import ROOT, get_settings
 from elucera.render.manim_renderer import ASSETS, HEADER, KIT

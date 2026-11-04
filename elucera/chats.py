@@ -2,7 +2,10 @@
 
 Threads are owned by an anonymous browser id (sent as the X-Elucera-User header), so each browser sees its own
 history across reloads and server restarts without needing a login. Threads saved before ownership existed have
-no owner and are visible to everyone.
+no owner and are visible to everyone; an owned thread is visible only to requests carrying that owner id.
+
+The owner id only separates browsers; it is not authentication (anyone can send any id). Set API_TOKEN to keep
+strangers out of the server altogether.
 """
 
 import json
@@ -11,6 +14,8 @@ import uuid
 from pathlib import Path
 
 from elucera.config import get_settings
+from elucera.fsutil import write_text_atomic
+from elucera.models import JobState
 
 VALID = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.")
 
@@ -28,7 +33,7 @@ def _check(tid: str) -> str:
 
 
 def _write(t: dict) -> dict:
-    (_dir() / f"{t['id']}.json").write_text(json.dumps(t))
+    write_text_atomic(_dir() / f"{t['id']}.json", json.dumps(t))
     return t
 
 
@@ -42,7 +47,7 @@ def _normalize(t: dict) -> dict:
 
 
 def visible(t: dict, owner: str | None) -> bool:
-    return not t.get("owner") or not owner or t["owner"] == owner
+    return not t.get("owner") or t["owner"] == owner
 
 
 def create(title: str, tid: str | None = None, owner: str | None = None) -> dict:
@@ -75,6 +80,8 @@ def _touch(tid: str, topic: str, owner: str | None) -> dict:
     t = get(tid)
     if t is None:
         t = create(topic or "Untitled chat", tid, owner)
+    elif not visible(t, owner):
+        raise PermissionError("thread belongs to another browser")
     if owner and not t.get("owner"):
         t["owner"] = owner
     t["updated"] = time.time()
@@ -85,7 +92,12 @@ def _touch(tid: str, topic: str, owner: str | None) -> dict:
 
 def attach(tid: str, job_id: str, topic: str = "", owner: str | None = None, renderer: str | None = None,
            pitch_id: str | None = None) -> dict:
-    """Append a job to a thread (creating it if needed). If it came from a pitch, the pitch item becomes the job."""
+    """Append a job to a thread (creating it if needed). If it came from a pitch, the pitch item becomes the job.
+
+    Raises ValueError for a malformed id and PermissionError if the thread belongs to another owner.
+    """
+    if not job_id.isalnum():
+        raise ValueError("bad job id")
     t = _touch(tid, topic, owner)
     if job_id not in t["jobs"]:
         t["jobs"].append(job_id)
@@ -126,8 +138,8 @@ def pitch_summary(pid: str) -> dict | None:
 
 def job_summary(job_id: str) -> dict | None:
     """Small card for a job, from its persisted state (no pipeline run)."""
-    from elucera.models import JobState
-
+    if not job_id.isalnum():
+        return None
     f = get_settings().outputs_dir / job_id / "state.json"
     if not f.exists():
         return None

@@ -1191,7 +1191,7 @@ class JobView {
         <div class="status ${statusCls}">${esc(statusText)}</div>
         ${p?.duration ? `<div style="font-size:12px;color:var(--muted)">Scene ${i + 1} · ${p.duration.toFixed(1)}s</div>` : ""}
         ${canInteract ? `<div style="margin-top:8px"><button class="btn sm" type="button" data-3d>${sc.show3d ? "Hide 3D" : "Explore in 3D"}</button></div>
-        <div class="td" ${sc.show3d ? "" : "hidden"}><iframe title="Interactive 3D scene ${i + 1}" src="/jobs/${this.id}/scenes/${i}/player" loading="lazy" allow="autoplay; fullscreen"></iframe></div>` : ""}
+        <div class="td" ${sc.show3d ? "" : "hidden"}><iframe title="Interactive 3D scene ${i + 1}" src="/jobs/${this.id}/scenes/${i}/player" sandbox="allow-scripts" loading="lazy" allow="autoplay; fullscreen"></iframe></div>` : ""}
         ${sc.cached ? `<div class="tag reuse" style="margin-top:6px">♻ reused from cache</div>` : ""}
         ${errors ? `<div class="attempts">${errors}</div>` : ""}
         ${changes}

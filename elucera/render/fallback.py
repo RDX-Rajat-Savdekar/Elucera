@@ -6,7 +6,7 @@ from elucera.models import WordTiming
 from elucera.render.base import Check
 from elucera.render.remotion_renderer import RemotionRenderer
 
-STOP = set("a an the and or but of to in on at for is are was were be it its this that with as by from you your we our they".split())
+STOP = set(["a", "an", "the", "and", "or", "but", "of", "to", "in", "on", "at", "for", "is", "are", "was", "were", "be", "it", "its", "this", "that", "with", "as", "by", "from", "you", "your", "we", "our", "they"])
 
 
 def keywords(words: list[WordTiming], n: int = 4) -> list[dict]:

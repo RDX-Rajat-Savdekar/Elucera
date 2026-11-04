@@ -1,17 +1,18 @@
 import json
 import logging
 import re
+from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable
 
-from elucera import library
+from elucera import cache, library, usage
 from elucera.config import get_settings
 from elucera.llm import LLMClient, extract_block
 from elucera.models import RenderResult, SceneSpec, Segment, SegmentAudio
 from elucera.prompts import load
 from elucera.render.base import Check, Renderer
 from elucera.render.fallback import render_fallback
+from elucera.render.player_bundle import build_player_bundle
 
 log = logging.getLogger(__name__)
 
@@ -53,7 +54,6 @@ def _player(spec: SceneSpec, out_dir: Path, code: str | None = None) -> bool:
     """Best-effort interactive preview bundle for 3D scenes; never fails the scene."""
     if spec.renderer.value != "three":
         return False
-    from elucera.render.player_bundle import build_player_bundle
     seg_tsx = out_dir / f"seg{spec.index}.tsx"
     if code:
         seg_tsx.write_text(code)
@@ -80,11 +80,11 @@ def build_scene(llm: LLMClient, coder: Coder, spec: SceneSpec, audio: SegmentAud
     emit = emit or (lambda *a, **k: None)
     i, r = spec.index, spec.renderer.value
     out = out_dir / f"seg{spec.index}.mp4"
-    code, err = "", ""
+    code, err = "", ""  # last code that ran through validate/render, and its error
+    llm_err = ""  # last LLM/network failure (never fed to the fixer as if it were a code error)
     errors: list[str] = []
     attempts = get_settings().max_render_attempts
     if use_cache:
-        from elucera import cache
         cached = cache.scene_get(spec, out)
         if cached is not None:
             player = _player(spec, out_dir, cached)
@@ -93,14 +93,13 @@ def build_scene(llm: LLMClient, coder: Coder, spec: SceneSpec, audio: SegmentAud
     for attempt in range(1, attempts + 1):
         emit("scene", index=i, renderer=r, status="fixing" if code else "coding", attempt=attempt, max_attempts=attempts)
         try:
-            from elucera import usage
             with usage.purpose(f"scene{i}:{'fix' if code else 'code'}"):
                 code = coder.fix(llm, spec, audio, code, err) if code else coder.generate(llm, spec, audio)
-        except Exception as e:  # LLM/network failure: retry from scratch
-            err = f"LLM call failed: {e}"
-            log.warning("seg%d attempt %d: %s", spec.index, attempt, err)
+        except Exception as e:  # LLM/network failure: next attempt retries the same step (code + err unchanged)
+            llm_err = f"LLM call failed: {e}"
+            log.warning("seg%d attempt %d: %s", spec.index, attempt, llm_err)
             emit("scene", index=i, renderer=r, status="error", attempt=attempt, max_attempts=attempts,
-                 stage="writing code", error=_summary(err), detail=err[-1500:])
+                 stage="writing code", error=_summary(llm_err), detail=llm_err[-1500:])
             continue
         (out_dir / f"seg{spec.index}_try{attempt}{coder.renderer.suffix}").write_text(code)
         emit("scene", index=i, renderer=r, status="checking", attempt=attempt, max_attempts=attempts)
@@ -116,7 +115,6 @@ def build_scene(llm: LLMClient, coder: Coder, spec: SceneSpec, audio: SegmentAud
                     library.add_lesson(spec.renderer, e)
                 library.save_scene(spec, code, out, topic=topic or title, role=segment.role if segment else "",
                                    narration=segment.narration if segment else "", attempts=attempt, source=out_dir.name)
-            from elucera import cache
             cache.scene_put(spec, out, code, coder.renderer.suffix)
             player = _player(spec, out_dir)
             emit("scene", index=i, renderer=r, status="done", attempt=attempt, max_attempts=attempts, player=player)
@@ -128,6 +126,7 @@ def build_scene(llm: LLMClient, coder: Coder, spec: SceneSpec, audio: SegmentAud
         emit("scene", index=i, renderer=r, status="error", attempt=attempt, max_attempts=attempts,
              stage=stage, error=_summary(err), detail=err[-1500:])
 
+    err = err or llm_err
     log.warning("seg%d: using fallback card", spec.index)
     emit("scene", index=i, renderer=r, status="fallback_rendering", attempt=attempts, max_attempts=attempts)
     fb = render_fallback(title, audio.words, spec.duration, out)

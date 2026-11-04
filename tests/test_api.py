@@ -157,7 +157,9 @@ def test_director_note_reaches_planner():
     from pathlib import Path as _Path
 
     from elucera.agents.scene_planner import plan_scenes
-    from elucera.models import Script as _Script, Segment as _Segment, SegmentAudio as _SegAudio
+    from elucera.models import Script as _Script
+    from elucera.models import Segment as _Segment
+    from elucera.models import SegmentAudio as _SegAudio
 
     captured = {}
 

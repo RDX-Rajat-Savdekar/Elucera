@@ -9,13 +9,18 @@ def tail(text: str, lines: int = 40) -> str:
 
 
 def docker_run(image: str, workdir: Path, cmd: list[str], timeout: int | None = None) -> subprocess.CompletedProcess:
-    """Run `cmd` in a throwaway container with no network, capped resources, and `workdir` mounted at /work."""
+    """Run `cmd` in a throwaway container: no network, no capabilities, read-only image, capped resources.
+
+    This container is the real security boundary for model-written code; the AST checks in the renderers only
+    catch honest mistakes early. Writable places are `workdir` (mounted at /work) and small tmpfs scratch dirs.
+    """
     s = get_settings()
     args = [
         s.docker, "run", "--rm",
         "--network", "none",
         "--memory", "2g", "--cpus", "2", "--pids-limit", "256",
-        "--security-opt", "no-new-privileges",
+        "--security-opt", "no-new-privileges", "--cap-drop", "ALL",
+        "--read-only", "--tmpfs", "/tmp:rw,size=512m", "--tmpfs", "/home:rw,size=256m",
         "-v", f"{workdir.resolve()}:/work", "-w", "/work",
         image, *cmd,
     ]

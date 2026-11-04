@@ -5,7 +5,7 @@ import json
 import pytest
 
 import elucera.graph as graph
-from elucera import cache, costs, usage
+from elucera import costs, usage
 from elucera.config import get_settings
 from elucera.models import Beat, SceneSpec, Script, SegmentAudio, WordTiming
 
@@ -29,8 +29,9 @@ def audio():
 
 def test_usage_follows_work_into_graph_threads(tmp_path):
     """LangGraph runs nodes in worker threads; the job's ledger must still receive their rows."""
-    from langgraph.graph import END, START, StateGraph
     from typing import TypedDict
+
+    from langgraph.graph import END, START, StateGraph
 
     class S(TypedDict, total=False):
         x: int

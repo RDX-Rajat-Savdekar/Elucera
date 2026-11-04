@@ -8,14 +8,17 @@ import json
 import logging
 import operator
 import shutil
+import time
+from collections.abc import Callable
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from typing import Annotated, Callable, TypedDict
+from typing import Annotated, TypedDict
 
 from langchain_core.runnables import RunnableConfig
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import Send
 
-from elucera import library
+from elucera import cache, library, usage
 from elucera.agents.coders import build_scene, coder_for
 from elucera.agents.scene_planner import plan_scenes
 from elucera.agents.script import write_script
@@ -24,8 +27,10 @@ from elucera.assemble.captions import write_ass
 from elucera.audio.align import align, segment_cuts
 from elucera.audio.tts import concat_wavs, split_wav, synthesize
 from elucera.config import get_settings
+from elucera.fsutil import write_text_atomic
 from elucera.llm import MuseClient
-from elucera.models import RenderResult, SceneSpec, Script, Segment, SegmentAudio, WordTiming
+from elucera.models import Renderer, RenderResult, SceneSpec, Script, Segment, SegmentAudio, WordTiming
+from elucera.prompts import load as load_prompt
 
 log = logging.getLogger(__name__)
 
@@ -75,13 +80,12 @@ class SceneTask(TypedDict):
 
 
 def _save(job_dir: Path, name: str, data) -> None:
-    (job_dir / name).write_text(json.dumps(data, indent=2, default=str))
+    write_text_atomic(job_dir / name, json.dumps(data, indent=2, default=str))
 
 
 def script_node(state: State, config: RunnableConfig) -> State:
     emit = _emit(config)
     _stage(emit, "script")
-    from elucera import usage
     with usage.purpose("script"):
         script = write_script(MuseClient(), state["topic"])
     _save(state["job_dir"], "script.json", script.model_dump())
@@ -96,10 +100,8 @@ def voice_node(state: State, config: RunnableConfig) -> State:
     segments = state["script"].segments
     # One TTS request for the whole script (Gemini free tier allows 3/min), split by word timings after.
     # The director style prompt steers delivery; only the TRANSCRIPT section is spoken.
-    from elucera.prompts import load as _load_prompt
     full = d / "voice_full.wav"
-    text = _load_prompt("vo_style").strip() + "\n\n#### TRANSCRIPT\n" + "\n\n".join(s.narration for s in segments)
-    from elucera import cache
+    text = load_prompt("vo_style").strip() + "\n\n#### TRANSCRIPT\n" + "\n\n".join(s.narration for s in segments)
     script_text = "\n\n".join(s.narration for s in segments)
     hit = cache.tts_get(text, full)
     if hit:
@@ -109,9 +111,8 @@ def voice_node(state: State, config: RunnableConfig) -> State:
         _stage(emit, "align")
     else:
         info: dict = {}
-        from elucera import usage as _usage
-        with _usage.purpose("voice"):
-            duration = synthesize(text, full, info=info)
+        with usage.purpose("voice"):
+            duration = synthesize(text, full, info=info, spoken=script_text)
         emit("voice", duration=round(duration, 2), provider=info.get("provider", "gemini"), note=info.get("note", ""))
         _stage(emit, "align")
         # Align narration ONLY: the styled text above may itself be spoken, and any
@@ -149,8 +150,6 @@ def plan_node(state: State, config: RunnableConfig) -> State:
 
 def make_plan(script: Script, audio: list[SegmentAudio], note: str, preferred: str | None, emit: Emit = _noop) -> list[SceneSpec]:
     """Plan the scenes, reusing a plan made for the identical script + timings + note (e.g. during review)."""
-    from elucera import cache, usage
-
     hit = cache.plan_get(script, audio, note, preferred)
     if hit:
         emit("plan_cached")
@@ -166,7 +165,7 @@ def fan_out(state: State) -> list[Send]:
     return [
         Send("scene", SceneTask(job_dir=state["job_dir"], topic=state["topic"], title=state["script"].title,
                                 segment=state["script"].segments[spec.index], spec=spec, audio=a))
-        for spec, a in zip(state["specs"], state["audio"]) if spec.index not in done
+        for spec, a in zip(state["specs"], state["audio"], strict=True) if spec.index not in done
     ]
 
 
@@ -191,7 +190,7 @@ def scene_node(task: SceneTask, config: RunnableConfig) -> State:
 
 def save_result(d: Path, res: RenderResult) -> None:
     """Each finished scene is persisted on its own, so a failed run can resume without redoing it."""
-    (d / f"seg{res.index}.result.json").write_text(res.model_dump_json(exclude={"code"}))
+    write_text_atomic(d / f"seg{res.index}.result.json", res.model_dump_json(exclude={"code"}))
 
 
 def assemble_node(state: State, config: RunnableConfig) -> State:
@@ -203,10 +202,15 @@ def assemble_job(d: Path, audio: list[SegmentAudio], results: list[RenderResult]
     """Fit clips to their narration, concat, mux audio, burn captions; save to the library."""
     _stage(emit, "assemble")
     results = sorted(results, key=lambda r: r.index)
+    # Pair clips with narration by scene index, never by position: a missing scene must fail loudly, not shift
+    # every later clip onto the wrong audio.
+    if [r.index for r in results] != [a.index for a in audio]:
+        raise ValueError(f"scene clips {[r.index for r in results]} don't match narration segments "
+                         f"{[a.index for a in audio]}")
     _save(d, "results.json", [r.model_dump(exclude={"code"}) for r in results])
-    from concurrent.futures import ThreadPoolExecutor
     with ThreadPoolExecutor(max_workers=4) as pool:  # independent encodes: run side by side
-        fitted = list(pool.map(lambda ra: ff.fit_clip(ra[0].video, ra[1].duration, d / f"fit{ra[0].index}.mp4"), zip(results, audio)))
+        fitted = list(pool.map(lambda ra: ff.fit_clip(ra[0].video, ra[1].duration, d / f"fit{ra[0].index}.mp4"),
+                               zip(results, audio, strict=True)))
     video = ff.concat(fitted, d / "video.mp4")
     narration = d / "narration.wav"
     concat_wavs([a.wav for a in audio], narration)
@@ -240,7 +244,7 @@ def _graph(entry: str = "script"):
     g.add_node("scene", scene_node)
     g.add_node("assemble", assemble_node)
     g.add_edge(START, steps[0])
-    for a, b in zip(steps, steps[1:]):
+    for a, b in zip(steps, steps[1:], strict=False):
         g.add_edge(a, b)
     g.add_conditional_edges("plan" if "plan" in steps else "render", fan_out, ["scene"])
     g.add_edge("scene", "assemble")
@@ -418,10 +422,6 @@ def retry_scene(d: Path, index: int, note: str = "", renderer: str | None = None
     `description` replaces the animator prompt; `note` is appended as viewer feedback; `library_scene` reuses a
     saved library clip instead of generating new code.
     """
-    import time
-
-    from elucera.models import Renderer
-
     script, audio, specs, results = load_job(d)
     topic = (d / "topic.txt").read_text().strip() if (d / "topic.txt").exists() else script.title
     before = specs[index]
@@ -468,8 +468,6 @@ def retry_scene(d: Path, index: int, note: str = "", renderer: str | None = None
 
 def revert_scene(d: Path, index: int, emit: Emit = _noop) -> dict:
     """Swap the current clip back to the previous version (the current one is archived too, so it can be re-picked)."""
-    import time
-
     rows = history(d, index)
     if not rows:
         raise ValueError("this scene has not been redone")
@@ -480,7 +478,6 @@ def revert_scene(d: Path, index: int, emit: Emit = _noop) -> dict:
     version = _archive(d, index)
     shutil.copy(src, d / f"seg{index}.mp4")
     specs = [SceneSpec.model_validate(s) for s in json.loads((d / "plan.json").read_text())]
-    from elucera.models import Renderer
     specs[index].renderer = Renderer(last["renderer_before"])
     specs[index].description = last["description_before"]
     _save(d, "plan.json", [s.model_dump() for s in specs])

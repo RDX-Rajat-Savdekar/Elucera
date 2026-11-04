@@ -7,6 +7,7 @@ and encodes the PNG sequence with ffmpeg — mirroring
 ``remotion_renderer.py``'s validate/render shape.
 """
 
+import os
 import re
 import shutil
 import subprocess
@@ -41,6 +42,18 @@ BANNED_PATTERNS = (
     r"XMLHttpRequest",
     r"WebSocket",
     r"EventSource",
+    # Other ways to reach the network or local files. These regexes are a first gate for honest mistakes, not a
+    # sandbox: the browser itself is locked down too (see _capture_playwright / _chromium_args).
+    r"sendBeacon",
+    r"\bimport\s*\(",
+    r"importScripts",
+    r"\b(?:Shared)?Worker\s*\(",
+    r"new\s+Image\b",
+    r"\.\s*src\s*=",
+    r"window\s*\.\s*open\s*\(",
+    r"\blocation\s*(?:\.\s*href\s*)?=",
+    r"file:",
+    r"<\s*(?:iframe|frame|object|embed|portal|base|link)\b",
 )
 
 _SEEK_DEF = re.compile(
@@ -49,7 +62,8 @@ _SEEK_DEF = re.compile(
     r"|__seek\s*:\s*function\s*\(\s*\w+"
     r"|__seek\s*\(\s*\w+\s*\)\s*\{"
 )
-_URLS = re.compile(r"""(?:src|href)\s*=\s*["']([^"']+)["']""", re.IGNORECASE)
+_URLS = re.compile(r"""(?:src|href)\s*=\s*["']([^"']*)["']|url\(\s*["']?([^"')]*)""", re.IGNORECASE)
+SCENE_URL = "https://scene.invalid/scene.html"  # served by request interception; never resolved
 _BANNED = [re.compile(p) for p in BANNED_PATTERNS]
 
 
@@ -60,9 +74,12 @@ def _check_size(code: str) -> str:
 
 
 def _check_external_urls(code: str) -> str:
-    bad = sorted({u for u in _URLS.findall(code) if u.startswith(("http://", "https://", "//")) and u not in PINNED_SCRIPTS})
+    """Every src/href/url() must be a pinned CDN script, an in-document #fragment, or an inline data: URI."""
+    urls = {(a or b).strip() for a, b in _URLS.findall(code)}
+    bad = sorted(u for u in urls if u and u not in PINNED_SCRIPTS and not u.startswith(("#", "data:")))
     if bad:
-        return "only pinned CDN scripts allowed:\n" + "\n".join(f"  blocked: {u}" for u in bad)
+        return ("only pinned CDN scripts, #fragments and data: URIs allowed (no other files or URLs):\n"
+                + "\n".join(f"  blocked: {u}" for u in bad))
     return ""
 
 
@@ -86,7 +103,8 @@ class SeekRenderer:
             return Check(False, err)
         hits = sorted({p.pattern for p in _BANNED if p.search(code)})
         if hits:
-            return Check(False, "__seek(t) must be deterministic (pure function of t); banned:\n" + "\n".join(f"  {h}" for h in hits))
+            return Check(False, "__seek(t) must be a deterministic, offline pure function of t; banned:\n"
+                         + "\n".join(f"  {h}" for h in hits))
         return Check(True)
 
     def render(self, code: str, duration: float, out: Path) -> Check:
@@ -110,24 +128,42 @@ class SeekRenderer:
     def _capture(self, html: Path, frames: int, frames_dir: Path) -> Check:
         """Screenshot __seek(i/fps) for each frame, via Playwright or plain Chromium CLI."""
         try:
-            import playwright.sync_api  # type: ignore
-
-            return self._capture_playwright(playwright, html, frames, frames_dir)
+            from playwright.sync_api import sync_playwright  # type: ignore[import-not-found]
         except ImportError:
             return self._capture_chromium_cli(html, frames, frames_dir)
+        return self._capture_playwright(sync_playwright, html, frames, frames_dir)
 
-    def _capture_playwright(self, playwright: object, html: Path, frames: int, frames_dir: Path) -> Check:
+    def _capture_playwright(self, sync_playwright, html: Path, frames: int, frames_dir: Path) -> Check:
+        """Preferred driver: one browser for all frames, and every request except the pinned CDN scripts blocked.
+
+        The scene is served from a fake https origin (not file://), so it can't load local files either.
+        """
         s = get_settings()
+        code = html.read_text()
+
+        def route(r) -> None:
+            url = r.request.url
+            if url == SCENE_URL:
+                r.fulfill(status=200, content_type="text/html; charset=utf-8", body=code)
+            elif url in PINNED_SCRIPTS:
+                r.continue_()
+            else:
+                r.abort()
+
         try:
-            with playwright.sync_api.launch() as browser:  # type: ignore[attr-defined]
-                page = browser.new_page(viewport={"width": WIDTH, "height": HEIGHT})
-                page.goto(html.resolve().as_uri())
-                page.wait_for_function("typeof window.__seek === 'function'")
-                for i in range(frames):
-                    page.evaluate(f"window.__seek({i / s.fps:.4f})")
-                    page.screenshot(path=str(frames_dir / f"f{i:04d}.png"))
-                browser.close()
-        except Exception as e:  # noqa: BLE001
+            with sync_playwright() as p:
+                browser = p.chromium.launch(args=["--enable-unsafe-swiftshader"])
+                try:
+                    page = browser.new_page(viewport={"width": WIDTH, "height": HEIGHT})
+                    page.route("**/*", route)
+                    page.goto(SCENE_URL)
+                    page.wait_for_function("typeof window.__seek === 'function'")
+                    for i in range(frames):
+                        page.evaluate(f"window.__seek({i / s.fps:.4f})")
+                        page.screenshot(path=str(frames_dir / f"f{i:04d}.png"))
+                finally:
+                    browser.close()
+        except Exception as e:  # noqa: BLE001 - any driver failure is a render failure for the fix loop
             return Check(False, tail(f"playwright capture failed: {e}"))
         return Check(True)
 
@@ -150,9 +186,7 @@ class SeekRenderer:
                 # NOTE: no --disable-gpu. Software WebGL (needed by p5.brush and any
                 # WebGL canvas) requires SwiftShader: --enable-unsafe-swiftshader.
                 proc = subprocess.run(
-                    [chrome, "--headless=new", "--no-sandbox", "--enable-unsafe-swiftshader",
-                     f"--window-size={WIDTH},{HEIGHT}", "--virtual-time-budget=3000",
-                     f"--screenshot={shot}", str(frame_html.resolve())],
+                    [chrome, *_chromium_args(), f"--screenshot={shot}", str(frame_html.resolve())],
                     capture_output=True, text=True, timeout=s.render_timeout_s,
                 )
             except subprocess.TimeoutExpired:
@@ -180,9 +214,18 @@ class SeekRenderer:
         return Check(True)
 
 
-def _find_chromium() -> str | None:
-    import os
+def _chromium_args() -> list[str]:
+    """Headless Chrome flags for the CLI fallback driver: Chrome's own sandbox stays on (it refuses to start as root
+    with it, hence the exception), and DNS resolves only the pinned CDN host, so scene code can't reach anything else.
+    """
+    args = ["--headless=new", "--enable-unsafe-swiftshader", f"--window-size={WIDTH},{HEIGHT}",
+            "--virtual-time-budget=3000", "--host-resolver-rules=MAP * ~NOTFOUND , EXCLUDE cdn.jsdelivr.net"]
+    if hasattr(os, "geteuid") and os.geteuid() == 0:
+        args.append("--no-sandbox")
+    return args
 
+
+def _find_chromium() -> str | None:
     if os.environ.get("CHROME_PATH"):
         return os.environ["CHROME_PATH"]
     # Full browser builds first: bare chrome-headless-shell hangs where no

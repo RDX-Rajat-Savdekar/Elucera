@@ -1,3 +1,5 @@
+from itertools import pairwise
+
 from elucera.audio.align import align_to_script
 from elucera.graph import offset_words
 from elucera.models import SegmentAudio, WordTiming
@@ -14,11 +16,12 @@ def test_matches_and_interpolates_unrecognised_words():
 def test_trailing_words_spread_to_duration():
     out = align_to_script("a b c", [WordTiming(word="a", start=0, end=0.5)], duration=1.5)
     assert out[-1].end == 1.5
-    assert all(x.start <= y.start for x, y in zip(out, out[1:]))
+    assert all(x.start <= y.start for x, y in pairwise(out))
 
 
 def test_offset_words_shifts_by_previous_durations(tmp_path):
-    seg = lambda i, d: SegmentAudio(index=i, wav=tmp_path / "x.wav", duration=d, words=[WordTiming(word="w", start=0.5, end=0.7)])
+    def seg(i, d):
+        return SegmentAudio(index=i, wav=tmp_path / "x.wav", duration=d, words=[WordTiming(word="w", start=0.5, end=0.7)])
     out = offset_words([seg(0, 2.0), seg(1, 3.0)])
     assert [x.start for x in out] == [0.5, 2.5]
 
@@ -50,11 +53,17 @@ def test_split_wav_roundtrip(tmp_path):
 
     src = tmp_path / "a.wav"
     with wave.open(str(src), "wb") as w:
-        w.setnchannels(1); w.setsampwidth(2); w.setframerate(24000)
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(24000)
         w.writeframes(bytes(range(256)) * 375)  # 2s
     outs = [tmp_path / f"{i}.wav" for i in range(3)]
     split_wav(src, [0.5, 1.25], outs)
-    lens = [wave.open(str(o)).getnframes() for o in outs]
+    def read(p, n=None):
+        with wave.open(str(p)) as r:
+            return r.getnframes() if n is None else r.readframes(n)
+
+    lens = [read(o) for o in outs]
     assert lens == [12000, 18000, 18000]
     concat_wavs(outs, tmp_path / "b.wav")
-    assert wave.open(str(tmp_path / "b.wav")).readframes(48000) == wave.open(str(src)).readframes(48000)
+    assert read(tmp_path / "b.wav", 48000) == read(src, 48000)
