@@ -21,7 +21,7 @@ try {
     if (old !== null && localStorage.getItem(`elucera.${k}`) === null) localStorage.setItem(`elucera.${k}`, old);
   }
 } catch { /* storage unavailable */ }
-const RENDERER = { manim: "Manim", remotion: "2D motion", three: "3D" };
+const RENDERER = { manim: "Manim", remotion: "2D motion", three: "3D", seek: "Seek doodle" };
 const STAGES = [
   ["script", "Script"],
   ["voice", "Voice"],
@@ -237,7 +237,7 @@ async function loadHome() {
         <span class="play" aria-hidden="true"></span>
       </button>
       <div class="kit-body">
-        <span class="kit-engine">${esc(k.engine === "manim" ? "Manim" : "Remotion · 2D & 3D")}</span>
+        <span class="kit-engine">${esc(k.engine === "manim" ? "Manim" : k.engine === "three" ? "3D" : "Remotion · 2D & 3D")}</span>
         <h3>${esc(k.title)}</h3>
         <p>${esc(k.summary)}</p>
         <span class="kit-count">${k.components} components</span>

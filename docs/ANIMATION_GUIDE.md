@@ -165,7 +165,14 @@ Each component ships with a still-frame test render, so a regression is visible 
 a Company License is needed (Automators: $0.01/render, $100/mo minimum). It's already in the cost table.
 ([Remotion pricing](https://www.remotion.dev/docs/license/pricing))
 
-## 6. Muse for voice
+## 6. Seek doodle renderer
+
+A fourth, director-only engine for hand-drawn visuals: one self-contained HTML file (1080×1920) driven by
+`window.__seek(t)`. The director picks `seek` for doodle, hand-drawn, kinetic or SVG-morph visual ideas; it is
+never a user-picked engine, and failures fall back to the existing title-card path. See `docs/SEEK_HARNESS.md`
+for the harness contract (prompt, coder, renderer module, kit doc).
+
+## 7. Muse for voice
 
 Not available: the Muse `/models` list has no TTS model and `/audio/speech` returns 404. It does list
 `muse-voice-transcribe-1.0` (speech-to-text), a candidate to replace local Whisper for word timings.

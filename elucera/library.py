@@ -26,7 +26,7 @@ from elucera.config import ROOT, get_settings
 from elucera.models import Renderer, SceneSpec
 
 LIBRARY = ROOT / "library"
-SUFFIX = {Renderer.manim: ".py", Renderer.remotion: ".tsx", Renderer.three: ".tsx"}
+SUFFIX = {Renderer.manim: ".py", Renderer.remotion: ".tsx", Renderer.three: ".tsx", Renderer.seek: ".html"}
 STOP = set(
     "a an the and or but of to in on at for is are was were be it its this that with as by from then into "
     "each one two three at its their them they which while when over under so up down out".split()

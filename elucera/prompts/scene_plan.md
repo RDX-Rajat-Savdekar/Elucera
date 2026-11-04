@@ -4,9 +4,10 @@ Renderers:
 - "manim": Manim (Python). Best for math, equations, algorithm steps on arrays/trees/graphs, plots, geometric proofs.
 - "remotion": React motion graphics (2D). Best for kinetic typography, code walkthroughs, UI/terminal mockups, network diagrams with moving packets, charts, bar arrays, comparisons, titles.
 - "three": React Three Fiber 3D. Best for spatial or physical things: molecules, atoms, planets/orbits, 3D data structures, hardware, anything that benefits from depth or rotation.
+- "seek": hand-drawn doodle renderer (single self-contained HTML file with `window.__seek(t)`). Best for doodle, hand_drawn, kinetic or svg_morph visuals: sketchy strokes, stroke-draw-on, morphing doodles. Director-only: pick it yourself when the visual idea calls for it; it is never a user-picked engine.
 
 Guidance:
-- Prefer "remotion" when unsure — it is the most reliable. Use "three" only when depth genuinely helps. Use "manim" when there is real math/algorithm structure.
+- Prefer "remotion" when unsure — it is the most reliable. Use "three" only when depth genuinely helps. Use "manim" when there is real math/algorithm structure. Use "seek" when the visual idea is a doodle, hand-drawn sketch, kinetic doodle, or SVG morph.
 - Keep visual continuity: reuse the same renderer for consecutive segments unless switching clearly adds value. The hook should be bold and immediate (big text and/or a striking object on frame 0).
 - Retention pacing: something visibly changes every 2–3 seconds (a new element, a highlight, a move, a zoom). Build complexity progressively: introduce one labelled element per beat, never the whole diagram at once.
 - Segment boundaries are pattern interrupts: change scale, layout or camera between segments so each one feels like a new shot. The payoff's final frame should visually rhyme with the hook's first frame (same object, resolved) so the loop replays cleanly.

@@ -37,6 +37,7 @@ class Renderer(str, Enum):
     manim = "manim"
     remotion = "remotion"
     three = "three"
+    seek = "seek"
 
 
 class Beat(BaseModel):

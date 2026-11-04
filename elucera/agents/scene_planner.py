@@ -2,6 +2,10 @@ from elucera.llm import LLMClient, complete_json
 from elucera.models import Renderer, Script, SceneSpec, ScenePlan, SegmentAudio
 from elucera.prompts import load
 
+# Director-side routing rule (enforced by prompts/scene_plan.md; kept here for discoverability):
+# doodle / hand_drawn / kinetic / svg_morph visuals -> Renderer.seek (director-only, not user-pickable).
+SEEK_STYLES = frozenset({"doodle", "hand_drawn", "kinetic", "svg_morph"})
+
 
 def format_timed_words(audio: SegmentAudio) -> str:
     return " ".join(f"[{w.start:.2f}]{w.word}" for w in audio.words)
