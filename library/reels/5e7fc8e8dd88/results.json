@@ -1,0 +1,38 @@
+[
+  {
+    "index": 0,
+    "renderer": "remotion",
+    "ok": true,
+    "video": "/Users/aditya/Elucera/outputs/5e7fc8e8dd88/seg0.mp4",
+    "attempts": 1,
+    "error": "",
+    "fallback": false
+  },
+  {
+    "index": 1,
+    "renderer": "remotion",
+    "ok": true,
+    "video": "/Users/aditya/Elucera/outputs/5e7fc8e8dd88/seg1.mp4",
+    "attempts": 1,
+    "error": "",
+    "fallback": false
+  },
+  {
+    "index": 2,
+    "renderer": "remotion",
+    "ok": true,
+    "video": "/Users/aditya/Elucera/outputs/5e7fc8e8dd88/seg2.mp4",
+    "attempts": 1,
+    "error": "",
+    "fallback": false
+  },
+  {
+    "index": 3,
+    "renderer": "remotion",
+    "ok": true,
+    "video": "/Users/aditya/Elucera/outputs/5e7fc8e8dd88/seg3.mp4",
+    "attempts": 1,
+    "error": "",
+    "fallback": false
+  }
+]

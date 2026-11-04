@@ -14,6 +14,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from elucera.config import get_settings
+from elucera.fsutil import write_text_atomic
 
 FOREVER = float("inf")
 
@@ -44,7 +45,7 @@ class KeyPool:
 
     def _save(self) -> None:
         self.state_file.parent.mkdir(parents=True, exist_ok=True)
-        self.state_file.write_text(json.dumps(self._state, indent=2))
+        write_text_atomic(self.state_file, json.dumps(self._state, indent=2))
 
     def available(self, now: float | None = None) -> list[str]:
         """Usable keys, starting with the current (last good) one."""
@@ -75,15 +76,17 @@ class KeyPool:
 
     def status(self, now: float | None = None) -> list[dict]:
         now = now or time.time()
+        with self._lock:
+            state = json.loads(json.dumps(self._state))  # snapshot, so concurrent updates can't tear a row
         out = []
         for i, k in enumerate(self.keys, 1):
-            e = self._state["keys"].get(key_id(k), {})
+            e = state["keys"].get(key_id(k), {})
             until = e.get("until", 0)
             out.append({
                 "n": i,
                 "id": key_id(k),
                 "hint": f"…{k[-4:]}",
-                "current": self._state.get("current") == key_id(k),
+                "current": state.get("current") == key_id(k),
                 "available": until <= now,
                 "until": until,
                 "reason": e.get("reason", ""),

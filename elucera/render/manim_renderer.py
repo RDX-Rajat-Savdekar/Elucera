@@ -28,8 +28,17 @@ from elucera_kit import *  # house components: MArray, MGrid, MLinkedList, MBina
 KIT = Path(__file__).with_name("manim_kit.py")
 ASSETS = Path(__file__).with_name("manim_assets")
 
-BLOCKED_MODULES = {"os", "sys", "subprocess", "socket", "shutil", "pathlib", "requests", "urllib", "http", "importlib", "ctypes", "multiprocessing", "builtins"}
-BLOCKED_CALLS = {"open", "exec", "eval", "compile", "__import__", "input"}
+# First-line checks for model-written scenes. Python can't be sandboxed by AST inspection alone, so these only catch
+# honest mistakes and obvious escapes; the network-less, capability-less container in sandbox.py is the boundary.
+BLOCKED_MODULES = {"os", "sys", "subprocess", "socket", "shutil", "pathlib", "requests", "urllib", "http", "importlib",
+                   "ctypes", "multiprocessing", "builtins", "io", "pickle", "marshal", "signal", "threading", "asyncio"}
+BLOCKED_CALLS = {"open", "exec", "eval", "compile", "__import__", "input", "getattr", "setattr", "delattr", "globals",
+                 "locals", "vars", "breakpoint", "memoryview"}
+# Introspection hooks used to climb from any object back to builtins (`().__class__.__base__.__subclasses__()`...).
+BLOCKED_DUNDERS = {"__class__", "__base__", "__bases__", "__mro__", "__subclasses__", "__globals__", "__builtins__",
+                   "__dict__", "__code__", "__closure__", "__func__", "__self__", "__getattribute__", "__reduce__",
+                   "__reduce_ex__", "__import__", "__loader__", "__spec__", "__frame__", "f_globals", "f_back",
+                   "gi_frame", "cr_frame", "tb_frame"}
 
 
 class ManimRenderer:
@@ -50,6 +59,10 @@ class ManimRenderer:
                         errors.append(f"Import not allowed: {n}")
             elif isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id in BLOCKED_CALLS:
                 errors.append(f"Call not allowed: {node.func.id}()")
+            elif isinstance(node, ast.Attribute) and node.attr in BLOCKED_DUNDERS:
+                errors.append(f"Attribute not allowed: .{node.attr}")
+            elif isinstance(node, ast.Name) and node.id in BLOCKED_DUNDERS:
+                errors.append(f"Name not allowed: {node.id}")
         if not any(isinstance(n, ast.ClassDef) and n.name == self.scene_name for n in tree.body):
             errors.append(f"Define exactly one Scene subclass named `{self.scene_name}`.")
         return Check(not errors, "\n".join(errors))

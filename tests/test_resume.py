@@ -1,7 +1,6 @@
 """Resume, redo → rebake, revert, auto-retry, caching, pitch persistence and chat ownership (no Muse/Gemini calls)."""
 
 import json
-import time
 from pathlib import Path
 
 import pytest
@@ -10,7 +9,7 @@ from fastapi.testclient import TestClient
 import elucera.graph as graph
 from elucera import api, cache, chats
 from elucera.config import get_settings
-from elucera.models import Beat, RenderResult, Renderer, SceneSpec, Script, SegmentAudio, WordTiming
+from elucera.models import Beat, Renderer, RenderResult, SceneSpec, Script, SegmentAudio, WordTiming
 
 ROLES = ("hook", "setup", "mechanism", "payoff")
 

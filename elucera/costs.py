@@ -10,6 +10,7 @@ as separate "iteration" cost so idle time between them never inflates the pipeli
 
 import json
 import statistics
+from itertools import pairwise
 from pathlib import Path
 
 from elucera import usage
@@ -100,7 +101,7 @@ def job_report(d: Path) -> dict | None:
     first = events[: first_done + 1] if first_done is not None else events
     marks = [(e["t"], e["stage"]) for e in first if e.get("type") == "stage" and e.get("stage") in ORDER]
     stages: dict[str, float] = {}
-    for (t, s), (t2, _) in zip(marks, marks[1:] + [(first[-1]["t"], None)]):
+    for (t, s), (t2, _) in pairwise([*marks, (first[-1]["t"], None)]):
         stages.setdefault(s, round(max(0.0, t2 - t), 1))
     voice = next((e for e in first if e.get("type") == "voice"), {})
     voice_s = float(voice.get("duration") or 0)

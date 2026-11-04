@@ -22,3 +22,4 @@ cache/
 remotion/kit-gallery/out/
 remotion/kit-gallery/.entry.tsx
 remotion/kit-gallery/.showreel.tsx
+.DS_Store

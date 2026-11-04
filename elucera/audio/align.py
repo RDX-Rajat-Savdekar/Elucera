@@ -66,7 +66,7 @@ def align_to_script(script_text: str, heard: list[WordTiming], duration: float) 
         i = j
 
     out: list[WordTiming] = []
-    for w, (start, end) in zip(words, times):
+    for w, (start, end) in zip(words, times, strict=True):
         start = max(start, out[-1].start if out else 0.0)  # keep monotonic
         out.append(WordTiming(word=w, start=round(start, 3), end=round(max(end, start), 3)))
     return out

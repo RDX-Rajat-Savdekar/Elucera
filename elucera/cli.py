@@ -101,8 +101,9 @@ def lib_list(renderer: str = typer.Option(None, help="manim | remotion | three")
     for meta, _ in rows:
         star = "★" if meta.starred else " "
         typer.echo(f"{star} {meta.id:32} {meta.role:9} {meta.duration:5.1f}s  {meta.topic[:30]:30}  {meta.description[:60]}")
-    reels = sorted((library.LIBRARY / "reels").glob("*/topic.txt"))
-    typer.echo(f"\n{len(rows)} scenes, {len(reels)} reels, {len(library.lessons())} lessons in {library.LIBRARY}")
+    lib_dir = get_settings().library_dir
+    reels = sorted((lib_dir / "reels").glob("*/topic.txt"))
+    typer.echo(f"\n{len(rows)} scenes, {len(reels)} reels, {len(library.lessons())} lessons in {lib_dir}")
 
 
 @lib.command("import")
@@ -138,8 +139,9 @@ def lib_lessons():
     """Show recorded pitfalls fed to the coders."""
     from elucera import library
 
-    for l in library.lessons():
-        typer.echo(f"[{l['renderer']}] {l['error']}" + (f"  → {l['note']}" if l.get("note") else ""))
+    for lesson in library.lessons():
+        note = f"  → {lesson['note']}" if lesson.get("note") else ""
+        typer.echo(f"[{lesson['renderer']}] {lesson['error']}{note}")
 
 
 @lib.command("add-lesson")

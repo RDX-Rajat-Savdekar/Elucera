@@ -12,24 +12,27 @@ pitfalls, so each run builds on the previous ones.
 """
 
 import json
+import logging
 import re
 import shutil
 import subprocess
 import time
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from pydantic import BaseModel
 
-from elucera.config import ROOT, get_settings
+from elucera.config import get_settings
+from elucera.fsutil import write_text_atomic
 from elucera.models import Renderer, SceneSpec
+from elucera.render.player_bundle import build_player_bundle
 
-LIBRARY = ROOT / "library"
+log = logging.getLogger(__name__)
+
 SUFFIX = {Renderer.manim: ".py", Renderer.remotion: ".tsx", Renderer.three: ".tsx", Renderer.seek: ".html"}
 STOP = set(
-    "a an the and or but of to in on at for is are was were be it its this that with as by from then into "
-    "each one two three at its their them they which while when over under so up down out".split()
+    ["a", "an", "the", "and", "or", "but", "of", "to", "in", "on", "at", "for", "is", "are", "was", "were", "be", "it", "its", "this", "that", "with", "as", "by", "from", "then", "into", "each", "one", "two", "three", "at", "its", "their", "them", "they", "which", "while", "when", "over", "under", "so", "up", "down", "out"]
 )
 
 
@@ -75,24 +78,23 @@ def save_scene(spec: SceneSpec, code: str, video: Path | None, *, topic: str, ro
         id=f"{datetime.now():%Y%m%d}-{spec.renderer.value}-{uuid.uuid4().hex[:6]}",
         renderer=spec.renderer, topic=topic, role=role, narration=narration, description=spec.description,
         beats=[b.model_dump() for b in spec.beats], duration=round(spec.duration, 3), attempts=attempts,
-        source=source, created=datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        source=source, created=datetime.now(UTC).isoformat(timespec="seconds"),
     )
     d = _dir() / "scenes" / meta.id
     d.mkdir(parents=True, exist_ok=True)
     (d / f"scene{SUFFIX[spec.renderer]}").write_text(code)
-    (d / "meta.json").write_text(meta.model_dump_json(indent=2))
+    write_text_atomic(d / "meta.json", meta.model_dump_json(indent=2))
     if video and video.exists():
         shutil.copy(video, d / "clip.mp4")
         _thumb(video, d / "thumb.png")
     if meta.renderer == Renderer.three:
         # Best-effort interactive preview bundle for the library copy.
         try:
-            from elucera.render.player_bundle import build_player_bundle
             scene_file = d / f"scene{SUFFIX[spec.renderer]}"
             if scene_file.exists():
                 build_player_bundle(scene_file, meta.duration, d / "player.js")
-        except Exception:
-            pass  # interactive preview is nice-to-have
+        except Exception:  # interactive preview is nice-to-have
+            log.warning("no interactive preview for library scene %s", meta.id, exc_info=True)
     return meta
 
 
@@ -134,7 +136,7 @@ def set_star(scene_id: str, starred: bool) -> None:
     f = _dir() / "scenes" / scene_id / "meta.json"
     meta = SceneMeta.model_validate_json(f.read_text())
     meta.starred = starred
-    f.write_text(meta.model_dump_json(indent=2))
+    write_text_atomic(f, meta.model_dump_json(indent=2))
 
 
 def remove(scene_id: str) -> None:
@@ -158,7 +160,7 @@ INFRA = re.compile(r"env: node|No such file or directory|timed out|LLM call fail
 
 def add_lesson(renderer: Renderer, error: str, note: str = "") -> None:
     key = _error_key(error)
-    if not key or INFRA.search(error) or any(l["renderer"] == renderer.value and l["error"] == key for l in lessons()):
+    if not key or INFRA.search(error) or any(x["renderer"] == renderer.value and x["error"] == key for x in lessons()):
         return
     with open(_dir() / "lessons.jsonl", "a") as f:
         f.write(json.dumps({"renderer": renderer.value, "error": key, "note": note, "at": int(time.time())}) + "\n")

@@ -1,0 +1,645 @@
+[
+  {
+    "index": 0,
+    "wav": "/Users/aditya/Elucera/outputs/5e7fc8e8dd88/seg0.wav",
+    "duration": 4.14,
+    "words": [
+      {
+        "word": "Anyone",
+        "start": 0.0,
+        "end": 0.52
+      },
+      {
+        "word": "can",
+        "start": 0.52,
+        "end": 0.98
+      },
+      {
+        "word": "lock",
+        "start": 0.98,
+        "end": 1.28
+      },
+      {
+        "word": "it.",
+        "start": 1.28,
+        "end": 1.5
+      },
+      {
+        "word": "Only",
+        "start": 1.98,
+        "end": 2.36
+      },
+      {
+        "word": "you",
+        "start": 2.36,
+        "end": 2.72
+      },
+      {
+        "word": "can",
+        "start": 2.72,
+        "end": 3.02
+      },
+      {
+        "word": "open",
+        "start": 3.02,
+        "end": 3.32
+      },
+      {
+        "word": "it.",
+        "start": 3.32,
+        "end": 3.5
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "wav": "/Users/aditya/Elucera/outputs/5e7fc8e8dd88/seg1.wav",
+    "duration": 9.29,
+    "words": [
+      {
+        "word": "If",
+        "start": 0.64,
+        "end": 0.74
+      },
+      {
+        "word": "you",
+        "start": 0.74,
+        "end": 0.92
+      },
+      {
+        "word": "and",
+        "start": 0.92,
+        "end": 1.06
+      },
+      {
+        "word": "a",
+        "start": 1.06,
+        "end": 1.14
+      },
+      {
+        "word": "friend",
+        "start": 1.14,
+        "end": 1.38
+      },
+      {
+        "word": "never",
+        "start": 1.38,
+        "end": 1.78
+      },
+      {
+        "word": "met,",
+        "start": 1.78,
+        "end": 2.1
+      },
+      {
+        "word": "how",
+        "start": 2.5,
+        "end": 2.66
+      },
+      {
+        "word": "do",
+        "start": 2.66,
+        "end": 2.78
+      },
+      {
+        "word": "you",
+        "start": 2.78,
+        "end": 2.88
+      },
+      {
+        "word": "share",
+        "start": 2.88,
+        "end": 3.16
+      },
+      {
+        "word": "a",
+        "start": 3.16,
+        "end": 3.36
+      },
+      {
+        "word": "secret",
+        "start": 3.36,
+        "end": 3.78
+      },
+      {
+        "word": "over",
+        "start": 3.78,
+        "end": 4.2
+      },
+      {
+        "word": "open",
+        "start": 4.2,
+        "end": 4.5
+      },
+      {
+        "word": "Wi-Fi?",
+        "start": 4.5,
+        "end": 5.72
+      },
+      {
+        "word": "Any",
+        "start": 5.72,
+        "end": 5.92
+      },
+      {
+        "word": "password",
+        "start": 5.92,
+        "end": 6.34
+      },
+      {
+        "word": "you",
+        "start": 6.34,
+        "end": 6.7
+      },
+      {
+        "word": "send",
+        "start": 6.7,
+        "end": 6.98
+      },
+      {
+        "word": "can",
+        "start": 6.98,
+        "end": 7.32
+      },
+      {
+        "word": "be",
+        "start": 7.32,
+        "end": 7.46
+      },
+      {
+        "word": "stolen.",
+        "start": 7.46,
+        "end": 7.72
+      },
+      {
+        "word": "That's",
+        "start": 8.28,
+        "end": 8.52
+      },
+      {
+        "word": "the",
+        "start": 8.52,
+        "end": 8.62
+      },
+      {
+        "word": "problem.",
+        "start": 8.62,
+        "end": 8.86
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "wav": "/Users/aditya/Elucera/outputs/5e7fc8e8dd88/seg2.wav",
+    "duration": 26.62,
+    "words": [
+      {
+        "word": "You",
+        "start": 0.43,
+        "end": 0.55
+      },
+      {
+        "word": "make",
+        "start": 0.55,
+        "end": 0.69
+      },
+      {
+        "word": "two",
+        "start": 0.69,
+        "end": 1.05
+      },
+      {
+        "word": "linked",
+        "start": 1.05,
+        "end": 1.41
+      },
+      {
+        "word": "keys.",
+        "start": 1.41,
+        "end": 1.97
+      },
+      {
+        "word": "A",
+        "start": 2.53,
+        "end": 2.69
+      },
+      {
+        "word": "public",
+        "start": 2.69,
+        "end": 2.95
+      },
+      {
+        "word": "lock",
+        "start": 2.95,
+        "end": 3.23
+      },
+      {
+        "word": "you",
+        "start": 3.23,
+        "end": 3.55
+      },
+      {
+        "word": "share",
+        "start": 3.55,
+        "end": 3.77
+      },
+      {
+        "word": "with",
+        "start": 3.77,
+        "end": 3.93
+      },
+      {
+        "word": "everyone.",
+        "start": 3.93,
+        "end": 4.25
+      },
+      {
+        "word": "And",
+        "start": 4.85,
+        "end": 5.07
+      },
+      {
+        "word": "a",
+        "start": 5.07,
+        "end": 5.17
+      },
+      {
+        "word": "private",
+        "start": 5.17,
+        "end": 5.45
+      },
+      {
+        "word": "key",
+        "start": 5.45,
+        "end": 5.81
+      },
+      {
+        "word": "you",
+        "start": 5.81,
+        "end": 6.19
+      },
+      {
+        "word": "never",
+        "start": 6.19,
+        "end": 6.41
+      },
+      {
+        "word": "share.",
+        "start": 6.41,
+        "end": 6.73
+      },
+      {
+        "word": "Your",
+        "start": 7.67,
+        "end": 7.83
+      },
+      {
+        "word": "friend",
+        "start": 7.83,
+        "end": 8.09
+      },
+      {
+        "word": "wants",
+        "start": 8.09,
+        "end": 8.31
+      },
+      {
+        "word": "to",
+        "start": 8.31,
+        "end": 8.51
+      },
+      {
+        "word": "send",
+        "start": 8.51,
+        "end": 8.73
+      },
+      {
+        "word": "seven.",
+        "start": 8.73,
+        "end": 9.15
+      },
+      {
+        "word": "She",
+        "start": 9.73,
+        "end": 9.89
+      },
+      {
+        "word": "uses",
+        "start": 9.89,
+        "end": 10.19
+      },
+      {
+        "word": "your",
+        "start": 10.19,
+        "end": 10.49
+      },
+      {
+        "word": "public",
+        "start": 10.49,
+        "end": 10.79
+      },
+      {
+        "word": "lock",
+        "start": 10.79,
+        "end": 11.11
+      },
+      {
+        "word": "to",
+        "start": 11.11,
+        "end": 11.41
+      },
+      {
+        "word": "scramble",
+        "start": 11.41,
+        "end": 11.73
+      },
+      {
+        "word": "seven",
+        "start": 11.73,
+        "end": 12.19
+      },
+      {
+        "word": "into",
+        "start": 12.19,
+        "end": 12.61
+      },
+      {
+        "word": "forty",
+        "start": 12.61,
+        "end": 13.33
+      },
+      {
+        "word": "two.",
+        "start": 13.33,
+        "end": 14.05
+      },
+      {
+        "word": "Everyone",
+        "start": 14.05,
+        "end": 14.37
+      },
+      {
+        "word": "can",
+        "start": 14.37,
+        "end": 14.67
+      },
+      {
+        "word": "see",
+        "start": 14.67,
+        "end": 14.93
+      },
+      {
+        "word": "forty",
+        "start": 14.93,
+        "end": 15.16
+      },
+      {
+        "word": "two.",
+        "start": 15.16,
+        "end": 15.39
+      },
+      {
+        "word": "But",
+        "start": 15.39,
+        "end": 15.95
+      },
+      {
+        "word": "only",
+        "start": 15.95,
+        "end": 16.77
+      },
+      {
+        "word": "your",
+        "start": 16.77,
+        "end": 17.01
+      },
+      {
+        "word": "private",
+        "start": 17.01,
+        "end": 17.41
+      },
+      {
+        "word": "key",
+        "start": 17.41,
+        "end": 17.73
+      },
+      {
+        "word": "reverses",
+        "start": 17.73,
+        "end": 18.41
+      },
+      {
+        "word": "it.",
+        "start": 18.41,
+        "end": 18.53
+      },
+      {
+        "word": "You",
+        "start": 19.11,
+        "end": 19.19
+      },
+      {
+        "word": "plug",
+        "start": 19.19,
+        "end": 19.37
+      },
+      {
+        "word": "it",
+        "start": 19.37,
+        "end": 19.53
+      },
+      {
+        "word": "in,",
+        "start": 19.53,
+        "end": 19.73
+      },
+      {
+        "word": "and",
+        "start": 19.73,
+        "end": 20.07
+      },
+      {
+        "word": "get",
+        "start": 20.07,
+        "end": 20.27
+      },
+      {
+        "word": "seven",
+        "start": 20.27,
+        "end": 20.59
+      },
+      {
+        "word": "back.",
+        "start": 20.59,
+        "end": 20.89
+      },
+      {
+        "word": "Locking",
+        "start": 21.69,
+        "end": 22.09
+      },
+      {
+        "word": "is",
+        "start": 22.09,
+        "end": 22.33
+      },
+      {
+        "word": "easy.",
+        "start": 22.33,
+        "end": 22.65
+      },
+      {
+        "word": "Unlocking",
+        "start": 23.39,
+        "end": 23.89
+      },
+      {
+        "word": "without",
+        "start": 23.89,
+        "end": 24.05
+      },
+      {
+        "word": "the",
+        "start": 24.05,
+        "end": 24.41
+      },
+      {
+        "word": "secret",
+        "start": 24.41,
+        "end": 24.75
+      },
+      {
+        "word": "is",
+        "start": 24.75,
+        "end": 25.15
+      },
+      {
+        "word": "nearly",
+        "start": 25.15,
+        "end": 25.45
+      },
+      {
+        "word": "impossible.",
+        "start": 25.45,
+        "end": 25.99
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "wav": "/Users/aditya/Elucera/outputs/5e7fc8e8dd88/seg3.wav",
+    "duration": 8.641,
+    "words": [
+      {
+        "word": "That's",
+        "start": 0.63,
+        "end": 0.95
+      },
+      {
+        "word": "why",
+        "start": 0.95,
+        "end": 1.05
+      },
+      {
+        "word": "the",
+        "start": 1.05,
+        "end": 1.21
+      },
+      {
+        "word": "internet",
+        "start": 1.21,
+        "end": 1.39
+      },
+      {
+        "word": "works.",
+        "start": 1.39,
+        "end": 1.77
+      },
+      {
+        "word": "Your",
+        "start": 2.47,
+        "end": 2.51
+      },
+      {
+        "word": "bank",
+        "start": 2.51,
+        "end": 2.75
+      },
+      {
+        "word": "and",
+        "start": 2.75,
+        "end": 3.01
+      },
+      {
+        "word": "messages",
+        "start": 3.01,
+        "end": 3.35
+      },
+      {
+        "word": "stay",
+        "start": 3.35,
+        "end": 3.79
+      },
+      {
+        "word": "safe",
+        "start": 3.79,
+        "end": 4.09
+      },
+      {
+        "word": "in",
+        "start": 4.09,
+        "end": 4.43
+      },
+      {
+        "word": "public.",
+        "start": 4.43,
+        "end": 4.75
+      },
+      {
+        "word": "Anyone",
+        "start": 5.63,
+        "end": 5.79
+      },
+      {
+        "word": "can",
+        "start": 5.79,
+        "end": 6.15
+      },
+      {
+        "word": "lock",
+        "start": 6.15,
+        "end": 6.39
+      },
+      {
+        "word": "it,",
+        "start": 6.39,
+        "end": 6.57
+      },
+      {
+        "word": "only",
+        "start": 7.07,
+        "end": 7.23
+      },
+      {
+        "word": "you",
+        "start": 7.23,
+        "end": 7.53
+      },
+      {
+        "word": "can",
+        "start": 7.53,
+        "end": 7.87
+      },
+      {
+        "word": "open",
+        "start": 7.87,
+        "end": 8.13
+      },
+      {
+        "word": "it.",
+        "start": 8.13,
+        "end": 8.31
+      }
+    ]
+  }
+]

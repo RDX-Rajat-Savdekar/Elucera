@@ -10,10 +10,24 @@ code generation and rendering for any scene whose spec is unchanged.
 import hashlib
 import json
 import shutil
+from functools import lru_cache
 from pathlib import Path
 
-from elucera.config import get_settings
-from elucera.models import SceneSpec, WordTiming
+from elucera.config import ROOT, get_settings
+from elucera.fsutil import write_text_atomic
+from elucera.models import Renderer, SceneSpec, WordTiming
+
+# What each renderer's output depends on besides the spec: its coder prompts and its component kit. Changing any of
+# these files changes the scene cache key, so a kit or prompt fix is never hidden behind an old clip.
+_PROMPTS = ROOT / "elucera/prompts"
+_REMOTION_KIT = [_PROMPTS / "remotion_code.md", _PROMPTS / "kit.md", ROOT / "remotion/src"]
+ENGINE_INPUTS: dict[Renderer, list[Path]] = {
+    Renderer.manim: [_PROMPTS / "manim_code.md", _PROMPTS / "manim_kit.md", ROOT / "elucera/render/manim_kit.py",
+                     ROOT / "elucera/render/manim_renderer.py"],
+    Renderer.remotion: _REMOTION_KIT,
+    Renderer.three: [*_REMOTION_KIT, _PROMPTS / "three_extra.md"],
+    Renderer.seek: [_PROMPTS / "seek_code.md", ROOT / "elucera/render/seek_renderer.py"],
+}
 
 
 def _key(*parts: str) -> str:
@@ -26,6 +40,18 @@ def _root(kind: str) -> Path:
 
 def _on() -> bool:
     return get_settings().use_cache
+
+
+@lru_cache
+def engine_fingerprint(renderer: Renderer) -> str:
+    """Hash of the prompt + kit files `renderer`'s scenes are built from (computed once per process)."""
+    h = hashlib.sha256()
+    for root in [_PROMPTS / "fix.md", *ENGINE_INPUTS[renderer]]:
+        files = sorted(f for f in root.rglob("*") if f.is_file()) if root.is_dir() else [root]
+        for f in files:
+            if f.exists():
+                h.update(str(f.relative_to(ROOT)).encode() + b"\0" + f.read_bytes())
+    return h.hexdigest()[:16]
 
 
 # ---------- voiceover ----------
@@ -51,14 +77,15 @@ def tts_put(text: str, wav: Path, duration: float, words: list[WordTiming], prov
     d = _root("tts") / tts_key(text)
     d.mkdir(parents=True, exist_ok=True)
     shutil.copy(wav, d / "voice.wav")
-    (d / "words.json").write_text(json.dumps({"duration": duration, "words": [w.model_dump() for w in words]}))
+    write_text_atomic(d / "words.json", json.dumps({"duration": duration, "words": [w.model_dump() for w in words]}))
 
 
 # ---------- rendered scenes ----------
 
 def scene_key(spec: SceneSpec) -> str:
     beats = json.dumps([b.model_dump() for b in spec.beats], sort_keys=True)
-    return _key(spec.renderer.value, spec.description.strip(), beats, f"{spec.duration:.1f}")
+    return _key(spec.renderer.value, spec.description.strip(), beats, f"{spec.duration:.1f}",
+                engine_fingerprint(spec.renderer))
 
 
 def scene_get(spec: SceneSpec, out: Path) -> str | None:
@@ -76,8 +103,8 @@ def scene_put(spec: SceneSpec, clip: Path, code: str, suffix: str) -> None:
         return
     d = _root("scenes") / scene_key(spec)
     d.mkdir(parents=True, exist_ok=True)
-    shutil.copy(clip, d / "clip.mp4")
     (d / f"scene{suffix}").write_text(code)
+    shutil.copy(clip, d / "clip.mp4")  # last: clip.mp4 existing is what marks the entry complete
 
 
 # ---------- scene plans (made during storyboard review, reused on approval) ----------
@@ -99,4 +126,5 @@ def plan_put(script, audio, note: str, preferred: str | None, specs: list[SceneS
         return
     d = _root("plans")
     d.mkdir(parents=True, exist_ok=True)
-    (d / f"{plan_key(script, audio, note, preferred)}.json").write_text(json.dumps([s.model_dump(mode="json") for s in specs]))
+    write_text_atomic(d / f"{plan_key(script, audio, note, preferred)}.json",
+                      json.dumps([s.model_dump(mode="json") for s in specs]))

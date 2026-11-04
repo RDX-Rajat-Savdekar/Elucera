@@ -1,0 +1,65 @@
+{
+  "id": "20261103-remotion-c5857b",
+  "renderer": "remotion",
+  "topic": "Why is the sky blue?",
+  "role": "mechanism",
+  "narration": "Picture one sunbeam hitting tiny air molecules. They're way smaller than light waves, so they scatter short waves best. Blue light has a tiny, choppy wave. It slams into a molecule and bounces everywhere. Up, down, sideways. Red light has a long, smooth wave. It mostly slips straight past. So blue gets scattered from every patch of sky into your eyes. You're seeing scattered blue from all directions at once.",
+  "description": "Vertical 1080x1920. Macro close-up 2D field: dark blue-black void that gradually tints blue. Diagonal sunbeam from top-left to center (45% height) containing two overlaid waves: short choppy blue zigzag (accent=cyan) and long smooth red sine (red). Five glowing air molecule dots (fg=white with accent=cyan glow) scattered center 40-60% height, one hero molecule circled center. Size-comparison brackets show dot << wavelength. Eye icon (fg=white) at 65% center representing viewer. Scattered blue arrows emanate omnidirectionally, red line continues straight to right edge. Final wide: many sky patches with blue arrows converging into eye.",
+  "beats": [
+    {
+      "t": 0.48,
+      "word": "Picture",
+      "action": "Diagonal sunbeam enters top-left to center, five glowing molecule dots fade in mid-frame, hero molecule highlighted"
+    },
+    {
+      "t": 3.18,
+      "word": "molecules.",
+      "action": "Camera pushes into hero molecule, label TINY AIR MOLECULE callout appears, dots pulse"
+    },
+    {
+      "t": 6.08,
+      "word": "waves,",
+      "action": "Size brackets appear: tiny dot vs long wave, text WAY SMALLER THAN WAVE pops below molecule"
+    },
+    {
+      "t": 8.66,
+      "word": "Blue",
+      "action": "Blue choppy zigzag isolates and enlarges in beam, red dims, label SHORT CHOPPY BLUE WAVE"
+    },
+    {
+      "t": 11.46,
+      "word": "wave.",
+      "action": "Blue zigzag slams into hero molecule, impact flash, molecule glows bright cyan"
+    },
+    {
+      "t": 14.48,
+      "word": "everywhere.",
+      "action": "Blue impact bursts into 8 blue arrows Up down sideways from molecule, labels UP DOWN SIDEWAYS pop sequentially"
+    },
+    {
+      "t": 17.72,
+      "word": "Red",
+      "action": "Red long smooth sine isolates and enlarges, blue dims, label LONG SMOOTH RED WAVE"
+    },
+    {
+      "t": 20.7,
+      "word": "slips",
+      "action": "Red sine glides straight past molecules without deflecting, straight motion line extends to right edge"
+    },
+    {
+      "t": 24.42,
+      "word": "every",
+      "action": "Zoom out to many sky patches, blue scattered arrows from every patch converge into eye icon center-bottom"
+    },
+    {
+      "t": 28.22,
+      "word": "blue",
+      "action": "Whole background washes bright blue, arrows from all directions pour into eye, text ALL DIRECTIONS AT ONCE centers"
+    }
+  ],
+  "duration": 30.75,
+  "attempts": 1,
+  "source": "ded31aaa1401",
+  "created": "2026-11-04T06:56:16+00:00",
+  "starred": false
+}

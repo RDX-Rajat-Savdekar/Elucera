@@ -1,0 +1,65 @@
+{
+  "id": "20261103-remotion-071c53",
+  "renderer": "remotion",
+  "topic": "How does public-key encryption work?",
+  "role": "mechanism",
+  "narration": "You make two linked keys. A public lock you share with everyone. And a private key you never share. Your friend wants to send seven. She uses your public lock to scramble seven into forty two. Everyone can see forty two. But only your private key reverses it. You plug it in, and get seven back. Locking is easy. Unlocking without the secret is nearly impossible.",
+  "description": "Continued remotion, same laptops reused for continuity but new camera: YOU laptop large left-center (30% x, 35% y), FRIEND laptop right-center (70% x, 35% y). YOU owns linked pair: accent=cyan padlock + accent3=yellow gold key joined by chain above laptop. Public copies fly to FRIEND. Center stage (50% x, 60% y) white message box that morphs: 'seven / 7' -> locked box -> 'forty two / 42' -> unlocked 'seven / 7'. Transit arrows with packet dots between laptops. End split comparison badges at 65% y: 'Locking = EASY' good=green vs 'Unlocking w/o key = NEARLY IMPOSSIBLE' red with brick wall. All key text/graphs kept between 15%-70% vertical.",
+  "beats": [
+    {
+      "t": 0.43,
+      "word": "You",
+      "action": "YOU laptop appears left with two linked icons above it: cyan padlock and gold key connected by chain link, label '2 linked keys'."
+    },
+    {
+      "t": 2.69,
+      "word": "public",
+      "action": "Cyan padlock highlights and pulses, label callout 'PUBLIC LOCK - share with everyone' appears, three tiny padlock copies peel off."
+    },
+    {
+      "t": 5.17,
+      "word": "private",
+      "action": "Padlock dims, gold key enlarges with yellow glow, lock icon + 'PRIVATE KEY - NEVER share' callout pins above YOU laptop."
+    },
+    {
+      "t": 7.83,
+      "word": "friend",
+      "action": "FRIEND laptop slides in right, one tiny cyan padlock copy flies along arrow YOU->FRIEND and docks above FRIEND."
+    },
+    {
+      "t": 10.49,
+      "word": "public",
+      "action": "White box labeled 'seven / 7' drops onto FRIEND side, FRIEND's cyan padlock snaps shut onto the box."
+    },
+    {
+      "t": 12.61,
+      "word": "forty",
+      "action": "Locked box shakes, numbers scramble-roller from 7 to 42, label flips to 'forty two / 42' in cyan."
+    },
+    {
+      "t": 14.93,
+      "word": "forty",
+      "action": "42 locked box lifts to center public zone, multiple eye icons pop around it, callout 'Everyone sees 42' in muted grey."
+    },
+    {
+      "t": 17.41,
+      "word": "key",
+      "action": "42 box flies back YOU->YOU side, gold private key animates plugging into box lock with twist."
+    },
+    {
+      "t": 20.27,
+      "word": "seven",
+      "action": "Box unlocks with green flash, lid opens to reveal 'seven / 7' back, green check badge pops."
+    },
+    {
+      "t": 23.39,
+      "word": "Unlocking",
+      "action": "Split comparison appears below: left 'Locking = EASY' green badge with one-click padlock, right red brick wall builds behind 42 box labeled 'Unlocking without secret = NEARLY IMPOSSIBLE' growing through end."
+    }
+  ],
+  "duration": 26.62,
+  "attempts": 1,
+  "source": "5e7fc8e8dd88",
+  "created": "2026-11-04T07:10:16+00:00",
+  "starred": false
+}

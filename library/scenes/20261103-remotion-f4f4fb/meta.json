@@ -1,0 +1,40 @@
+{
+  "id": "20261103-remotion-f4f4fb",
+  "renderer": "remotion",
+  "topic": "How does public-key encryption work?",
+  "role": "hook",
+  "narration": "Anyone can lock it. Only you can open it.",
+  "description": "Vertical 1080x1920 dark navy background. Frame 0: giant glowing accent=cyan padlock icon unlocked center (45% vertical), kinetic typography above it at 20% height reading 'Anyone can lock it.' in fg=white bold. Below padlock at 68% height (above caption zone) a small accent3=yellow/gold key icon dim. Action: padlock snaps shut with flash and scale pop, then duplicates into 20 small padlocks flying outward to edges, gold key rises and glows bright with outer glow. Final holds padlock locked center + glowing gold key beneath.",
+  "beats": [
+    {
+      "t": 0.0,
+      "word": "Anyone",
+      "action": "Frame opens on large cyan unlocked padlock center with text 'Anyone' popping in bold white above it."
+    },
+    {
+      "t": 0.98,
+      "word": "lock",
+      "action": "Padlock shackle slams down to locked state with cyan flash ring and click scale pop, text completes to 'can lock it.'"
+    },
+    {
+      "t": 1.98,
+      "word": "Only",
+      "action": "Locked padlock duplicates into 24 tiny cyan padlocks exploding outward to frame edges while dim gold key fades in below center."
+    },
+    {
+      "t": 2.36,
+      "word": "you",
+      "action": "Kinetic text swaps to 'Only YOU' with YOU in yellow, gold key brightens and lifts toward padlock."
+    },
+    {
+      "t": 3.02,
+      "word": "open",
+      "action": "Gold key glows with pulsing yellow halo, padlock rim turns gold, text completes 'can open it.' holding hook image."
+    }
+  ],
+  "duration": 4.14,
+  "attempts": 1,
+  "source": "5e7fc8e8dd88",
+  "created": "2026-11-04T07:10:06+00:00",
+  "starred": false
+}

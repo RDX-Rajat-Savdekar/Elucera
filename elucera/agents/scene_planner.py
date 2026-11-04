@@ -1,5 +1,5 @@
 from elucera.llm import LLMClient, complete_json
-from elucera.models import Renderer, Script, SceneSpec, ScenePlan, SegmentAudio
+from elucera.models import Renderer, ScenePlan, SceneSpec, Script, SegmentAudio
 from elucera.prompts import load
 
 # Director-side routing rule (enforced by prompts/scene_plan.md; kept here for discoverability):
@@ -17,7 +17,7 @@ def plan_scenes(llm: LLMClient, script: Script, audio: list[SegmentAudio],
     parts = [f"Reel: {script.title}\nCore idea: {script.idea}\n"]
     if note.strip():
         parts.append(f"Director note (must follow it): {note.strip()}")
-    for seg, a in zip(script.segments, audio):
+    for seg, a in zip(script.segments, audio, strict=True):
         parts.append(
             f"## Segment {a.index} — {seg.role} — duration {a.duration:.2f}s\n"
             f"Narration: {seg.narration}\nWriter's visual idea: {seg.visual_directive}\n"
@@ -37,5 +37,5 @@ def plan_scenes(llm: LLMClient, script: Script, audio: list[SegmentAudio],
             p.renderer = preferred
     return [
         SceneSpec(index=a.index, renderer=p.renderer, duration=a.duration, description=p.description, beats=p.beats)
-        for p, a in zip(plan.scenes, audio)
+        for p, a in zip(plan.scenes, audio, strict=True)
     ]

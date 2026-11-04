@@ -1,0 +1,40 @@
+{
+  "id": "20261103-remotion-4104e6",
+  "renderer": "remotion",
+  "topic": "Why is the sky blue?",
+  "role": "payoff",
+  "narration": "Sunsets turn red because blue's already scattered away. Only straight red survives. That white sunlight is what makes the sky blue.",
+  "description": "Vertical 1080x1920. Shot A horizon view: bright blue sky dome (accent=cyan) 10-60% height with sun high, eye icon at 65% center. Sun drops to horizon at 55% height, sky shifts to orange-magenta gradient (orange to accent2=magenta), long low red rays (red) travel horizontally to eye. Blue side-scatter arrows peel away upward and fade. Shot B loop rhyme: cuts back to near-black background with same thick horizontal white beam (fg=white) at 45-55% spanning width as hook frame 0, small BLUE SKY text in accent=cyan centered, visually rhyming hook for clean loop.",
+  "beats": [
+    {
+      "t": 0.55,
+      "word": "Sunsets",
+      "action": "Blue sky darkens, sun drops to horizon line at mid-frame, sky gradient shifts toward orange"
+    },
+    {
+      "t": 2.17,
+      "word": "blue's",
+      "action": "Blue arrows veer sideways and fade away above horizon, label BLUE SCATTERED AWAY peels off"
+    },
+    {
+      "t": 4.59,
+      "word": "straight",
+      "action": "Single thick straight red ray survives low across horizon into eye icon, eye glows red, label ONLY RED SURVIVES"
+    },
+    {
+      "t": 7.05,
+      "word": "white",
+      "action": "Hard reset: cut to dark background, original thick white beam sweeps back across mid-frame matching hook frame 0"
+    },
+    {
+      "t": 9.13,
+      "word": "blue.",
+      "action": "White beam holds center on black with small blue SKY BLUE text below, exact rhyme of opening beam for loop replay"
+    }
+  ],
+  "duration": 9.881,
+  "attempts": 1,
+  "source": "ded31aaa1401",
+  "created": "2026-11-04T06:55:52+00:00",
+  "starred": false
+}

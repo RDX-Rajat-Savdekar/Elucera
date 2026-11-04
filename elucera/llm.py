@@ -1,10 +1,12 @@
 import json
 import re
+import time
 from typing import Protocol, TypeVar
 
 from openai import OpenAI
 from pydantic import BaseModel, ValidationError
 
+from elucera import usage
 from elucera.config import get_settings
 
 T = TypeVar("T", bound=BaseModel)
@@ -21,17 +23,21 @@ class MuseClient:
 
     def __init__(self, model: str | None = None, effort: str | None = None):
         s = get_settings()
-        if not s.muse_base_url or not s.muse_api_key:
-            raise RuntimeError("MUSE_BASE_URL and MUSE_API_KEY must be set in .env")
-        self.client = OpenAI(base_url=s.muse_base_url, api_key=s.muse_api_key)
         self.model = model or s.muse_model
         self.effort = (effort if effort is not None else s.muse_reasoning_effort) or None
+        self._client: OpenAI | None = None
+
+    @property
+    def client(self) -> OpenAI:
+        """Created on first use, so building a pipeline (or a test) doesn't need credentials."""
+        if self._client is None:
+            s = get_settings()
+            if not s.muse_base_url or not s.muse_api_key:
+                raise RuntimeError("MUSE_BASE_URL and MUSE_API_KEY must be set in .env")
+            self._client = OpenAI(base_url=s.muse_base_url, api_key=s.muse_api_key)
+        return self._client
 
     def complete(self, system: str, user: str) -> str:
-        import time
-
-        from elucera import usage
-
         t = time.perf_counter()
         kw = {"reasoning_effort": self.effort} if self.effort else {}
         resp = self.client.chat.completions.create(

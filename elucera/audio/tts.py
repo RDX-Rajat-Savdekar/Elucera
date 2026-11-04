@@ -4,11 +4,13 @@ import subprocess
 import tempfile
 import time
 import wave
+from itertools import pairwise
 from pathlib import Path
 
 from google import genai
 from google.genai import errors, types
 
+from elucera import usage
 from elucera.audio.keys import get_pool, next_pacific_midnight
 from elucera.config import get_settings
 
@@ -16,7 +18,6 @@ log = logging.getLogger(__name__)
 
 SAMPLE_RATE = 24_000
 MAX_WAIT_S = 90  # longer waits mean a daily quota, not a per-minute one
-STYLE = "Say this energetically and clearly, like a punchy tech explainer on Instagram Reels:"
 
 
 def _wait_seconds(msg: str) -> float | None:
@@ -37,10 +38,13 @@ class QuotaExhausted(RuntimeError):
     pass
 
 
-def synthesize(text: str, out: Path, voice: str | None = None, info: dict | None = None) -> float:
+def synthesize(text: str, out: Path, voice: str | None = None, info: dict | None = None,
+               spoken: str | None = None) -> float:
     """Gemini TTS, falling back to the macOS voice when the Gemini quota is used up.
 
-    If `info` is given it is filled with {"provider": "gemini" | "macos", "note": ...}.
+    `text` is the full Gemini prompt, which may carry delivery directions ahead of the transcript; `spoken` is just
+    the words to say. The fallback voice can't take directions and would read them aloud, so it only gets `spoken`
+    (defaults to `text`). If `info` is given it is filled with {"provider": "gemini" | "macos", "note": ...}.
     """
     info = info if info is not None else {}
     try:
@@ -52,8 +56,7 @@ def synthesize(text: str, out: Path, voice: str | None = None, info: dict | None
             raise
         log.warning("Gemini TTS quota exhausted; using macOS voice %r (%s)", get_settings().fallback_voice, e)
         info.update(provider="macos", note=f"All Gemini keys are out of quota; used the {get_settings().fallback_voice} voice instead.")
-        dur = synthesize_say(text, out)
-        from elucera import usage
+        dur = synthesize_say(spoken if spoken is not None else text, out)
         usage.record("macos-say", get_settings().fallback_voice, audio_seconds=round(dur, 2))
         return dur
 
@@ -63,7 +66,11 @@ def synthesize_say(text: str, out: Path) -> float:
     s = get_settings()
     with tempfile.TemporaryDirectory() as tmp:
         aiff = Path(tmp) / "say.aiff"
-        subprocess.run(["say", "-v", s.fallback_voice, "-r", "185", "-o", str(aiff), text], check=True, capture_output=True)
+        # Text goes in via a file, so narration starting with "-" can't be read as an option.
+        txt = Path(tmp) / "say.txt"
+        txt.write_text(text)
+        subprocess.run(["say", "-v", s.fallback_voice, "-r", "185", "-o", str(aiff), "-f", str(txt)],
+                       check=True, capture_output=True)
         subprocess.run([s.ffmpeg, "-v", "error", "-y", "-i", str(aiff), "-ar", str(SAMPLE_RATE), "-ac", "1",
                         "-sample_fmt", "s16", str(out)], check=True, capture_output=True)
     with wave.open(str(out), "rb") as r:
@@ -80,7 +87,7 @@ def _request(key: str, text: str, voice: str) -> bytes:
         ),
     )
     client = genai.Client(api_key=key)
-    resp = client.models.generate_content(model=s.gemini_tts_model, contents=f"{STYLE} {text}", config=config)
+    resp = client.models.generate_content(model=s.gemini_tts_model, contents=text, config=config)
     return resp.candidates[0].content.parts[0].inline_data.data
 
 
@@ -126,7 +133,6 @@ def synthesize_gemini(text: str, out: Path, voice: str | None = None, rounds: in
             time.sleep(min(min(minute_waits), MAX_WAIT_S))
     if pcm is None:
         raise QuotaExhausted(f"all {len(pool.keys)} Gemini keys are rate-limited or exhausted")
-    from elucera import usage
     seconds = len(pcm) / 2 / SAMPLE_RATE
     usage.record("gemini-tts", get_settings().gemini_tts_model, input_tokens=round(len(text) / 4),
                  audio_tokens=round(seconds * 25), audio_seconds=round(seconds, 2), seconds=round(time.time() - started, 2))
@@ -145,7 +151,7 @@ def split_wav(src: Path, cuts: list[float], outs: list[Path]) -> None:
         params, frames = r.getparams(), r.readframes(r.getnframes())
     width = params.sampwidth * params.nchannels
     edges = [0, *(round(c * params.framerate) for c in cuts), len(frames) // width]
-    for out, a, b in zip(outs, edges, edges[1:]):
+    for out, (a, b) in zip(outs, pairwise(edges), strict=True):
         with wave.open(str(out), "wb") as w:
             w.setparams(params)
             w.writeframes(frames[a * width : b * width])

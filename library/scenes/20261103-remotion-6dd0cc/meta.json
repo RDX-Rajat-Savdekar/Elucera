@@ -1,0 +1,45 @@
+{
+  "id": "20261103-remotion-6dd0cc",
+  "renderer": "remotion",
+  "topic": "How does public-key encryption work?",
+  "role": "setup",
+  "narration": "If you and a friend never met, how do you share a secret over open Wi-Fi? Any password you send can be stolen. That's the problem.",
+  "description": "Same dark theme, new shot: split layout. Left laptop icon labeled YOU at mid-left (30% x, 40% y) in fg=white, right laptop icon labeled FRIEND at mid-right (70% x, 40% y). Center at 50% x 30% y coffee-shop Wi-Fi icon with expanding accent=cyan waves labeled 'OPEN WI-FI' in muted=grey. Red envelope with 'password123' CodePanel chip flies left-to-right along dotted arrow. Mid-air hacker eye/hand icon in accent2=magenta intercepts. Ends with ProblemCard center-bottom (55% y): 'How to share secret in public?' Nothing in top 10% or bottom 25% captions zone.",
+  "beats": [
+    {
+      "t": 0.64,
+      "word": "If",
+      "action": "YOU laptop left and FRIEND laptop right slide in from sides with name callouts beneath each."
+    },
+    {
+      "t": 2.5,
+      "word": "how",
+      "action": "Cyan Wi-Fi waves pulse center between laptops, 'OPEN WI-FI - coffee shop' label appears above waves."
+    },
+    {
+      "t": 2.88,
+      "word": "share",
+      "action": "White message box with 'password: 1234 secret' pops above YOU laptop, seals into red envelope."
+    },
+    {
+      "t": 5.72,
+      "word": "Any",
+      "action": "Red envelope launches along dotted arrow path from YOU toward FRIEND, wobbling in transit."
+    },
+    {
+      "t": 7.46,
+      "word": "stolen",
+      "action": "Magenta hacker icon grabs envelope mid-air center, envelope cracks open red, 'STOLEN!' callout flashes with shake."
+    },
+    {
+      "t": 8.28,
+      "word": "That's",
+      "action": "Dim everything, ProblemCard slides up to center: 'How to share secret in public?' with red alert icon."
+    }
+  ],
+  "duration": 9.29,
+  "attempts": 1,
+  "source": "5e7fc8e8dd88",
+  "created": "2026-11-04T07:10:36+00:00",
+  "starred": false
+}

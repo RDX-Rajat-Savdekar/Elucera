@@ -1,0 +1,35 @@
+{
+  "id": "20261103-remotion-99cf0c",
+  "renderer": "remotion",
+  "topic": "Why is the sky blue?",
+  "role": "hook",
+  "narration": "Sunlight is white, so why is the sky blue?",
+  "description": "Vertical 1080x1920, 30fps. Near-black background. Frame 0 is bold and immediate: thick horizontal white beam (fg=white with glow) spans full width at mid-frame 45-55% height, already sweeping left-to-right with motion blur, plus huge bold kinetic text SUNLIGHT (fg=white) centered at ~30% height. No important elements in top 10% or bottom 25%. Second shot after hard cut: full-bleed bright blue sky dome gradient (accent=cyan to light blue) filling 10-75% height, white sun glow disc at 22% center, soft white horizon glow. Text stays centered in safe middle band.",
+  "beats": [
+    {
+      "t": 0.0,
+      "word": "Sunlight",
+      "action": "Thick white beam sweeps left-to-right across dark background at mid-frame, huge SUNLIGHT text pops in center above beam"
+    },
+    {
+      "t": 1.06,
+      "word": "white,",
+      "action": "Beam brightens to pure white glow and thickens, small label white = all colors fades in below beam in muted=grey"
+    },
+    {
+      "t": 2.06,
+      "word": "why",
+      "action": "Beam freezes, large kinetic text why is sky BLUE? slams in center, WHY scales up, BLUE in accent=cyan"
+    },
+    {
+      "t": 2.98,
+      "word": "blue?",
+      "action": "Hard cut to bright blue dome sky filling frame with sun glow, white BLUE? text centered, pattern interrupt to new shot"
+    }
+  ],
+  "duration": 3.85,
+  "attempts": 1,
+  "source": "ded31aaa1401",
+  "created": "2026-11-04T06:55:58+00:00",
+  "starred": false
+}

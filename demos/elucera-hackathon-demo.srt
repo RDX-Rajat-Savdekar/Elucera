@@ -1,0 +1,232 @@
+1
+00:00:00,000 --> 00:00:02,080
+Ask most AI video tools
+
+2
+00:00:02,080 --> 00:00:04,140
+to explain something and you
+
+3
+00:00:04,140 --> 00:00:04,840
+get slop:
+
+4
+00:00:05,480 --> 00:00:06,280
+melting diagrams,
+
+5
+00:00:07,200 --> 00:00:08,060
+misspelled labels,
+
+6
+00:00:08,680 --> 00:00:10,060
+footage nobody can fix.
+
+7
+00:00:10,060 --> 00:00:12,860
+Elucera takes a different route.
+
+8
+00:00:13,680 --> 00:00:14,760
+It doesn't generate video.
+
+9
+00:00:15,560 --> 00:00:16,420
+It writes code.
+
+10
+00:00:17,200 --> 00:00:19,480
+Generative video like Sora and
+
+11
+00:00:19,480 --> 00:00:21,400
+Veo costs six to forty
+
+12
+00:00:21,400 --> 00:00:23,240
+dollars a finished minute, and
+
+13
+00:00:23,240 --> 00:00:24,440
+still can't draw a correct
+
+14
+00:00:24,440 --> 00:00:25,120
+diagram.
+
+15
+00:00:25,120 --> 00:00:27,540
+Stock-footage tools are cheap, but
+
+16
+00:00:27,540 --> 00:00:29,000
+every reel looks the same.
+
+17
+00:00:29,720 --> 00:00:31,100
+A human animator gets it
+
+18
+00:00:31,100 --> 00:00:32,300
+right, for a thousand dollars
+
+19
+00:00:32,300 --> 00:00:33,500
+a minute or more.
+
+20
+00:00:34,100 --> 00:00:36,100
+Here's Elucera.
+
+21
+00:00:36,100 --> 00:00:37,640
+I ask how public-key encryption
+
+22
+00:00:37,640 --> 00:00:38,420
+works.
+
+23
+00:00:39,160 --> 00:00:40,540
+First I get a storyboard:
+
+24
+00:00:41,100 --> 00:00:42,360
+every word the narrator will
+
+25
+00:00:42,360 --> 00:00:43,980
+say, and what each scene
+
+26
+00:00:43,980 --> 00:00:44,380
+shows.
+
+27
+00:00:45,320 --> 00:00:46,800
+Nothing is recorded until I
+
+28
+00:00:46,800 --> 00:00:47,100
+approve,
+
+29
+00:00:47,640 --> 00:00:48,760
+but while I read, it's
+
+30
+00:00:48,760 --> 00:00:50,380
+already recording the voice and
+
+31
+00:00:50,380 --> 00:00:51,200
+planning the scenes.
+
+32
+00:00:51,991 --> 00:00:54,091
+Gemini records the voiceover,
+
+33
+00:00:54,971 --> 00:00:56,251
+Whisper times every word,
+
+34
+00:00:56,831 --> 00:00:58,551
+and Muse directs each scene.
+
+35
+00:00:59,571 --> 00:01:01,751
+It picks an engine: Manim,
+
+36
+00:01:01,751 --> 00:01:04,911
+Remotion, Three.js or hand-drawn canvas,
+
+37
+00:01:05,531 --> 00:01:06,511
+and writes the code.
+
+38
+00:01:07,531 --> 00:01:08,851
+Every scene renders in a
+
+39
+00:01:08,851 --> 00:01:09,151
+sandbox,
+
+40
+00:01:09,811 --> 00:01:10,891
+and if the code breaks,
+
+41
+00:01:11,491 --> 00:01:12,651
+the error goes back to
+
+42
+00:01:12,651 --> 00:01:13,931
+the model and it fixes
+
+43
+00:01:13,931 --> 00:01:14,231
+itself.
+
+44
+00:01:31,042 --> 00:01:33,242
+Because every frame is code,
+
+45
+00:01:34,002 --> 00:01:35,882
+text is always legible and
+
+46
+00:01:35,882 --> 00:01:37,482
+diagrams are always right.
+
+47
+00:01:38,402 --> 00:01:39,062
+Don't like a scene?
+
+48
+00:01:39,842 --> 00:01:41,362
+Redo just that one with
+
+49
+00:01:41,362 --> 00:01:42,942
+a note, or switch engines,
+
+50
+00:01:42,942 --> 00:01:43,742
+and rebake.
+
+51
+00:01:44,782 --> 00:01:46,362
+Every scene that works joins
+
+52
+00:01:46,362 --> 00:01:47,802
+a library the next run
+
+53
+00:01:47,802 --> 00:01:48,402
+learns from.
+
+54
+00:01:49,053 --> 00:01:50,813
+This reel took about three
+
+55
+00:01:50,813 --> 00:01:53,553
+minutes and cost about twenty
+
+56
+00:01:53,553 --> 00:01:54,573
+cents.
+
+57
+00:01:54,573 --> 00:01:57,153
+Elucera: explainers built from code,
+
+58
+00:01:57,953 --> 00:01:58,453
+not slop.
+

@@ -23,7 +23,7 @@ def test_save_and_rank_similar_scenes():
 
 
 def test_starred_scene_is_preferred():
-    a = library.save_scene(spec(desc="client server packets"), "// a", None, topic="t")
+    library.save_scene(spec(desc="client server packets"), "// a", None, topic="t")
     b = library.save_scene(spec(desc="unrelated molecule"), "// b", None, topic="t")
     library.set_star(b.id, True)
     assert library.similar(spec(), k=1)[0][0].id == b.id
@@ -33,7 +33,7 @@ def test_lessons_dedupe_skip_infra_and_share_tsx_group():
     library.add_lesson(Renderer.three, "Scene.tsx(3,4): error TS2322: bad prop")
     library.add_lesson(Renderer.three, "Scene.tsx(9,1): error TS2322: bad prop")
     library.add_lesson(Renderer.remotion, "env: node: No such file or directory")
-    assert [l["error"] for l in library.lessons(Renderer.remotion)] == ["Scene.tsx: error TS2322: bad prop"]
+    assert [x["error"] for x in library.lessons(Renderer.remotion)] == ["Scene.tsx: error TS2322: bad prop"]
     assert library.lessons(Renderer.manim) == []
 
 

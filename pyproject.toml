@@ -22,8 +22,33 @@ elucera = "elucera.cli:app"
 [dependency-groups]
 dev = [
     "pytest>=8",
+    "ruff>=0.6",
 ]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "UP", "SIM", "I"]
+ignore = [
+    "E501",  # long lines are allowed where wrapping hurts readability (prompts, f-strings)
+    "SIM105",  # contextlib.suppress isn't clearer than a commented try/except here
+    "UP042",  # StrEnum would change f"{renderer}" formatting, which prompts and file names rely on
+]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["typer.Option", "typer.Argument"]
+
+[tool.ruff.lint.per-file-ignores]
+# Run inside the Manim container with `from manim import *` (and the HEADER's constants) in scope.
+"elucera/render/manim_kit.py" = ["F403", "F405", "F821", "E741", "B905"]
+"tests/fixtures/*.py" = ["F403", "F405", "F821"]
+"tests/render_manim_gallery.py" = ["F403", "F405", "F821"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

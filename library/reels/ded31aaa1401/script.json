@@ -1,0 +1,26 @@
+{
+  "title": "Why the Sky Is Blue",
+  "idea": "Tiny air molecules scatter short blue light waves in every direction while long red waves pass straight through",
+  "segments": [
+    {
+      "role": "hook",
+      "narration": "Sunlight is white, so why is the sky blue?",
+      "visual_directive": "A clean white beam sweeps across a dark background, then hard cuts to a bright blue dome sky."
+    },
+    {
+      "role": "setup",
+      "narration": "Sunlight looks white, but it's really every color mixed together. When that light hits our air, the colors split. Blue goes everywhere, red doesn't.",
+      "visual_directive": "A white light bar fans out into a rainbow spectrum, then the view pulls back to Earth with a thin glowing atmosphere layer."
+    },
+    {
+      "role": "mechanism",
+      "narration": "Picture one sunbeam hitting tiny air molecules. They're way smaller than light waves, so they scatter short waves best. Blue light has a tiny, choppy wave. It slams into a molecule and bounces everywhere. Up, down, sideways. Red light has a long, smooth wave. It mostly slips straight past. So blue gets scattered from every patch of sky into your eyes. You're seeing scattered blue from all directions at once.",
+      "visual_directive": "Close-up motion graphics of one beam hitting glowing air dots. Short blue zigzag waves bounce in all directions while long red waves glide straight through, tinting the background blue."
+    },
+    {
+      "role": "payoff",
+      "narration": "Sunsets turn red because blue's already scattered away. Only straight red survives. That white sunlight is what makes the sky blue.",
+      "visual_directive": "The blue sky shifts to a low orange sunset with red rays reaching the viewer, then resets to the opening white beam."
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "20261103-remotion-d3a9f3",
+  "renderer": "remotion",
+  "topic": "Why is the sky blue?",
+  "role": "setup",
+  "narration": "Sunlight looks white, but it's really every color mixed together. When that light hits our air, the colors split. Blue goes everywhere, red doesn't.",
+  "description": "Vertical 1080x1920. Continuous remotion 2D motion graphics. Shot A: dark background, horizontal white light bar (fg=white) at 40% height left side firing rightward. It fans into 6-color spectrum ribbons (red-orange-accent3=yellow-green-accent=cyan-blue) spreading to right edge at 40-55% height with labels. Shot B pullback: small Earth circle (blue oceans, green land, fg=white cloud hints) centered at 50% height, thin glowing atmosphere shell (accent=cyan glow) around it, sun rays from left. Blue scattered arrows spray outward around atmosphere, single straight red arrow pierces through. Background tints from black to deep blue.",
+  "beats": [
+    {
+      "t": 0.45,
+      "word": "Sunlight",
+      "action": "White horizontal bar enters from left at mid-frame firing right, label WHITE SUNLIGHT above it"
+    },
+    {
+      "t": 2.77,
+      "word": "every",
+      "action": "White bar fans into 6 separate color ribbons forming rainbow spectrum, each ribbon labeled, spreading rightward"
+    },
+    {
+      "t": 5.93,
+      "word": "hits",
+      "action": "Camera pulls back, Earth circle with thin glowing cyan atmosphere ring appears center-right, spectrum aims at it"
+    },
+    {
+      "t": 7.57,
+      "word": "split.",
+      "action": "Spectrum hits atmosphere layer, splits: blue ribbon breaks into scattered short arrows, red stays straight"
+    },
+    {
+      "t": 8.91,
+      "word": "Blue",
+      "action": "Blue scattered arrows spray everywhere around atmosphere in all directions, background starts tinting accent=cyan blue"
+    },
+    {
+      "t": 10.65,
+      "word": "red",
+      "action": "Single long red arrow glides straight through atmosphere past Earth without scattering, labeled RED STRAIGHT"
+    }
+  ],
+  "duration": 11.69,
+  "attempts": 1,
+  "source": "ded31aaa1401",
+  "created": "2026-11-04T06:55:49+00:00",
+  "starred": false
+}

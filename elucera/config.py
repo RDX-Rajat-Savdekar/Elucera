@@ -59,7 +59,8 @@ class Settings(BaseSettings):
     music_path: Path | None = None  # optional background bed, ducked under the narration
     final_preset: str = "veryfast"  # x264 preset for the final encode ("medium" is ~2x slower, slightly smaller file)
     remotion_concurrency: int = 2  # parallel Remotion renders (each uses several Chrome tabs)
-
+    api_token: str = ""  # set to require this shared token on every API request (header, cookie or ?token=)
+    telemetry_max_bytes: int = 50_000_000  # telemetry.jsonl is rotated to telemetry.jsonl.1 past this size
 
     @property
     def gemini_keys(self) -> list[str]:

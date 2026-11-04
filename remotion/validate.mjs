@@ -17,7 +17,10 @@ const BANNED = [
   [/\bDate\.now\b|\bnew Date\b|performance\.now/, "wall-clock time (use useCurrentFrame)"],
   [/Math\.random/, "Math.random (use random(seed) from remotion)"],
   [/\buseFrame\b/, "useFrame from @react-three/fiber (drive 3D with useCurrentFrame)"],
-  [/\bfetch\s*\(|XMLHttpRequest|WebSocket|\bimport\s*\(/, "network / dynamic import"],
+  // A first gate against honest mistakes, not a sandbox (regexes can't contain JS); see README "Safety model".
+  [/\bfetch\s*\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|\bimport\s*\(|importScripts|\b(?:Shared)?Worker\s*\(/, "network / dynamic import"],
+  [/new\s+Image\b|<iframe|window\.open\s*\(|\blocation\s*(?:\.\s*href\s*)?=/, "loading other pages or URLs"],
+  [/document\.cookie|localStorage|sessionStorage|indexedDB|window\.(?:parent|top|opener)\b/, "browser storage / other windows"],
   [/\beval\s*\(|new Function\b/, "eval"],
   [/@keyframes|animation\s*:/, "CSS animations (animate with useCurrentFrame)"],
 ];

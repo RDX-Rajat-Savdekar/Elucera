@@ -52,8 +52,13 @@ def record(event: str, props: dict | None = None, owner: str | None = None) -> N
             return
         row = {"t": round(time.time(), 2), "event": name,
                "owner": (owner or "")[:64], "props": _clean(props or {})}
-        with _lock, open(_dir() / "telemetry.jsonl", "a") as f:
-            f.write(json.dumps(row, default=str) + "\n")
+        f = _dir() / "telemetry.jsonl"
+        with _lock:
+            # Anyone can post beacons, so cap the log: past the limit it rolls over to telemetry.jsonl.1.
+            if f.exists() and f.stat().st_size > get_settings().telemetry_max_bytes:
+                f.replace(f.with_name("telemetry.jsonl.1"))
+            with open(f, "a") as out:
+                out.write(json.dumps(row, default=str) + "\n")
     except OSError:
         pass
 
